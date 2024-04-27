@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.cdnfonts.com/css/w95fa" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/98.css">
+    <script src="main.js"></script>
+</head>
+<body onload="start()">
+    <div class="icons">
+        <div class="icon-spot">
+            <img id="icon1" src="img/folder.png" alt="Folder icon" onclick="openFolder(this)">
+            <p class="icon-title">Projects</p>
+        </div>
+        <div class="icon-spot">
+            <img id="icon2" src="img/folder.png" alt="Folder icon" onclick="openFolder(this)">
+            <p class="icon-title">Test folder</p>
+        </div>
+    </div>
+    <div class="centered">
+        <div class="window" id="win1">
+            <div class="title-bar">
+              <div class="title-bar-text">A Window With Stuff In It</div>
+              <div class="title-bar-controls">
+                <button aria-label="Minimize"></button>
+                <button aria-label="Maximize"></button>
+                <button aria-label="Close" onclick="closeFolder(this)"></button>
+              </div>
+            </div>
+            <div class="window-body">
+              <p>Test</p>
+            </div>
+        </div>
+        <div class="window" id="win2">
+            <div class="title-bar">
+              <div class="title-bar-text">A Window With Stuff In It</div>
+              <div class="title-bar-controls">
+                <button aria-label="Minimize"></button>
+                <button aria-label="Maximize"></button>
+                <button aria-label="Close" onclick="closeFolder(this)"></button>
+              </div>
+            </div>
+            <div class="window-body">
+              <p>Sex</p>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div id="time">00:00:00</div>
+    </footer>
+</body>
+</html>
