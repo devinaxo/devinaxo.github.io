@@ -8,9 +8,12 @@
 }
 body {
     color: white;
-    background-color: #008081;
+    background-color: #55aaaa;
     margin: 0;
     overflow-x: hidden;
+}
+.icons{
+    width: fit-content;
 }
 .icon-spot{
     width: fit-content;
@@ -23,6 +26,7 @@ body {
     border-style: dotted;
 }
 .icon-title{
+    color: white;
     font-size: 15px;
     text-align: center;
     border: solid 1px #fff0;
@@ -45,18 +49,24 @@ footer {
     bottom: 0;
     width: 100%;
     height: 40px;
-
     background: #C0C0C0;
     padding-left: 4px;
     padding-right: 4px;
     border-bottom: 2px solid #FCFCFC;
+}
+#start-button{
+    width: 80px;
+    margin-top: 2px;
+}
+#start-button:active{
+    content: url("img/start-pressed.png");
 }
 #time {
     border-top: 1px solid #08080E;
     border-left: 1px solid #08080E;
     border-right: 1px solid #FCFCFC;
     border-bottom: 1px solid #FCFCFC;
-    padding: 5px 15px;
+    padding: 4px 15px;
     font-size: 20px;
     position: absolute;
     bottom: 4px;

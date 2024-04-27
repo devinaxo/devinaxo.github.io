@@ -13,10 +13,6 @@ function openFolder(folder){
     document.getElementById(winId).style.display = "block";
     folder.src = 'img/opened-folder.png'
 }
-function folderInactive(folder){
-
-}
-
 function closeFolder(closeButton){
     let winId = closeButton.parentNode.parentNode.parentNode.id;
     let folderId = winId.replace('win', 'icon')
