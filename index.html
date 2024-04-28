@@ -23,10 +23,8 @@
     <div class="centered">
         <div class="window" id="win1">
             <div class="title-bar">
-              <div class="title-bar-text">A Window With Stuff In It</div>
+              <div class="title-bar-text">Projects</div>
               <div class="title-bar-controls">
-                <button aria-label="Minimize"></button>
-                <button aria-label="Maximize"></button>
                 <button aria-label="Close" onclick="closeFolder(this)"></button>
               </div>
             </div>
@@ -36,10 +34,8 @@
         </div>
         <div class="window" id="win2">
             <div class="title-bar">
-              <div class="title-bar-text">A Window With Stuff In It</div>
+              <div class="title-bar-text">Test folder</div>
               <div class="title-bar-controls">
-                <button aria-label="Minimize"></button>
-                <button aria-label="Maximize"></button>
                 <button aria-label="Close" onclick="closeFolder(this)"></button>
               </div>
             </div>
@@ -48,8 +44,23 @@
             </div>
         </div>
     </div>
+    <div class="portfolio-window">
+      <div class="window" id="win3">
+        <div class="title-bar">
+          <div class="title-bar-text">My Info</div>
+          <div class="title-bar-controls">
+            <button aria-label="Minimize" onclick="manipulateWindow(1)"></button>
+          </div>
+        </div>
+        <div class="window-body">
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate eius, blanditiis doloribus minima et accusamus excepturi? Totam eos cum assumenda aperiam possimus, esse culpa voluptate eaque sit placeat minus?
+          Adipisci amet ad sapiente reprehenderit quam ipsa quo iste dolor quos assumenda culpa cupiditate, iure temporibus odio modi! Animi, voluptates accusantium illo non vitae ipsa dolore autem soluta corrupti iure?</p>
+      </div>
+    </div>
+  </div>
     <footer>
       <div><img id="start-button" src="img/start.png" alt=""></div>
+      <div><img id="portfolio-btn" src="img/portfolio-btn.png" alt="" onclick="manipulateWindow(2)"></div>
       <div id="time">00:00:00</div>
     </footer>
 </body>

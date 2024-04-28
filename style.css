@@ -37,9 +37,17 @@ body {
     border-style: dotted;
 }
 .centered{
-    width: 75%;
+    width: 49%;
     margin-left: auto;
     margin-right: auto;
+}
+.portfolio-window{
+    position: fixed;
+    width: 25%;
+    right: 0;
+    top: 0;
+    padding-top: 4px;
+    padding-right: 4px;
 }
 #win1, #win2{
     display: none;
@@ -61,11 +69,21 @@ footer {
 #start-button:active{
     content: url("img/start-pressed.png");
 }
+#portfolio-btn{
+    height: 36px;
+    display: none;
+    position: absolute;
+    padding-left: 85px;
+    top: 3px;
+}
+#portfolio-btn:active{
+    content: url("img/portfolio-btn-pressed.png");
+}
 #time {
-    border-top: 1px solid #08080E;
-    border-left: 1px solid #08080E;
-    border-right: 1px solid #FCFCFC;
-    border-bottom: 1px solid #FCFCFC;
+    border-top: 1px solid #868a8e;
+    border-left: 1px solid #868a8e;
+    border-right: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
     padding: 4px 15px;
     font-size: 20px;
     position: absolute;
