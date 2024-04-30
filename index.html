@@ -13,19 +13,19 @@
 <body onload="start()">
     <div class="icons">
       <div class="icon-spot">
-        <img src="img/recycle_bin_empty-5.png" alt="Recycle bin icon"  id="icon3">
+        <img class="unselectable" src="img/recycle_bin_empty-5.png" alt="Recycle bin icon"  id="icon3">
         <p class="icon-title unselectable">Recycle Bin</p>
       </div>
       <div class="icon-spot">
-        <img src="img/computer_explorer-5.png" alt="Computer icon"  id="icon4">
+        <img class="unselectable" src="img/computer_explorer-5.png" alt="Computer icon"  id="icon4">
         <p class="icon-title unselectable">Computer</p>
       </div>
-        <div class="icon-spot" >
-            <img src="img/directory_closed_cool-0.png" alt="Folder icon" id="icon1"  onclick="openFolder(this)">
+        <div class="icon-spot" onclick="highlight(this)" ondblclick="openFolder(this.children[0])">
+            <img class="unselectable" src="img/directory_closed_cool-0.png" alt="Folder icon" id="icon1">
             <p class="icon-title unselectable">Projects</p>
         </div>
-        <div class="icon-spot">
-            <img src="img/directory_closed_cool-0.png" alt="Folder icon"  id="icon2" onclick="openFolder(this)">
+        <div class="icon-spot" onclick="highlight(this)" ondblclick="openFolder(this.children[0])">
+            <img class="unselectable" src="img/directory_closed_cool-0.png" alt="Folder icon"  id="icon2">
             <p class="icon-title unselectable">Images</p>
         </div>
     </div>

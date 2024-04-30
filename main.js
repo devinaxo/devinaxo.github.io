@@ -8,7 +8,11 @@ function start(){
     updateTime();
     setInterval(updateTime, 1000);
 }
+function highlight(div){
+    div.style.backgroundColor = 'gray';
+}
 function openFolder(folder){
+    folder.parentNode.style.backgroundColor = 'unset';
     let winId = folder.id.replace('icon', 'win');
     document.getElementById(winId).style.display = "block";
     folder.src = 'img/directory_open_cool-0.png';
