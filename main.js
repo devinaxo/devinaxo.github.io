@@ -11,13 +11,13 @@ function start(){
 function openFolder(folder){
     let winId = folder.id.replace('icon', 'win');
     document.getElementById(winId).style.display = "block";
-    folder.src = 'img/opened-folder.png'
+    folder.src = 'img/directory_open_cool-0.png'
 }
 function closeFolder(closeButton){
     let winId = closeButton.parentNode.parentNode.parentNode.id;
     let folderId = winId.replace('win', 'icon')
     document.getElementById(winId).style.display = "none";
-    document.getElementById(folderId).src = 'img/folder.png'
+    document.getElementById(folderId).src = 'img/directory_closed_cool-0.png'
 }
 function manipulateWindow(opt){
     switch(opt){
