@@ -11,13 +11,22 @@ function start(){
 function openFolder(folder){
     let winId = folder.id.replace('icon', 'win');
     document.getElementById(winId).style.display = "block";
-    folder.src = 'img/directory_open_cool-0.png'
+    folder.src = 'img/directory_open_cool-0.png';
+    if(winId.endsWith('1')){
+        winId = winId.replace('1', '2');
+        document.getElementById(winId).style.display = "none";
+        document.getElementById(winId.replace('win', 'icon')).src = 'img/directory_closed_cool-0.png';
+    }else{
+        winId = winId.replace('2', '1');
+        document.getElementById(winId).style.display = "none";
+        document.getElementById(winId.replace('win', 'icon')).src = 'img/directory_closed_cool-0.png';
+    }
 }
 function closeFolder(closeButton){
     let winId = closeButton.parentNode.parentNode.parentNode.id;
-    let folderId = winId.replace('win', 'icon')
+    let folderId = winId.replace('win', 'icon');
     document.getElementById(winId).style.display = "none";
-    document.getElementById(folderId).src = 'img/directory_closed_cool-0.png'
+    document.getElementById(folderId).src = 'img/directory_closed_cool-0.png';
 }
 function manipulateWindow(opt){
     switch(opt){
