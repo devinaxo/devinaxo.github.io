@@ -19,15 +19,15 @@ function closeFolder(closeButton){
     document.getElementById(winId).style.display = "none";
     document.getElementById(folderId).src = 'img/folder.png'
 }
-function manipulateWindow(code){
-    switch(code){
-        case 1:
+function manipulateWindow(opt){
+    switch(opt){
+        case 1: //close
             document.getElementById(pw).style.display = 'none';
-            document.getElementById(pb).style.display = 'block';
+            document.getElementById(pb).src = 'img/portfolio-btn.png';
             break;
-        case 2:
+        case 2: //open
             document.getElementById(pw).style.display = 'block';
-            document.getElementById(pb).style.display = 'none';
+            document.getElementById(pb).src = 'img/portfolio-btn-pressed.png';
             break;
     }
 }

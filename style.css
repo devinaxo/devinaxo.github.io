@@ -52,7 +52,7 @@ body {
 #win1, #win2{
     display: none;
 }
-footer {
+/* footer {
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -61,20 +61,37 @@ footer {
     padding-left: 4px;
     padding-right: 4px;
     border-bottom: 2px solid #FCFCFC;
+} */
+footer{
+    padding: 2px;
+    box-shadow: inset 1px 0 #fff;
+    display: block;
+    background-color: silver;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-top: 1px solid #f4f4f4;
+    border-bottom: 1px solid #4e4e4e;
+    position: fixed;
+    z-index: 99999;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 #start-button{
-    width: 80px;
+    width: 59px;
     margin-top: 2px;
 }
 #start-button:active{
     content: url("img/start-pressed.png");
 }
 #portfolio-btn{
-    height: 36px;
-    display: none;
+    height: 27.6px;
+    display: block;
     position: absolute;
-    padding-left: 85px;
-    top: 3px;
+    margin-left: 66px;
+    top: 4px;
 }
 #portfolio-btn:active{
     content: url("img/portfolio-btn-pressed.png");
@@ -84,7 +101,7 @@ footer {
     border-left: 1px solid #868a8e;
     border-right: 1px solid #ffffff;
     border-bottom: 1px solid #ffffff;
-    padding: 4px 15px;
+    padding: 2px 15px;
     font-size: 20px;
     position: absolute;
     bottom: 4px;
