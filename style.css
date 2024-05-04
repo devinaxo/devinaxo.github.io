@@ -12,6 +12,13 @@ body {
     margin: 0;
     overflow-x: hidden;
 }
+a{
+    text-decoration: none;
+}
+a:active, a:focus {
+    outline: 0;
+    border: none;
+  }
 .desktop{
     display: flex;
     place-items: center;
@@ -39,8 +46,13 @@ body {
     border-color: #fff8;
     border-style: dotted;
 }
-.icon-title{
+.white{
     color: white;
+}
+.black{
+    color: black;
+}
+.icon-title{
     font-size: 15px;
     text-align: center;
     border: solid 1px #fff0;
@@ -51,12 +63,12 @@ body {
     border-style: dotted;
 }
 .centered{
-    width: 49%;
+    width: 51%;
     margin-left: auto;
     margin-right: 26%;
 }
 .window-icon{
-    width: 16px;
+    width: 20%;
     float: left;
     margin-right: 5%;
 }
@@ -123,5 +135,7 @@ footer{
     font-size: 20px;
 }
 .window-body{
+    display: flex;
+    flex-flow: wrap;
     font-size: 15px;
 }
