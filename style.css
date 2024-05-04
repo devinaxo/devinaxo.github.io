@@ -12,6 +12,10 @@ body {
     margin: 0;
     overflow-x: hidden;
 }
+.desktop{
+    display: flex;
+    place-items: center;
+}
 .unselectable {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -49,7 +53,12 @@ body {
 .centered{
     width: 49%;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: 26%;
+}
+.window-icon{
+    width: 16px;
+    float: left;
+    margin-right: 5%;
 }
 .portfolio-window{
     position: fixed;

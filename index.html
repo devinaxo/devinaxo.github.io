@@ -11,62 +11,64 @@
     <script src="main.js"></script>
 </head>
 <body onload="start()">
-    <div class="icons">
-      <div class="icon-spot">
-        <img class="unselectable" src="img/recycle_bin_empty-5.png" alt="Recycle bin icon"  id="icon3">
-        <p class="icon-title unselectable">Recycle Bin</p>
-      </div>
-      <div class="icon-spot">
-        <img class="unselectable" src="img/computer_explorer-5.png" alt="Computer icon"  id="icon4">
-        <p class="icon-title unselectable">Computer</p>
-      </div>
-        <div class="icon-spot" onclick="highlight(this)" ondblclick="openFolder(this.children[0])">
-            <img class="unselectable" src="img/directory_closed_cool-0.png" alt="Folder icon" id="icon1">
-            <p class="icon-title unselectable">Projects</p>
+    <div class="desktop">
+      <div class="icons">
+        <div class="icon-spot">
+          <img class="unselectable" src="img/recycle_bin_empty-5.png" alt="Recycle bin icon"  id="icon3">
+          <p class="icon-title unselectable">Recycle Bin</p>
         </div>
-        <div class="icon-spot" onclick="highlight(this)" ondblclick="openFolder(this.children[0])">
-            <img class="unselectable" src="img/directory_closed_cool-0.png" alt="Folder icon"  id="icon2">
-            <p class="icon-title unselectable">Images</p>
+        <div class="icon-spot">
+          <img class="unselectable" src="img/computer_explorer-5.png" alt="Computer icon"  id="icon4">
+          <p class="icon-title unselectable">Computer</p>
         </div>
-    </div>
-    <div class="centered">
-        <div class="window" id="win1">
-            <div class="title-bar">
-              <div class="title-bar-text">Projects</div>
-              <div class="title-bar-controls">
-                <button aria-label="Close" onclick="closeFolder(this)"></button>
-              </div>
-            </div>
-            <div class="window-body">
-              <p>Test</p>
-            </div>
-        </div>
-        <div class="window" id="win2">
-            <div class="title-bar">
-              <div class="title-bar-text">Images</div>
-              <div class="title-bar-controls">
-                <button aria-label="Close" onclick="closeFolder(this)"></button>
-              </div>
-            </div>
-            <div class="window-body">
-              <p>Sex</p>
-            </div>
-        </div>
-    </div>
-    <div class="portfolio-window">
-      <div class="window" id="win3">
-        <div class="title-bar">
-          <div class="title-bar-text">My Info</div>
-          <div class="title-bar-controls">
-            <button aria-label="Minimize" onclick="manipulateWindow(1)"></button>
+          <div class="icon-spot" onclick="highlight(this)" ondblclick="openFolder(this.children[0])">
+              <img class="unselectable" src="img/directory_closed_cool-0.png" alt="Folder icon" id="icon1">
+              <p class="icon-title unselectable">Projects</p>
           </div>
-        </div>
-        <div class="window-body">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate eius, blanditiis doloribus minima et accusamus excepturi? Totam eos cum assumenda aperiam possimus, esse culpa voluptate eaque sit placeat minus?
-          Adipisci amet ad sapiente reprehenderit quam ipsa quo iste dolor quos assumenda culpa cupiditate, iure temporibus odio modi! Animi, voluptates accusantium illo non vitae ipsa dolore autem soluta corrupti iure?</p>
+          <div class="icon-spot" onclick="highlight(this)" ondblclick="openFolder(this.children[0])">
+              <img class="unselectable" src="img/directory_closed_cool-0.png" alt="Folder icon"  id="icon2">
+              <p class="icon-title unselectable">Images</p>
+          </div>
       </div>
+      <div class="centered">
+          <div class="window" id="win1">
+              <div class="title-bar">
+                <div class="title-bar-text"><img src="img/directory_closed_cool-0.png" alt="" class="window-icon">Projects</div>
+                <div class="title-bar-controls">
+                  <button aria-label="Close" onclick="closeFolder(this)"></button>
+                </div>
+              </div>
+              <div class="window-body">
+                <p>Test</p>
+              </div>
+          </div>
+          <div class="window" id="win2">
+              <div class="title-bar">
+                <div class="title-bar-text"><img src="img/directory_closed_cool-0.png" alt="" class="window-icon">Images</div>
+                <div class="title-bar-controls">
+                  <button aria-label="Close" onclick="closeFolder(this)"></button>
+                </div>
+              </div>
+              <div class="window-body">
+                <p>Sex</p>
+              </div>
+          </div>
+      </div>
+      <div class="portfolio-window">
+        <div class="window" id="win3">
+          <div class="title-bar">
+            <div class="title-bar-text"><img src="img/help_book_cool-4.png" alt="" class="window-icon">My Info</div>
+            <div class="title-bar-controls">
+              <button aria-label="Minimize" onclick="manipulateWindow(1)"></button>
+            </div>
+          </div>
+          <div class="window-body">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate eius, blanditiis doloribus minima et accusamus excepturi? Totam eos cum assumenda aperiam possimus, esse culpa voluptate eaque sit placeat minus?
+            Adipisci amet ad sapiente reprehenderit quam ipsa quo iste dolor quos assumenda culpa cupiditate, iure temporibus odio modi! Animi, voluptates accusantium illo non vitae ipsa dolore autem soluta corrupti iure?</p>
+        </div>
+      </div>
+        </div>
     </div>
-  </div>
     <footer>
       <div><img id="start-button" src="img/start.png" alt=""></div>
       <div><img id="portfolio-btn" src="img/portfolio-btn-pressed.png" alt="" onclick="manipulateWindow(2)"></div>
