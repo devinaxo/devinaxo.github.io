@@ -49,3 +49,27 @@ function manipulateWindow(opt){
             break;
     }
 }
+
+function triggerModal(image){
+    //unset gray color
+    image.parentNode.style.backgroundColor = 'unset';
+    // Get the modal
+    var modal = document.getElementById(image.id.replace("image", "modal"));
+
+    // Get the image and insert it inside the modal
+    var img = document.getElementById(image.id);
+    var modalImg = document.getElementById(image.id.replace("image", "img"));
+    var hqImage = image.alt;
+    img.ondblclick = function(){
+        modal.style.display = "block";
+        modalImg.src = hqImage;
+    }
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementById(image.id.replace("image", "close"));
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() { 
+    modal.style.display = "none";
+    }
+}
