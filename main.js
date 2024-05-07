@@ -7,11 +7,16 @@ function updateTime(){
 function start(){
     updateTime();
     setInterval(updateTime, 1000);
+    $( ".window" ).draggable({ handle: ".title-bar" });
+    $( ".icon-spot" ).draggable();
 }
 function highlight(div){
     div.style.backgroundColor = 'gray';
 }
 function openFolder(folder){
+    //Draggable window
+    $( ".window" ).draggable({ handle: ".title-bar" });
+
     folder.parentNode.style.backgroundColor = 'unset';
     let winId = folder.id.replace('icon', 'win');
     document.getElementById(winId).style.display = "block";
