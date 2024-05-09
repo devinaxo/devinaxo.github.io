@@ -41,6 +41,7 @@ a:active, a:focus {
     border: solid 1px #fff0;
     margin: 10px;
     padding: 10px;
+    touch-action: none;
 }
 .icon-spot:hover{
     border-color: #fff8;
@@ -139,6 +140,9 @@ footer{
 .title-bar-text{
     font-size: 20px;
 }
+.window{
+    touch-action: none;
+}
 .window-body{
     display: flex;
     flex-flow: wrap;
@@ -146,7 +150,6 @@ footer{
 }
 
 /* modal */
-/* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */

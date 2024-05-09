@@ -9,6 +9,7 @@ function start(){
     setInterval(updateTime, 1000);
     $( ".window" ).draggable({ handle: ".title-bar" });
     $( ".icon-spot" ).draggable();
+    $( ".undraggable" ).draggable('disable');
 }
 function highlight(div){
     div.style.backgroundColor = 'gray';
