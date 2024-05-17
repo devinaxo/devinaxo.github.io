@@ -75,6 +75,12 @@ a:active, a:focus {
     float: left;
     margin-right: 5%;
 }
+.circle-mug{
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    float: left;
+}
 .portfolio-window{
     position: fixed;
     z-index: 0;
