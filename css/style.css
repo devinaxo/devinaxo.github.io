@@ -18,7 +18,11 @@ a{
 a:active, a:focus {
     outline: 0;
     border: none;
-  }
+}
+p{
+    font-size: 18px;
+    margin: 0;
+}
 .desktop{
     display: flex;
     place-items: center;
@@ -90,6 +94,9 @@ a:active, a:focus {
     padding-top: 4px;
     padding-right: 4px;
 }
+.portfolio-info{
+    margin: 10px;
+}
 #win1, #win2{
     display: none;
     z-index: 1;
@@ -116,7 +123,7 @@ footer{
     margin-top: 2px;
 }
 #start-button:active{
-    content: url("img/start-pressed.png");
+    content: url("../img/start-pressed.png");
 }
 #portfolio-btn{
     height: 27.6px;
@@ -126,7 +133,7 @@ footer{
     top: 4px;
 }
 #portfolio-btn:active{
-    content: url("img/portfolio-btn-pressed.png");
+    content: url("../img/portfolio-btn-pressed.png");
 }
 #time {
     border-top: 1px solid #868a8e;
