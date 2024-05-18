@@ -31,7 +31,7 @@
           </div>
           <div class="icon-spot" onclick="highlight(this)" ondblclick="openFolder(this.children[0])">
               <img class="unselectable" src="img/directory_closed_cool-0.png" alt="Folder icon"  id="icon2">
-              <p class="icon-title white unselectable">Images</p>
+              <p class="icon-title white unselectable">Multimedia</p>
           </div>
           <div class="icon-spot empty"></div>
           <div class="icon-spot empty"></div>
@@ -115,7 +115,7 @@
           </div>
           <div class="window" id="win2">
               <div class="title-bar" id="title2">
-                <div class="title-bar-text unselectable"><img src="img/directory_closed_cool-0.png" alt="" class="window-icon">Images</div>
+                <div class="title-bar-text unselectable"><img src="img/directory_closed_cool-0.png" alt="" class="window-icon">Multimedia</div>
                 <div class="title-bar-controls">
                   <button aria-label="Close" onclick="closeFolder(this)"></button>
                 </div>
@@ -141,7 +141,18 @@
                     <img src="" alt="" class="modal-content" id="img02">
                   </div>
                 </div>
+                <div class="icon-spot" onclick="triggerModal(this.children[0])">
+                  <!-- alt should be used for the location of the hq image, so that it works with my logic -->
+                  <img class="unselectable" src="img/images/media_player_file-2.png" alt="img/images/sniff.jpg" id="image03">
+                  <p class="icon-title black unselectable">Depression nap</p>
+  
+                  <div id="modal03" class="modal">
+                    <span class="close" id="close03">&times;</span>
+                    <iframe width="560px" height="315px" src="https://www.youtube.com/embed/t38tMHRHRco?si=k4uPcffQuu64NEY6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                  </div>
+                </div>
               </div>
+            </div>
           </div>
       </div>
       <div class="portfolio-window">
@@ -158,6 +169,10 @@
               <p class="black">Hey, I'm Nacho. I'm but a humble comp sci student who's been into this, officially, for at least 2 years, but started tinkering around with technology
                 around 8 years ago with passion projects such as videogame modding in C and C++, and have since then started to branch out into anything that catches my interest (such
                 as making this and other webpages, mobile apps and Python scripts). <br><br> Feel free to double click on those folders and check out my stuff! (and pictures I have deemed "cool")
+              </p>
+              <p class="black">If for any reason you want to contact me, reach over to me via <br>
+                *Twitter: <a href="https://twitter.com/devinachoes" target="_blank">@devinachoes</a> <br>
+                *E-mail: <a href="mailto:gar.la.ignacio@gmail.com">gar.la.ignacio@gmail.com</a>
               </p>
             </div>
         </div>
