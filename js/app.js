@@ -1,7 +1,5 @@
-var d, pw = 'win3', pb = 'portfolio-btn';
-
 function updateTime(){
-    d = new Date().toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
+    let d = new Date().toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
     document.getElementById('time').innerText = d;
 }
 function start(){
@@ -57,12 +55,12 @@ function closeFolder(closeButton){
 function manipulateWindow(opt){
     switch(opt){
         case 1: //close
-            document.getElementById(pw).style.display = 'none';
-            document.getElementById(pb).src = 'img/portfolio-btn.png';
+            document.getElementById('win3').style.display = 'none';
+            document.getElementById('portfolio-btn').src = 'img/portfolio-btn.png';
             break;
         case 2: //open
-            document.getElementById(pw).style.display = 'block';
-            document.getElementById(pb).src = 'img/portfolio-btn-pressed.png';
+            document.getElementById('win3').style.display = 'block';
+            document.getElementById('portfolio-btn').src = 'img/portfolio-btn-pressed.png';
             break;
     }
 }
