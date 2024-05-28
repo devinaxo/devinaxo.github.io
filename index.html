@@ -12,7 +12,16 @@
     <script src="js/app.js"></script>
     <script src="js/jquery-3.7.1.js"></script>
     <script src="js/jquery-ui.js"></script>
-    <script src="jquery.ui.touch-punch.js"></script>                                                                                
+    <script src="jquery.ui.touch-punch.js"></script>
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init({
+              publicKey: "KA9ygHqE3XL4BIUP5",
+            });
+        })();
+    </script>
 </head>
 <body onload="start()">
     <div class="desktop">
@@ -155,30 +164,62 @@
             </div>
           </div>
       </div>
-      <div class="portfolio-window">
-        <div class="window" id="win3">
-          <div class="title-bar" id="title3">
-            <div class="title-bar-text unselectable"><img src="img/help_book_cool-4.png" alt="" class="window-icon">My Info</div>
-            <div class="title-bar-controls">
-              <button aria-label="Minimize" onclick="manipulateWindow(1)"></button>
+      <div>
+        <div class="portfolio-window">
+          <div class="window" id="win3">
+            <div class="title-bar" id="title3">
+              <div class="title-bar-text unselectable"><img src="img/help_book_cool-4.png" alt="" class="window-icon">My Info</div>
+              <div class="title-bar-controls">
+                <button aria-label="Minimize" onclick="manipulateWindow(1)"></button>
+              </div>
+            </div>
+            <div class="window-body">
+              <div class="portfolio-info">
+                <img src="img/mugshot.jpg" alt="" class="circle-mug">
+                <p class="black">Hey, I'm Nacho. I'm but a humble comp sci student who's been into this, officially, for at least 2 years, but started tinkering around with technology
+                  around 8 years ago with passion projects such as videogame modding in C and C++, and have since then started to branch out into anything that catches my interest (such
+                  as making this and other webpages, mobile apps and Python scripts). <br><br> Feel free to double click on those folders and check out my stuff! (and pictures I have deemed "cool")
+                </p>
+                <p class="black">If for any reason you want to contact me, reach over to me via <br>
+                  *LinkedIn: <a href="https://www.linkedin.com/in/devinacho/" target="_blank">devinacho</a> <br>
+                  *Twitter: <a href="https://twitter.com/devinachoes" target="_blank">@devinachoes</a> <br>
+                  *... Or use that handy email form down below!
+                </p>
+              </div>
             </div>
           </div>
-          <div class="window-body">
-            <div class="portfolio-info">
-              <img src="img/mugshot.jpg" alt="" class="circle-mug">
-              <p class="black">Hey, I'm Nacho. I'm but a humble comp sci student who's been into this, officially, for at least 2 years, but started tinkering around with technology
-                around 8 years ago with passion projects such as videogame modding in C and C++, and have since then started to branch out into anything that catches my interest (such
-                as making this and other webpages, mobile apps and Python scripts). <br><br> Feel free to double click on those folders and check out my stuff! (and pictures I have deemed "cool")
-              </p>
-              <p class="black">If for any reason you want to contact me, reach over to me via <br>
-                *LinkedIn: <a href="https://www.linkedin.com/in/devinacho/" target="_blank">devinacho</a> <br>
-                *E-mail: <a href="mailto:gar.la.ignacio@gmail.com" target="_blank">gar.la.ignacio@gmail.com</a> <br>
-                *Twitter: <a href="https://twitter.com/devinachoes" target="_blank">@devinachoes</a>
-              </p>
+        </div>
+        <div class="address-window">
+          <div class="window">
+            <div class="title-bar">
+              <div class="title-bar-text unselectable"><img src="img/message_envelope_open-0.png" alt="" class="window-icon">Hello! - Message (Plain Text)</div>
+              <div class="title-bar-controls">
+                <button aria-label="Minimize"></button>
+                <button aria-label="Maximize"></button>
+                <button aria-label="Close"></button>
+              </div>
             </div>
+            <div class="window-body black">
+              <form class="address-form" id="contact-form">
+                <div class="address-div">
+                  <button class="address-btn"><label for="destinatary"><img src="img/address_book-0.png" alt="" class="address-sendicon">To...</label></button>
+                  <input class="address-box" id="me" type="email" placeholder="gar.la.ignacio@gmail.com" value="gar.la.ignacio@gmail.com" readonly>
+                </div>
+                <div class="address-div">
+                  <button class="address-btn"><label for="remittent"><img src="img/address_book-0.png" alt="" class="address-sendicon">Cc...</label></button>
+                  <input class="address-box" id="notme" name="remittent" type="email" required>
+                </div>
+                <div class="address-div">
+                  <label for="subject">Subject: </label>
+                  <input class="address-box" type="text" name="subject" required>
+                </div>
+                <textarea name="message" id="letter" class="address-txtarea" required></textarea>
+                <button class="address-btn" type="submit" id="button"><img src="img/address_book_card.png" alt="" class="address-sendicon"> Send</button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
-        </div>
     </div>
     <footer>
       <div><img id="start-button" src="img/start.png" alt=""></div>

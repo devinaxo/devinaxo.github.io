@@ -8,6 +8,24 @@ function start(){
     updateTime();
     setInterval(updateTime, 1000);
     $( ".window" ).draggable({ handle: ".title-bar" });
+    
+    const btn = document.getElementById('button');
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        btn.value = 'Sending...';
+        const serviceID = 'service_vzrlfd8';
+        const templateID = 'template_g90oli5';
+        emailjs.sendForm(serviceID, templateID, this).then(() => {
+            btn.value = 'Thanks for contacting me!';
+            $('#contact-form')[0].reset();
+            setInterval(() => {
+                btn.value = 'Send';
+            }, 2000);
+            }, (err) => {
+                btn.value = 'Something went wrong...';
+                alert(JSON.stringify(err));
+        });
+    });
 }
 function highlight(div){
     div.style.backgroundColor = 'gray';
