@@ -10,17 +10,17 @@ function start(){
     const btn = document.getElementById('button');
     document.getElementById('contact-form').addEventListener('submit', function(event) {
         event.preventDefault();
-        btn.value = 'Sending...';
+        btn.innerHTML = '<img src="img/address_book_card.png" alt="" class="address-sendicon"> Sending...';
         const serviceID = 'service_vzrlfd8';
         const templateID = 'template_g90oli5';
         emailjs.sendForm(serviceID, templateID, this).then(() => {
-            btn.value = 'Thanks for contacting me!';
+            btn.innerHTML = '<img src="img/address_book_card.png" alt="" class="address-sendicon"> Thanks for contacting me!';
             $('#contact-form')[0].reset();
             setInterval(() => {
-                btn.value = 'Send';
+                btn.innerHTML = '<img src="img/address_book_card.png" alt="" class="address-sendicon"> Send';
             }, 2000);
             }, (err) => {
-                btn.value = 'Something went wrong...';
+                btn.innerHTML = '<img src="img/address_book_card.png" alt="" class="address-sendicon"> Something went wrong...';
                 alert(JSON.stringify(err));
         });
     });
@@ -29,9 +29,6 @@ function highlight(div){
     div.style.backgroundColor = 'gray';
 }
 function openFolder(folder){
-    //Draggable window
-    $( ".window" ).draggable({ handle: ".title-bar" });
-
     folder.parentNode.style.backgroundColor = 'unset';
     let winId = folder.id.replace('icon', 'win');
     document.getElementById(winId).style.display = "block";
