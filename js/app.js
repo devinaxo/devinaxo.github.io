@@ -2,11 +2,25 @@ function updateTime(){
     let d = new Date().toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
     document.getElementById('time').innerText = d;
 }
-function start(){
+$(document).ready(function(){
     updateTime();
     setInterval(updateTime, 1000);
     $( ".window" ).draggable({ handle: ".title-bar" });
-    
+    $('#cc-btn').on('click', function(){
+        if($('#notme').attr('type') == 'email'){
+            $('#notme').attr('type', 'text');
+            $('#notme').attr('placeholder', 'Name (Click button to change Cc signature)');
+        }else{
+            $('#notme').attr('type', 'email');
+            $('#notme').attr('placeholder', 'E-mail (Click button to change Cc signature)');
+        }
+        $('#notme').val('');
+    });
+    $('#notme').keypress(function(e){
+        if($('#notme').attr('type') == 'text'){
+            if(String.fromCharCode(e.keyCode).match(/[^a-zA-Z áéíóú ÁÉÍÓÚ]/gi)) return false;
+        }
+    });
     const btn = document.getElementById('button');
     document.getElementById('contact-form').addEventListener('submit', function(event) {
         event.preventDefault();
@@ -24,10 +38,12 @@ function start(){
                 alert(JSON.stringify(err));
         });
     });
-}
+});
+
 function highlight(div){
     div.style.backgroundColor = 'gray';
 }
+
 function openFolder(folder){
     folder.parentNode.style.backgroundColor = 'unset';
     let winId = folder.id.replace('icon', 'win');
@@ -43,12 +59,14 @@ function openFolder(folder){
         document.getElementById(winId.replace('win', 'icon')).src = 'img/directory_closed_cool-0.png';
     }
 }
+
 function closeFolder(closeButton){
     let winId = closeButton.parentNode.parentNode.parentNode.id;
     let folderId = winId.replace('win', 'icon');
     document.getElementById(winId).style.display = "none";
     document.getElementById(folderId).src = 'img/directory_closed_cool-0.png';
 }
+
 function manipulateWindow(opt){
     switch(opt){
         case 1: //close

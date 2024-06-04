@@ -115,9 +115,6 @@ p{
     margin-bottom: 5px;
     display: flex;
 }
-.address-btn{
-
-}
 .address-box{
     width: 100%;
     height: 100%;
@@ -219,6 +216,7 @@ footer{
     display: block;
     width: 80%;
     max-width: 700px;
+    max-height: 50%;
   }
   
   
@@ -271,5 +269,14 @@ footer{
     }
     .modal-content {
         width: 100%;
+    }
+}
+@media screen and (min-width: 701px) and (max-width: 1366px){
+    .portfolio-window{
+        width: 30%;
+    }
+    .address-window{
+        top: 48%;
+        width: 35%;
     }
 }
