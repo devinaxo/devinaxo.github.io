@@ -12,7 +12,7 @@
     <script src="js/jquery-3.7.1.js"></script>
     <script src="js/jquery-ui.js"></script>
     <script src="js/jquery.ui.touch-punch.js"></script>
-    
+    <script src="https://www.youtube.com/iframe_api"></script>   
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
@@ -33,23 +33,23 @@
             <img class="unselectable" src="img/computer_explorer-5.png" alt="Computer icon"  id="icon4">
             <p class="icon-title white unselectable">Computer</p>
           </div>
-          <div class="icon-spot" onclick="highlight(this)" ondblclick="openFolder(this.children[0])">
-              <img class="unselectable" src="img/directory_closed_cool-0.png" alt="Folder icon" id="icon1">
+          <div class="icon-spot clickable-folder" data-icon="icon1" data-window="win1">
+              <img class="unselectable image-folder" src="img/directory_closed_cool-0.png" alt="Folder icon" id="icon1">
               <p class="icon-title white unselectable">Projects</p>
           </div>
-          <div class="icon-spot" onclick="highlight(this)" ondblclick="openFolder(this.children[0])">
-              <img class="unselectable" src="img/directory_closed_cool-0.png" alt="Folder icon"  id="icon2">
+          <div class="icon-spot clickable-folder"  data-icon="icon2" data-window="win2">
+              <img class="unselectable image-folder" src="img/directory_closed_cool-0.png" alt="Folder icon"  id="icon2">
               <p class="icon-title white unselectable">Multimedia</p>
           </div>
           <div class="icon-spot empty"></div>
           <div class="icon-spot empty"></div>
       </div>
       <div class="centered">
-          <div class="window" id="win1">
+          <div class="window needs-closing" id="win1">
               <div class="title-bar" id="title1">
                 <div class="title-bar-text unselectable"><img src="img/directory_closed_cool-0.png" alt="" class="window-icon">Projects</div>
                 <div class="title-bar-controls">
-                  <button aria-label="Close" onclick="closeFolder(this)"></button>
+                  <button aria-label="Close" class="window-close" data-icon="icon1" data-window="win1"></button>
                 </div>
               </div>
               <div class="window-body">
@@ -121,55 +121,54 @@
                 </a>
               </div>
           </div>
-          <div class="window" id="win2">
-              <div class="title-bar" id="title2">
-                <div class="title-bar-text unselectable"><img src="img/directory_closed_cool-0.png" alt="" class="window-icon">Multimedia</div>
+          <div class="window needs-closing" id="win2">
+            <div class="title-bar" id="title2">
+                <div class="title-bar-text unselectable">
+                    <img src="img/directory_closed_cool-0.png" alt="" class="window-icon">Multimedia
+                </div>
                 <div class="title-bar-controls">
-                  <button aria-label="Close" onclick="closeFolder(this)"></button>
+                    <button aria-label="Close" class="window-close" data-icon="icon2" data-window="win2"></button>
                 </div>
-              </div>
-              <div class="window-body">
-                <div class="icon-spot" onclick="triggerModal(this.children[0])">
-                  <!-- alt should be used for the location of the hq image, so that it works with my logic -->
-                  <img class="unselectable" src="img/images/image_old_jpeg-0.png" alt="img/images/shantien.png" id="image01">
-                  <p class="icon-title black unselectable">Sick leviathan</p>
-
-                  <div id="modal01" class="modal">
-                    <span class="close" id="close01">&times;</span>
-                    <img src="" alt="" class="modal-content" id="img01">
-                  </div>
-                </div>
-                <div class="icon-spot" onclick="triggerModal(this.children[0])">
-                  <!-- alt should be used for the location of the hq image, so that it works with my logic -->
-                  <img class="unselectable" src="img/images/image_old_jpeg-0.png" alt="img/images/sniff.jpg" id="image02">
-                  <p class="icon-title black unselectable">Sniffing</p>
-
-                  <div id="modal02" class="modal">
-                    <span class="close" id="close02">&times;</span>
-                    <img src="" alt="" class="modal-content" id="img02">
-                  </div>
-                </div>
-                <div class="icon-spot" onclick="triggerModal(this.children[0])">
-                  <!-- alt should be used for the location of the hq image, so that it works with my logic -->
-                  <img class="unselectable" src="img/images/media_player_file-2.png" alt="img/images/sniff.jpg" id="image03">
-                  <p class="icon-title black unselectable">Depression nap</p>
-  
-                  <div id="modal03" class="modal">
-                    <span class="close" id="close03">&times;</span>
-                    <iframe width="560px" height="315px" src="https://www.youtube.com/embed/t38tMHRHRco?si=k4uPcffQuu64NEY6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
-      </div>
+            <div class="window-body">
+                <div class="icon-spot" data-trigger-modal>
+                    <img class="unselectable" src="img/images/image_old_jpeg-0.png" alt="img/images/shantien.png" id="image01">
+                    <p class="icon-title black unselectable">Sick leviathan</p>
+        
+                    <div id="modal01" class="modal">
+                        <span class="close" id="close01">&times;</span>
+                        <img src="" alt="" class="modal-content" id="img01">
+                    </div>
+                </div>
+                <div class="icon-spot" data-trigger-modal>
+                    <img class="unselectable" src="img/images/image_old_jpeg-0.png" alt="img/images/sniff.jpg" id="image02">
+                    <p class="icon-title black unselectable">Sniffing</p>
+        
+                    <div id="modal02" class="modal">
+                        <span class="close" id="close02">&times;</span>
+                        <img src="" alt="" class="modal-content" id="img02">
+                    </div>
+                </div>
+                <div class="icon-spot" data-trigger-modal>
+                    <img class="unselectable" src="img/images/media_player_file-2.png" alt="img/images/sniff.jpg" id="image03">
+                    <p class="icon-title black unselectable">Depression nap</p>
+        
+                    <div id="modal03" class="modal">
+                        <span class="close" id="close03">&times;</span>
+                        <div class="iframe-container" id="iframeContainer03">
+                            <iframe width="560px" height="315px" src="https://www.youtube.com/embed/t38tMHRHRco?si=k4uPcffQuu64NEY6" id="video03" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
       <div>
         <div class="portfolio-window">
           <div class="window" id="win3">
             <div class="title-bar" id="title3">
               <div class="title-bar-text unselectable"><img src="img/help_book_cool-4.png" alt="" class="window-icon">My Info</div>
               <div class="title-bar-controls">
-                <button aria-label="Minimize" onclick="manipulateWindow(1)"></button>
+                <button aria-label="Minimize" class="window-minimize" data-icon="portfolio-btn" data-window="win3"></button>
               </div>
             </div>
             <div class="window-body">
@@ -193,9 +192,6 @@
             <div class="title-bar">
               <div class="title-bar-text unselectable"><img src="img/message_envelope_open-0.png" alt="" class="window-icon">Hello! - Message (Plain Text)</div>
               <div class="title-bar-controls">
-                <button aria-label="Minimize"></button>
-                <button aria-label="Maximize"></button>
-                <button aria-label="Close"></button>
               </div>
             </div>
             <div class="window-body black">
@@ -222,7 +218,7 @@
     </div>
     <footer>
       <div><img id="start-button" src="img/start.png" alt=""></div>
-      <div><img id="portfolio-btn" src="img/portfolio-btn-pressed.png" alt="" onclick="manipulateWindow(2)"></div>
+      <div><img id="portfolio-btn" src="img/portfolio-btn-pressed.png" alt="" data-icon="portfolio-btn" data-window="win3"></div>
       <div id="time">00:00:00</div>
     </footer>
     <script src="js/app.js"></script>
