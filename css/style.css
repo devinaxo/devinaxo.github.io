@@ -174,10 +174,8 @@ footer{
     border-left: 1px solid #868a8e;
     border-right: 1px solid #ffffff;
     border-bottom: 1px solid #ffffff;
-    padding: 2px 15px;
-    font-size: 20px;
     position: absolute;
-    bottom: 4px;
+    bottom: 0.2rem;
     right: 12px;
     color: black;
 }
