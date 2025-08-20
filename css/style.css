@@ -245,6 +245,17 @@ footer {
     font-size: 15px;
 }
 
+/* Table overflow scrolling */
+.sunken-panel {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.sunken-panel table {
+    min-width: 100%;
+}
+
 /* modal */
 .modal {
     display: none;
