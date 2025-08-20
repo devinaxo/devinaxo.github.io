@@ -40,15 +40,22 @@ p{
 }
 .icon-spot{
     width: 64px;
-    height: 64px;
+    height: 80px;
     text-align: center;
     border: solid 1px #fff0;
     margin: 10px;
     margin-bottom: 1.2rem;
-    padding: 10px;
+    padding: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
+}
+
+.icon-spot img:not(.window-icon) {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 4px;
 }
 .icon-spot:hover{
     border-color: #fff8;
@@ -68,6 +75,9 @@ p{
     text-align: center;
     border: solid 1px #fff0;
     margin: 0;
+    line-height: 1.1;
+    word-wrap: break-word;
+    max-width: 60px;
 }
 .icon-title:active{
     border-color: #fff8;
