@@ -1,10 +1,14 @@
 * {
-	font-family: 'W95FA', sans-serif;
+    font-family: 'W95FA', sans-serif;
 }
 
-input, textarea, button, label {
-	font-family: 'W95FA', sans-serif;
+input,
+textarea,
+button,
+label {
+    font-family: 'W95FA', sans-serif;
 }
+
 body {
     color: white;
     background-color: #55aaaa;
@@ -12,21 +16,27 @@ body {
     overflow-x: hidden;
     line-height: 1.2;
 }
-a{
+
+a {
     text-decoration: none;
 }
-a:active, a:focus {
+
+a:active,
+a:focus {
     outline: 0;
     border: none;
 }
-p{
+
+p {
     font-size: 15px;
     margin: 0;
 }
-.desktop{
+
+.desktop {
     display: flex;
     place-items: center;
 }
+
 .unselectable {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -35,10 +45,12 @@ p{
     -ms-user-select: none;
     user-select: none;
 }
-.icons{
+
+.icons {
     width: fit-content;
 }
-.icon-spot{
+
+.icon-spot {
     width: 64px;
     height: 80px;
     text-align: center;
@@ -57,20 +69,25 @@ p{
     height: 36px;
     margin-bottom: 4px;
 }
-.icon-spot:hover{
+
+.icon-spot:hover {
     border-color: #fff8;
     border-style: dotted;
 }
-.empty{
+
+.empty {
     border: 0;
 }
-.white{
+
+.white {
     color: white;
 }
-.black{
+
+.black {
     color: black;
 }
-.icon-title{
+
+.icon-title {
     font-size: 14px;
     text-align: center;
     border: solid 1px #fff0;
@@ -79,28 +96,32 @@ p{
     word-wrap: break-word;
     max-width: 60px;
 }
-.icon-title:active{
+
+.icon-title:active {
     border-color: #fff8;
     border-style: dotted;
 }
-.centered{
-    width: 555px;
+
+.centered {
     margin-left: auto;
     margin-right: auto;
 }
-.window-icon{
+
+.window-icon {
     width: 24px;
     height: 24px;
     float: left;
     margin-right: 5px;
 }
-.circle-mug{
+
+.circle-mug {
     width: 100px;
     height: 100px;
     margin-right: 10px;
     float: left;
 }
-.portfolio-window{
+
+.portfolio-window {
     position: fixed;
     z-index: 0;
     width: 25%;
@@ -109,10 +130,12 @@ p{
     padding-top: 4px;
     padding-right: 4px;
 }
-.portfolio-info{
+
+.portfolio-info {
     margin: 10px;
 }
-.address-window{
+
+.address-window {
     width: 27%;
     position: fixed;
     z-index: 0;
@@ -121,35 +144,43 @@ p{
     padding-top: 4px;
     padding-right: 4px;
 }
-.address-form{
+
+.address-form {
     width: 100%;
 }
-.address-div{
+
+.address-div {
     width: 100%;
     margin-bottom: 5px;
     display: flex;
 }
-.address-box{
+
+.address-box {
     width: 100%;
     height: 100%;
 }
-.address-txtarea{
+
+.address-txtarea {
     width: 100%;
     height: 10rem;
     margin: 5px 0 5px 0;
     resize: none;
 }
-.address-sendicon{
+
+.address-sendicon {
     width: 20px;
     height: 20px;
     vertical-align: middle;
     margin-right: 3px;
 }
-#win1, #win2{
+
+#win1,
+#win2 {
     display: none;
     z-index: 1;
 }
-footer{
+
+footer {
     padding: 2px;
     box-shadow: inset 1px 0 #fff;
     display: block;
@@ -166,23 +197,28 @@ footer{
     -ms-user-select: none;
     user-select: none;
 }
-#start-button{
+
+#start-button {
     width: 59px;
     margin-top: 2px;
 }
-#start-button:active{
+
+#start-button:active {
     content: url("../img/start-pressed.png");
 }
-#portfolio-btn{
+
+#portfolio-btn {
     height: 27.6px;
     display: block;
     position: absolute;
     margin-left: 66px;
     top: 4px;
 }
-#portfolio-btn:active{
+
+#portfolio-btn:active {
     content: url("../img/portfolio-btn-pressed.png");
 }
+
 #time {
     border-top: 1px solid #868a8e;
     border-left: 1px solid #868a8e;
@@ -195,13 +231,15 @@ footer{
 }
 
 /* Windows 95 adjustments */
-.title-bar-text{
-    font-size: 20px;
+.title-bar-text {
+    font-size: 16px;
 }
-.window{
+
+.window {
     touch-action: none;
 }
-.window-body{
+
+.window-body {
     display: flex;
     flex-flow: wrap;
     font-size: 15px;
@@ -209,49 +247,69 @@ footer{
 
 /* modal */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
-  }
-  
-  /* Modal Content (image) */
-  .modal-content {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content {
     margin: auto;
     display: block;
     width: 80%;
     max-width: 700px;
     max-height: 50%;
-  }
-  
-  
-  /* Add Animation */
-  .modal-content, #caption {  
+}
+
+.iframe-container {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+.iframe-container iframe {
+    margin: auto;
+    display: block;
+}
+
+
+.modal-content,
+#caption {
     -webkit-animation-name: zoom;
     -webkit-animation-duration: 0.6s;
     animation-name: zoom;
     animation-duration: 0.6s;
-  }
-  
-  @-webkit-keyframes zoom {
-    from {-webkit-transform:scale(0)} 
-    to {-webkit-transform:scale(1)}
-  }
-  
-  @keyframes zoom {
-    from {transform:scale(0)} 
-    to {transform:scale(1)}
-  }
-  
-  /* The Close Button */
-  .close {
+}
+
+@-webkit-keyframes zoom {
+    from {
+        -webkit-transform: scale(0)
+    }
+
+    to {
+        -webkit-transform: scale(1)
+    }
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(0)
+    }
+
+    to {
+        transform: scale(1)
+    }
+}
+
+.close {
     position: absolute;
     top: 15px;
     right: 35px;
@@ -259,36 +317,83 @@ footer{
     font-size: 40px;
     font-weight: bold;
     transition: 0.3s;
-  }
-  
-  .close:hover,
-  .close:focus {
+}
+
+.close:hover,
+.close:focus {
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
-  }
-  
-@media only screen and (max-width: 700px){
-    p{
+}
+
+@media only screen and (max-width: 700px) {
+    p {
         font-size: 12px;
     }
-    .portfolio-window{
+
+    .portfolio-window {
         width: 75%;
     }
-    .address-window{
+
+    .address-window {
         top: 45%;
         width: 80%;
     }
+
     .modal-content {
         width: 100%;
     }
 }
-@media screen and (min-width: 701px) and (max-width: 1366px){
-    .portfolio-window{
+
+@media screen and (min-width: 701px) and (max-width: 1366px) {
+    .portfolio-window {
         width: 30%;
     }
-    .address-window{
+
+    .address-window {
         top: 48%;
         width: 35%;
     }
+}
+
+table.interactive tbody tr:hover {
+    background-color: #0000FF !important;
+    cursor: pointer;
+}
+
+table.interactive tbody tr:hover td {
+    color: white !important;
+    background-color: #0000FF !important;
+}
+
+table.interactive tbody tr:hover a {
+    color: white !important;
+}
+
+table.interactive tbody tr:active {
+    background-color: #000080 !important;
+}
+
+table.interactive tbody tr:active td {
+    color: white !important;
+    background-color: #000080 !important;
+}
+
+table.interactive tbody tr:has(p):hover {
+    background-color: transparent !important;
+    cursor: default !important;
+}
+
+table.interactive tbody tr:has(p):hover td {
+    color: black !important;
+    background-color: transparent !important;
+}
+
+table.interactive tbody tr:has(p):active {
+    background-color: transparent !important;
+}
+
+table.interactive tbody tr:has(p):active td {
+    color: black !important;
+    background-color: transparent !important;
 }

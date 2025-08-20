@@ -77,7 +77,8 @@ $(document).ready(function(){
     })
 
     $(document).ready(function() {
-        $('[data-trigger-modal]').each(function() {
+        // Handle icon-based modal triggers (existing functionality)
+        $('[data-trigger-modal]:not(tr)').each(function() {
             var $iconSpot = $(this);
             var $image = $iconSpot.find('img');
             var modalId = $image.attr('id').replace('image', 'modal');
@@ -87,7 +88,7 @@ $(document).ready(function(){
             var closeId = $image.attr('id').replace('image', 'close');
             var $closeBtn = $('#' + closeId);
             var $iframeContainer = $modal.find('.iframe-container');
-            var iframeHtml = $iframeContainer.html(); // Save the original iframe HTML
+            var iframeHtml = $iframeContainer.length ? $iframeContainer.html() : '';
     
             $iconSpot.on('dblclick', function() {
                 $modal.show();
@@ -95,13 +96,59 @@ $(document).ready(function(){
             });
             $closeBtn.on('click', function() {
                 $modal.hide();
-                if ($iframeContainer.length) {
+                if ($iframeContainer.length && iframeHtml) {
                     $iframeContainer.html(iframeHtml);
                 }
             });
             $iconSpot.on('click', function() {
                 $iconSpot.css('background-color', 'unset');
             });
+        });
+
+        // Handle table row modal triggers (new functionality)
+        $('tr[data-trigger-modal]').each(function() {
+            var $row = $(this);
+            var modalId = $row.data('modal-id');
+            var $modal = $('#' + modalId);
+            var $modalImg = $modal.find('.modal-content');
+            var $closeBtn = $modal.find('.close');
+            var $iframeContainer = $modal.find('.iframe-container');
+            var iframeHtml = $iframeContainer.length ? $iframeContainer.html() : '';
+            
+            // Set image sources based on modal ID
+            var imageSrc = '';
+            if (modalId === 'modal01') {
+                imageSrc = 'img/images/shantien.png';
+            } else if (modalId === 'modal02') {
+                imageSrc = 'img/images/sniff.jpg';
+            }
+            
+            $row.on('click', function(e) {
+                e.preventDefault();
+                $modal.show();
+                if (imageSrc) {
+                    $modalImg.attr('src', imageSrc);
+                }
+            });
+            
+            $closeBtn.on('click', function() {
+                $modal.hide();
+                if ($iframeContainer.length && iframeHtml) {
+                    $iframeContainer.html(iframeHtml);
+                }
+            });
+        });
+
+        // Handle modal close when clicking outside
+        $('.modal').on('click', function(e) {
+            if (e.target === this) {
+                $(this).hide();
+                var $iframeContainer = $(this).find('.iframe-container');
+                if ($iframeContainer.length) {
+                    var iframeHtml = $iframeContainer.data('original-html') || $iframeContainer.html();
+                    $iframeContainer.html(iframeHtml);
+                }
+            }
         });
     });
 
