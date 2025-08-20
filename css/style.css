@@ -1,16 +1,16 @@
-@font-face {
+* {
 	font-family: 'W95FA', sans-serif;
-	src: url('W95FA.otf');
 }
 
-* {
-	font-family: W95FA;
+input, textarea, button, label {
+	font-family: 'W95FA', sans-serif;
 }
 body {
     color: white;
     background-color: #55aaaa;
     margin: 0;
     overflow-x: hidden;
+    line-height: 1.2;
 }
 a{
     text-decoration: none;
@@ -44,7 +44,11 @@ p{
     text-align: center;
     border: solid 1px #fff0;
     margin: 10px;
+    margin-bottom: 1.2rem;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .icon-spot:hover{
     border-color: #fff8;
@@ -60,7 +64,7 @@ p{
     color: black;
 }
 .icon-title{
-    font-size: 15px;
+    font-size: 14px;
     text-align: center;
     border: solid 1px #fff0;
     margin: 0;
@@ -103,7 +107,7 @@ p{
     position: fixed;
     z-index: 0;
     right: 0;
-    top: 42%;
+    top: 36%;
     padding-top: 4px;
     padding-right: 4px;
 }
