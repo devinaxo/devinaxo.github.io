@@ -14,7 +14,30 @@ $(document).ready(function(){
     updateTime();
     setInterval(updateTime, 1000);
 
+    // Windows are dragged by their title bar, but in the stacked
+    // layout they sit in the normal document flow, so dragging is
+    // disabled there and any inline position left over from a resize is
+    // cleared so the windows fall back into place.
+    var mqStacked = window.matchMedia('(max-width: 820px)');
+    var mqTouch = window.matchMedia('(hover: none)');
+
+    function syncDraggable(){
+        if (mqStacked.matches) {
+            $('.window').draggable('disable').css({
+                top: '', left: '', right: '', position: ''
+            });
+        } else {
+            $('.window').draggable('enable');
+        }
+    }
+
     $( ".window" ).draggable({ handle: ".title-bar" });
+    syncDraggable();
+    if (typeof mqStacked.addEventListener === 'function') {
+        mqStacked.addEventListener('change', syncDraggable);
+    } else if (typeof mqStacked.addListener === 'function') {
+        mqStacked.addListener(syncDraggable);
+    }
 
     const notme = $('#notme');
     $('#cc-btn').on('click', function(){
@@ -34,33 +57,75 @@ $(document).ready(function(){
         }
     });
 
-    const clickableFolders = $('.clickable-folder');
+    const clickableSpots = $('.clickable-folder, .clickable-window');
     let currWin;
     let currIcon;
-    clickableFolders.on('click', function(){
-        $(this).css('background-color', 'gray');
-        clickableFolders.not(this).each(function(){
+
+    function selectIcon(spot){
+        spot.css('background-color', 'gray');
+        clickableSpots.not(spot).each(function(){
             $(this).css('background-color', 'transparent');
         })
+    }
+
+    function showWindow(winId){
+        var winEl = $('#' + winId);
+        winEl.show();
+        // In the stacked layout the window opens below the icons, so bring it into view
+        if (mqStacked.matches && winEl.length && winEl[0].scrollIntoView) {
+            winEl[0].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        return winEl;
+    }
+
+    function setIconImage(spot, open){
+        var iconId = spot.data('icon');
+        var src = open ? spot.data('icon-open') : spot.data('icon-closed');
+        if (iconId && src) {
+            $('#' + iconId).attr('src', src);
+        }
+    }
+
+    function openFolder(folder){
+        $('.needs-closing').hide();
+        $('.clickable-folder').each(function(){
+            setIconImage($(this), false);
+        })
+        folder.css('background-color', 'transparent');
+        showWindow(folder.data('window'));
+        setIconImage(folder, true);
+    }
+
+    function openSpot(spot){
+        if (spot.hasClass('clickable-folder')) {
+            openFolder(spot);
+        } else {
+            setIconImage(spot, true);
+            showWindow(spot.data('window'));
+        }
+    }
+
+    clickableSpots.on('click', function(){
+        selectIcon($(this));
+        // Touch devices don't reliably fire dblclick, so open on a single tap
+        if (mqTouch.matches) {
+            openSpot($(this));
+        }
     })
 
-    clickableFolders.on('dblclick', function(){
-        $('.needs-closing').hide();
-        $('.image-folder').each(function(){
-            $(this).attr('src', 'img/directory_closed_cool-0.png');
-        })
-        $(this).css('background-color', 'transparent');
-        currWin = $(this).data('window');
-        $('#' + currWin).show();
-        currIcon = $(this).data('icon');
-        $('#' + currIcon).attr('src', 'img/directory_open_cool-0.png');
+    clickableSpots.on('dblclick', function(){
+        openSpot($(this));
     })
 
     $('.window-close').on('click', function(){
         currWin = $(this).data('window');
         $('#' + currWin).hide();
-        currIcon = $(this).data('icon');
-        $('#' + currIcon).attr('src', 'img/directory_closed_cool-0.png');
+        clickableSpots.filter(function(){
+            return $(this).data('window') == currWin;
+        }).each(function(){
+            $(this).css('background-color', 'transparent');
+            setIconImage($(this), false);
+        });
     })
 
     $('.window-minimize').on('click', function(){
