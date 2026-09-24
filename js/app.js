@@ -288,7 +288,14 @@ $(document).ready(function(){
                 title: 'Depression nap - Media Player',
                 task: 'Depression nap',
                 icon: 'img/images/media_player_file-2.png'
-            }
+            },
+            modal04: {
+                kind: 'image',
+                src: 'img/images/literally_me.png',
+                title: 'literally_me.png - Imaging',
+                task: 'literally_me.png',
+                icon: 'img/images/image_old_jpeg-0.png'
+            },
         };
 
         function openViewer(item){
