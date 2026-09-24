@@ -35,7 +35,12 @@ $(document).ready(function(){
         if (!pos || mqStacked.matches) return;
         // Already floating (and possibly dragged somewhere): leave it alone
         if (winEl[0].style.position === 'absolute') return;
-        winEl.css({ position: 'absolute', top: pos.top, left: pos.left });
+        winEl.css({
+            position: 'absolute',
+            top: pos.top,
+            left: pos.left,
+            width: 'calc(100% - ' + pos.left + 'px)'
+        });
     }
 
     // Clicking (or opening) a window brings it to the front. win3/win4 live
@@ -52,7 +57,7 @@ $(document).ready(function(){
     function syncDraggable(){
         if (mqStacked.matches) {
             $('.window').draggable('disable').css({
-                top: '', left: '', right: '', position: ''
+                top: '', left: '', right: '', width: '', position: ''
             });
         } else {
             $('.window').draggable('enable');
