@@ -59,7 +59,6 @@ $(document).ready(function(){
 
     const clickableSpots = $('.clickable-folder, .clickable-window');
     let currWin;
-    let currIcon;
 
     function selectIcon(spot){
         spot.css('background-color', 'gray');
@@ -131,14 +130,26 @@ $(document).ready(function(){
     $('.window-minimize').on('click', function(){
         currWin = $(this).data('window');
         $('#' + currWin).hide();
-        currIcon = $(this).data('icon');
-        $('#' + currIcon).attr('src', 'img/portfolio-btn.png');
+        syncInfoTask();
     })
+
+    // The My Info taskbar button mirrors whether its window is open
+    function syncInfoTask(){
+        var btn = $('#portfolio-btn');
+        var isOpen = $('#' + btn.data('window')).is(':visible');
+        btn.attr('aria-pressed', isOpen ? 'true' : 'false');
+    }
+
+    // Acts like a Win98 task button: click to minimize/restore the window
     $('#portfolio-btn').on('click', function(){
         currWin = $(this).data('window');
-        $('#' + currWin).show();
-        currIcon = $(this).data('icon');
-        $('#' + currIcon).attr('src', 'img/portfolio-btn-pressed.png');
+        var win = $('#' + currWin);
+        if (win.is(':visible')) {
+            win.hide();
+        } else {
+            win.show();
+        }
+        syncInfoTask();
     })
 
     $(document).ready(function() {

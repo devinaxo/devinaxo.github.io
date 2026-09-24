@@ -192,7 +192,9 @@ p {
 footer {
     padding: 2px;
     box-shadow: inset 1px 0 #fff;
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 4px;
     background-color: silver;
     bottom: 0;
     left: 0;
@@ -207,25 +209,34 @@ footer {
     user-select: none;
 }
 
-#start-button {
-    width: 59px;
-    margin-top: 2px;
-}
-
-#start-button:active {
-    content: url("../img/start-pressed.png");
-}
-
+/* Taskbar buttons, styled like the rest of the 98.css buttons */
+#start-button,
 #portfolio-btn {
-    height: 27.6px;
-    display: block;
-    position: absolute;
-    margin-left: 66px;
-    top: 4px;
+    padding: 0 8px;
+    font-size: 15px;
+    color: transparent;
+    background-color: silver;
+    text-shadow: 0 0 #222;
 }
 
-#portfolio-btn:active {
-    content: url("../img/portfolio-btn-pressed.png");
+#start-button {
+    font-weight: 700;
+}
+
+#start-button img,
+#portfolio-btn img {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+/* The My Info button stays pressed (98.css's :active look) while its window
+   is open, and pops back out when the window is minimized */
+#portfolio-btn[aria-pressed="true"] {
+    box-shadow: inset -1px -1px #fff, inset 1px 1px #0a0a0a,
+        inset -2px -2px #dfdfdf, inset 2px 2px grey;
+    text-shadow: 1px 1px #222;
 }
 
 #time {
@@ -237,6 +248,7 @@ footer {
     bottom: 0.2rem;
     right: 12px;
     color: black;
+    padding: 0 4px;
 }
 
 /* Windows 95 adjustments */
