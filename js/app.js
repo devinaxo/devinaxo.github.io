@@ -26,7 +26,8 @@ $(document).ready(function(){
     // around. The stacked layout keeps them in flow instead.
     var cascade = {
         win1: { top: 0, left: 0 },
-        win2: { top: 56, left: 56 }
+        win2: { top: 56, left: 56 },
+        win5: { top: 112, left: 112 }
     };
 
     function mountFolder(winId, winEl){
@@ -106,7 +107,8 @@ $(document).ready(function(){
         win1: { label: 'Projects', icon: 'img/directory_closed_cool-0.png' },
         win2: { label: 'Multimedia', icon: 'img/directory_closed_cool-0.png' },
         win3: { label: 'My Info', icon: 'img/help_book_cool-4.png' },
-        win4: { label: 'Contact Me', icon: 'img/envelope_closed-0.png' }
+        win4: { label: 'Contact Me', icon: 'img/envelope_closed-0.png' },
+        win5: { label: 'Imaging', icon: 'img/images/image_old_jpeg-0.png' }
     };
 
     function ensureTask(winId){
@@ -153,6 +155,19 @@ $(document).ready(function(){
         return winEl;
     }
 
+    function hideWindow(winId){
+        var winEl = $('#' + winId);
+        winEl.hide();
+        var iframe = winEl.find('iframe');
+        if (iframe.length && iframe[0].contentWindow) {
+            iframe[0].contentWindow.postMessage(JSON.stringify({
+                event: 'command',
+                func: 'pauseVideo',
+                args: ''
+            }), '*');
+        }
+    }
+
     function setIconImage(spot, open){
         var iconId = spot.data('icon');
         var src = open ? spot.data('icon-open') : spot.data('icon-closed');
@@ -190,7 +205,7 @@ $(document).ready(function(){
 
     $('.window-close').on('click', function(){
         currWin = $(this).data('window');
-        $('#' + currWin).hide();
+        hideWindow(currWin);
         // Closing removes the window's task; minimizing keeps it
         removeTask(currWin);
         syncWindowState(currWin);
@@ -202,7 +217,7 @@ $(document).ready(function(){
 
     $('.window-minimize').on('click', function(){
         currWin = $(this).data('window');
-        $('#' + currWin).hide();
+        hideWindow(currWin);
         syncWindowState(currWin);
     })
 
@@ -211,7 +226,7 @@ $(document).ready(function(){
         currWin = $(this).data('window');
         var win = $('#' + currWin);
         if (win.is(':visible')) {
-            win.hide();
+            hideWindow(currWin);
         } else {
             showWindow(currWin);
         }
@@ -252,49 +267,58 @@ $(document).ready(function(){
             });
         });
 
-        // Handle table row modal triggers (new functionality)
-        $('tr[data-trigger-modal]').each(function() {
-            var $row = $(this);
-            var modalId = $row.data('modal-id');
-            var $modal = $('#' + modalId);
-            var $modalImg = $modal.find('.modal-content');
-            var $closeBtn = $modal.find('.close');
-            var $iframeContainer = $modal.find('.iframe-container');
-            var iframeHtml = $iframeContainer.length ? $iframeContainer.html() : '';
-            
-            // Set image sources based on modal ID
-            var imageSrc = '';
-            if (modalId === 'modal01') {
-                imageSrc = 'img/images/shantien.png';
-            } else if (modalId === 'modal02') {
-                imageSrc = 'img/images/sniff.jpg';
+        var viewerMedia = {
+            modal01: {
+                kind: 'image',
+                src: 'img/images/shantien.png',
+                title: 'shantien.png - Imaging',
+                task: 'shantien.png',
+                icon: 'img/images/image_old_jpeg-0.png'
+            },
+            modal02: {
+                kind: 'image',
+                src: 'img/images/sniff.jpg',
+                title: 'sniff.jpg - Imaging',
+                task: 'sniff.jpg',
+                icon: 'img/images/image_old_jpeg-0.png'
+            },
+            modal03: {
+                kind: 'video',
+                src: 'https://www.youtube.com/embed/t38tMHRHRco?enablejsapi=1&rel=0',
+                title: 'Depression nap - Media Player',
+                task: 'Depression nap',
+                icon: 'img/images/media_player_file-2.png'
             }
-            
-            $row.on('click', function(e) {
-                e.preventDefault();
-                $modal.show();
-                if (imageSrc) {
-                    $modalImg.attr('src', imageSrc);
-                }
-            });
-            
-            $closeBtn.on('click', function() {
-                $modal.hide();
-                if ($iframeContainer.length && iframeHtml) {
-                    $iframeContainer.html(iframeHtml);
-                }
-            });
-        });
+        };
 
-        // Handle modal close when clicking outside
-        $('.modal').on('click', function(e) {
-            if (e.target === this) {
-                $(this).hide();
-                var $iframeContainer = $(this).find('.iframe-container');
-                if ($iframeContainer.length) {
-                    var iframeHtml = $iframeContainer.data('original-html') || $iframeContainer.html();
-                    $iframeContainer.html(iframeHtml);
-                }
+        function openViewer(item){
+            var body = $('#viewer-body');
+            if (item.kind === 'image') {
+                body.html('<img class="viewer-img" src="' + item.src +
+                    '" alt="' + item.title + '">');
+            } else {
+                body.html(
+                    '<div class="iframe-container">' +
+                    '<iframe src="' + item.src +
+                    '" title="YouTube video player" frameborder="0"' +
+                    ' allow="accelerometer; autoplay; clipboard-write;' +
+                    ' encrypted-media; gyroscope; picture-in-picture; web-share"' +
+                    ' referrerpolicy="strict-origin-when-cross-origin"' +
+                    ' allowfullscreen></iframe></div>'
+                );
+            }
+            $('#viewer-title').text(item.title);
+            $('#viewer-icon').attr('src', item.icon);
+            showWindow('win5');
+            $('.task-btn[data-window="win5"]')
+                .html('<img src="' + item.icon + '" alt=""> ' + item.task);
+        }
+
+        $('tr[data-trigger-modal]').on('click', function(e) {
+            e.preventDefault();
+            var item = viewerMedia[$(this).data('modal-id')];
+            if (item) {
+                openViewer(item);
             }
         });
     });

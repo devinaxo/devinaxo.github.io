@@ -180,7 +180,8 @@ p {
 }
 
 #win1,
-#win2 {
+#win2,
+#win5 {
     display: none;
     z-index: 1;
 }
@@ -331,6 +332,13 @@ footer {
     height: auto;
     aspect-ratio: 560 / 315;
     border: 0;
+}
+
+.viewer-img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    max-height: 65vh;
 }
 
 
