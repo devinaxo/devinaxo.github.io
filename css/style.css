@@ -408,11 +408,10 @@ footer {
    page flow (js/app.js mounts them here) so opening one never pushes the
    other around */
 @media (min-width: 821px) {
-    /* The center column is just an anchor once the folder windows float, so
-       give it a stable box to mount to even when no window is open */
     .centered {
         position: relative;
-        width: 50%;
+        width: 54%;
+        max-width: 54%;
         min-height: 70vh;
     }
 }
@@ -535,6 +534,21 @@ footer {
     .modal {
         padding-top: 48px;
     }
+}
+
+table.interactive td:first-child a,
+table.interactive td:first-child p {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+table.interactive td:first-child a img,
+table.interactive td:first-child p img {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 6px;
 }
 
 table.interactive tbody tr:hover {
