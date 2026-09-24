@@ -21,6 +21,33 @@ $(document).ready(function(){
     var mqStacked = window.matchMedia('(max-width: 820px)');
     var mqTouch = window.matchMedia('(hover: none)');
 
+    // On pointer-sized screens the folder windows float free of the page
+    // flow, each with its own spot, so opening one never pushes another
+    // around. The stacked layout keeps them in flow instead.
+    var cascade = {
+        win1: { top: 0, left: 0 },
+        win2: { top: 56, left: 56 }
+    };
+
+    function mountFolder(winId, winEl){
+        var pos = cascade[winId];
+        if (!pos || mqStacked.matches) return;
+        // Already floating (and possibly dragged somewhere): leave it alone
+        if (winEl[0].style.position === 'absolute') return;
+        winEl.css({ position: 'absolute', top: pos.top, left: pos.left });
+    }
+
+    // Clicking (or opening) a window brings it to the front. win3/win4 live
+    // inside fixed wrappers that form their own stacking contexts, so those
+    // wrappers are what get raised.
+    var zTop = 10;
+
+    function raiseWindow(winEl){
+        var frame = winEl.closest('.portfolio-window, .address-window');
+        zTop += 1;
+        (frame.length ? frame : winEl).css('z-index', zTop);
+    }
+
     function syncDraggable(){
         if (mqStacked.matches) {
             $('.window').draggable('disable').css({
@@ -28,6 +55,13 @@ $(document).ready(function(){
             });
         } else {
             $('.window').draggable('enable');
+            // Back from the stacked layout: float the open folders again
+            $.each(cascade, function(winId){
+                var winEl = $('#' + winId);
+                if (winEl.is(':visible')) {
+                    mountFolder(winId, winEl);
+                }
+            });
         }
     }
 
@@ -67,9 +101,51 @@ $(document).ready(function(){
         })
     }
 
+    // Taskbar task for each window; My Info's button ships in the HTML
+    var taskInfo = {
+        win1: { label: 'Projects', icon: 'img/directory_closed_cool-0.png' },
+        win2: { label: 'Multimedia', icon: 'img/directory_closed_cool-0.png' },
+        win3: { label: 'My Info', icon: 'img/help_book_cool-4.png' },
+        win4: { label: 'Contact Me', icon: 'img/envelope_closed-0.png' }
+    };
+
+    function ensureTask(winId){
+        if ($('.task-btn[data-window="' + winId + '"]').length) {
+            return;
+        }
+        var info = taskInfo[winId];
+        if (!info) return;
+        $('<button type="button" class="task-btn"' +
+          ' aria-pressed="true" data-window="' + winId + '">' +
+          '<img src="' + info.icon + '" alt=""> ' + info.label +
+          '</button>').appendTo('#task-buttons');
+    }
+
+    function removeTask(winId){
+        $('.task-btn[data-window="' + winId + '"]').remove();
+    }
+
+    // A window's taskbar button and desktop icon mirror its visibility:
+    // pressed / open image while shown, popped out / closed image while
+    // hidden (minimized or closed)
+    function syncWindowState(winId){
+        var visible = $('#' + winId).is(':visible');
+        $('.task-btn[data-window="' + winId + '"]')
+            .attr('aria-pressed', visible ? 'true' : 'false');
+        clickableSpots.filter(function(){
+            return $(this).data('window') == winId;
+        }).each(function(){
+            setIconImage($(this), visible);
+        });
+    }
+
     function showWindow(winId){
         var winEl = $('#' + winId);
         winEl.show();
+        ensureTask(winId);
+        syncWindowState(winId);
+        mountFolder(winId, winEl);
+        raiseWindow(winEl);
         // In the stacked layout the window opens below the icons, so bring it into view
         if (mqStacked.matches && winEl.length && winEl[0].scrollIntoView) {
             winEl[0].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -85,21 +161,17 @@ $(document).ready(function(){
         }
     }
 
+    // Windows open independently: opening one never closes another, and a
+    // folder's icon stays open while its own window is open
     function openFolder(folder){
-        $('.needs-closing').hide();
-        $('.clickable-folder').each(function(){
-            setIconImage($(this), false);
-        })
         folder.css('background-color', 'transparent');
         showWindow(folder.data('window'));
-        setIconImage(folder, true);
     }
 
     function openSpot(spot){
         if (spot.hasClass('clickable-folder')) {
             openFolder(spot);
         } else {
-            setIconImage(spot, true);
             showWindow(spot.data('window'));
         }
     }
@@ -119,37 +191,36 @@ $(document).ready(function(){
     $('.window-close').on('click', function(){
         currWin = $(this).data('window');
         $('#' + currWin).hide();
+        // Closing removes the window's task; minimizing keeps it
+        removeTask(currWin);
+        syncWindowState(currWin);
+        // Clear the highlight of the icon that opened the closed window
         clickableSpots.filter(function(){
             return $(this).data('window') == currWin;
-        }).each(function(){
-            $(this).css('background-color', 'transparent');
-            setIconImage($(this), false);
-        });
+        }).css('background-color', 'transparent');
     })
 
     $('.window-minimize').on('click', function(){
         currWin = $(this).data('window');
         $('#' + currWin).hide();
-        syncInfoTask();
+        syncWindowState(currWin);
     })
 
-    // The My Info taskbar button mirrors whether its window is open
-    function syncInfoTask(){
-        var btn = $('#portfolio-btn');
-        var isOpen = $('#' + btn.data('window')).is(':visible');
-        btn.attr('aria-pressed', isOpen ? 'true' : 'false');
-    }
-
-    // Acts like a Win98 task button: click to minimize/restore the window
-    $('#portfolio-btn').on('click', function(){
+    // Taskbar buttons restore/minimize their window, like Win98 tasks
+    $(document).on('click', '.task-btn', function(){
         currWin = $(this).data('window');
         var win = $('#' + currWin);
         if (win.is(':visible')) {
             win.hide();
         } else {
-            win.show();
+            showWindow(currWin);
         }
-        syncInfoTask();
+        syncWindowState(currWin);
+    })
+
+    // Touching anywhere in a window (including starting a drag) raises it
+    $(document).on('mousedown', '.window', function(){
+        raiseWindow($(this));
     })
 
     $(document).ready(function() {

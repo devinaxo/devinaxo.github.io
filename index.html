@@ -62,12 +62,14 @@
         <div class="icon-spot empty"></div>
       </div>
       <div class="centered">
-        <div class="window needs-closing" id="win1">
+        <div class="window" id="win1">
           <div class="title-bar" id="title1">
-            <div class="title-bar-text unselectable"><img
+            <div class="title-bar-text unselectable flex"><img
                 src="img/directory_closed_cool-0.png" alt
                 class="window-icon">Exploring - C:\MyDocuments\Projects</div>
             <div class="title-bar-controls">
+              <button aria-label="Minimize" class="window-minimize"
+                data-window="win1"></button>
               <button aria-label="Close" class="window-close" data-icon="icon1"
                 data-window="win1"></button>
             </div>
@@ -232,13 +234,15 @@
             </div>
           </div>
         </div>
-        <div class="window needs-closing" id="win2">
+        <div class="window" id="win2">
           <div class="title-bar" id="title2">
-            <div class="title-bar-text unselectable">
+            <div class="title-bar-text unselectable flex">
               <img src="img/directory_closed_cool-0.png" alt
                 class="window-icon">Exploring C:\MyDocuments\Multimedia
             </div>
             <div class="title-bar-controls">
+              <button aria-label="Minimize" class="window-minimize"
+                data-window="win2"></button>
               <button aria-label="Close" class="window-close" data-icon="icon2"
                 data-window="win2"></button>
             </div>
@@ -319,19 +323,18 @@
                 </div>
                 <div class="title-bar-controls">
                   <button aria-label="Minimize" class="window-minimize"
-                    data-icon="portfolio-btn" data-window="win3"></button>
+                    data-window="win3"></button>
                 </div>
               </div>
               <div class="window-body">
                 <div class="portfolio-info">
                   <img src="img/mugshot.jpg" alt class="circle-mug">
-                  <p class="black">Hey, I'm Nacho. I'm but a humble comp sci
-                    student who's been into this, officially, for at least 4
+                  <p class="black">Hey, I'm Nacho. I'm a dude who likes programming and has been into this, officially, for at 6
                     years now, but started tinkering around with technology
-                    around 10 years ago with passion projects such as videogame
+                    around 12 years ago with passion projects such as videogame
                     modding in C and C++, and have since then started to branch
                     out into anything that catches my interest (such
-                    as making this and other webpages, mobile apps and Python
+                    as making this and other webpages, mobile apps using Java or Flutter and Python
                     scripts). <br><br> Feel free to double click on those
                     folders and check out my stuff! (and pictures I have deemed
                     "cool")
@@ -355,6 +358,8 @@
                     src="img/message_envelope_open-0.png" alt
                     class="window-icon">Hello! - Message (Plain Text)</div>
                 <div class="title-bar-controls">
+                  <button aria-label="Minimize" class="window-minimize"
+                    data-window="win4"></button>
                   <button aria-label="Close" class="window-close"
                     data-window="win4"></button>
                 </div>
@@ -397,9 +402,11 @@
         <button id="start-button" type="button" class="flex flex-row place-items-center">
           <img src="img/windows-0.png" alt> Start
         </button>
-        <button id="portfolio-btn" type="button" aria-pressed="true" data-window="win3" class="flex flex-row place-items-center w-36">
-          <img src="img/help_book_cool-4.png" alt> My Info
-        </button>
+        <div id="task-buttons">
+          <button id="portfolio-btn" type="button" aria-pressed="true" data-window="win3" class="task-btn flex flex-row place-items-center w-36">
+            <img src="img/help_book_cool-4.png" alt> My Info
+          </button>
+        </div>
         <div id="time" class="text-lg">00:00:00</div>
       </footer>
       <script src="js/app.js"></script>

@@ -190,7 +190,7 @@ p {
 }
 
 footer {
-    padding: 2px;
+    padding: 2px 96px 2px 2px;
     box-shadow: inset 1px 0 #fff;
     display: flex;
     align-items: center;
@@ -211,7 +211,7 @@ footer {
 
 /* Taskbar buttons, styled like the rest of the 98.css buttons */
 #start-button,
-#portfolio-btn {
+.task-btn {
     padding: 0 8px;
     font-size: 15px;
     color: transparent;
@@ -221,19 +221,42 @@ footer {
 
 #start-button {
     font-weight: 700;
+    flex: none;
 }
 
 #start-button img,
-#portfolio-btn img {
+.task-btn img {
     width: 20px;
     height: 20px;
     vertical-align: middle;
     margin-right: 4px;
 }
 
-/* The My Info button stays pressed (98.css's :active look) while its window
-   is open, and pops back out when the window is minimized */
-#portfolio-btn[aria-pressed="true"] {
+/* Every open window adds its task here, between Start and the clock. Tasks
+   keep a Win98-style fixed width and shrink (icon-only if needed) when the
+   bar gets full. */
+#task-buttons {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 4px;
+}
+
+.task-btn {
+    display: flex;
+    align-items: center;
+    width: 9rem;
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* A task stays pressed (98.css's :active look) while its window is open,
+   and pops back out when the window is minimized */
+.task-btn[aria-pressed="true"] {
     box-shadow: inset -1px -1px #fff, inset 1px 1px #0a0a0a,
         inset -2px -2px #dfdfdf, inset 2px 2px grey;
     text-shadow: 1px 1px #222;
@@ -370,6 +393,19 @@ footer {
 
     .address-txtarea {
         height: 7rem;
+    }
+}
+
+/* Wide enough to be a real desktop: the folder windows float free of the
+   page flow (js/app.js mounts them here) so opening one never pushes the
+   other around */
+@media (min-width: 821px) {
+    /* The center column is just an anchor once the folder windows float, so
+       give it a stable box to mount to even when no window is open */
+    .centered {
+        position: relative;
+        width: 50%;
+        min-height: 70vh;
     }
 }
 
