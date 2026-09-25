@@ -333,6 +333,106 @@ footer {
     font-size: 15px;
 }
 
+/* Classic menu bar under the title bar (File, Edit, View, Help...) with
+   Win98-style dropdowns. 98.css styles every button as a raised 3D push
+   button, so the menu text is flattened back out to plain menu styling
+   (the box-shadow/text-shadow lines only cancel 98.css, add nothing) */
+.menu-bar {
+    position: relative;
+    z-index: 20;
+    display: flex;
+    flex: 0 0 auto;
+    align-items: flex-start;
+    margin-top: 2px;
+    padding-top: 1px;
+}
+
+.menu-bar button.menu-item,
+.menu-bar button.menu-entry {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    color: #222;
+    text-shadow: none;
+    min-width: 0;
+    min-height: 0;
+    text-align: left;
+}
+
+.menu-bar button.menu-item {
+    padding: 3px 8px;
+}
+
+.menu-bar button:disabled {
+    color: grey;
+}
+
+.menu-group {
+    position: relative;
+}
+
+.menu-bar .menu-item:hover,
+.menu-group.open .menu-item {
+    background: navy;
+    color: #fff;
+}
+
+.menu-popup {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 30;
+    min-width: 165px;
+    padding: 3px;
+    background: silver;
+    border: 1px solid;
+    border-color: #dfdfdf #0a0a0a #0a0a0a #dfdfdf;
+}
+
+.menu-group.open .menu-popup {
+    display: block;
+}
+
+.menu-bar button.menu-entry {
+    display: block;
+    width: 100%;
+    padding: 4px 16px 4px 24px;
+    white-space: nowrap;
+}
+
+.menu-entry:not(:disabled):hover {
+    background: navy;
+    color: #fff;
+}
+
+/* Keep the accelerator underlines visible on the navy highlight */
+.menu-bar .menu-item:hover u,
+.menu-group.open .menu-item u,
+.menu-entry:not(:disabled):hover u {
+    border-color: #fff;
+}
+
+.menu-sep {
+    margin: 3px 2px;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid #fff;
+}
+
+@media (max-width: 820px) {
+    .menu-bar button.menu-item,
+    .menu-bar button.menu-entry {
+        min-height: 30px;
+        padding: 8px 12px;
+        font-size: 16px;
+    }
+
+    .menu-bar button.menu-entry {
+        padding-left: 24px;
+    }
+}
+
 /* modal */
 .modal {
     display: none;

@@ -319,6 +319,46 @@ $(document).ready(function(){
         raiseWindow($(this));
     })
 
+    // Menu bars: clicking a title (File, Edit, ...) opens its dropdown,
+    // clicking it again or anything outside the menu bar closes them
+    function closeMenus(){
+        $('.menu-group.open').removeClass('open');
+    }
+
+    $(document).on('click', '.menu-item', function(){
+        var group = $(this).closest('.menu-group');
+        var wasOpen = group.hasClass('open');
+        closeMenus();
+        if (!wasOpen) {
+            group.addClass('open');
+        }
+    });
+
+    $(document).on('click', '.menu-entry', function(){
+        closeMenus();
+        var action = $(this).data('action');
+        var winEl = $(this).closest('.window');
+        if (action === 'close') {
+            winEl.find('.window-close').first().trigger('click');
+        } else if (action === 'refresh') {
+            // Replays the window's first-load animation
+            var winId = winEl.attr('id');
+            delete firstOpened[winId];
+            simulateFirstLoad(winId, winEl);
+        } else if (action === 'send') {
+            var sendBtn = document.getElementById('button');
+            if (sendBtn) sendBtn.click();
+        } else if (action === 'about') {
+            showWindow('win3');
+        }
+    });
+
+    $(document).on('click', function(e){
+        if (!$(e.target).closest('.menu-bar').length) {
+            closeMenus();
+        }
+    });
+
     $(document).ready(function() {
         // Handle icon-based modal triggers (existing functionality)
         $('[data-trigger-modal]:not(tr)').each(function() {
