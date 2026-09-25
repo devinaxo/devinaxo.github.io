@@ -122,8 +122,8 @@ $(document).ready(function(){
 
     // Taskbar task for each window; My Info's button ships in the HTML
     var taskInfo = {
-        win1: { label: 'Projects', icon: 'img/directory_closed_cool-0.png' },
-        win2: { label: 'Multimedia', icon: 'img/directory_closed_cool-0.png' },
+        win1: { label: 'Projects', icon: 'img/directory_closed-4.png' },
+        win2: { label: 'Multimedia', icon: 'img/directory_closed-4.png' },
         win3: { label: 'My Info', icon: 'img/help_book_cool-4.png' },
         win4: { label: 'Contact Me', icon: 'img/envelope_closed-0.png' },
         win5: { label: 'Imaging', icon: 'img/images/image_old_jpeg-0.png' }
@@ -372,7 +372,7 @@ $(document).ready(function(){
             var $closeBtn = $('#' + closeId);
             var $iframeContainer = $modal.find('.iframe-container');
             var iframeHtml = $iframeContainer.length ? $iframeContainer.html() : '';
-    
+
             $iconSpot.on('dblclick', function() {
                 $modal.show();
                 $modalImg.attr('src', hqImage);

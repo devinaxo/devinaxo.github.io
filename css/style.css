@@ -110,8 +110,8 @@ p {
 }
 
 .window-icon {
-    width: 24px;
-    height: 24px;
+    width: 16px;
+    height: 16px;
     float: none;
     vertical-align: middle;
     margin-right: 5px;
@@ -277,7 +277,8 @@ footer {
 
 /* Windows 95 adjustments */
 .title-bar-text {
-    font-size: 18px;
+    font-size: 14px;
+    font-weight: normal;
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -608,7 +609,7 @@ footer {
     }
 
     .title-bar-text {
-        font-size: 18px;
+        font-size: 14px;
         margin-right: 6px;
     }
 
