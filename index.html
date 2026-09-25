@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>devinaxo's portfolio emporium</title>
     <link rel="icon" href="img/ico.jpg" type="image/x-icon">
-    <link href="https://fonts.cdnfonts.com/css/w95fa" rel="stylesheet">
     <link rel="stylesheet" href="css/98.css">
     <link rel="stylesheet" href="css/jquery-ui.css">
     <link rel="stylesheet" href="css/style.css">
@@ -58,8 +57,18 @@
             alt="Mail icon" id="icon5">
           <p class="icon-title white unselectable">Contact Me</p>
         </div>
-        <div class="icon-spot empty"></div>
-        <div class="icon-spot empty"></div>
+        <div class="icon-spot clickable-window" data-window="win6"
+          data-icon="icon6">
+          <img class="unselectable" src="img/notepad_file-2.png"
+            alt="Notepad icon" id="icon6">
+          <p class="icon-title white unselectable">experiences.txt</p>
+        </div>
+        <div class="icon-spot clickable-window" data-window="win7"
+          data-icon="icon7">
+          <img class="unselectable" src="img/ms_dos-1.png"
+            alt="MS-DOS Prompt icon" id="icon7">
+          <p class="icon-title white unselectable">MS-DOS Prompt</p>
+        </div>
       </div>
       <div class="centered">
         <div class="window" id="win1">
@@ -142,7 +151,7 @@
                         GatoDex (Flutter)
                       </a>
                     </td>
-                    <td>24.9 MB</td>
+                    <td>26.3 MB</td>
                     <td>Android Application</td>
                     <td>Dart, Flutter, Android SDK, SQLite</td>
                   </tr>
@@ -458,6 +467,136 @@
           </div>
           <div class="window-body" id="viewer-body"></div>
         </div>
+        <div class="window notepad-window" id="win6">
+          <div class="title-bar">
+            <div class="title-bar-text unselectable flex">
+              <img src="img/notepad_file-2.png" alt class="window-icon">experiences.txt - Notepad
+            </div>
+            <div class="title-bar-controls">
+              <button aria-label="Minimize" class="window-minimize"
+                data-window="win6"></button>
+              <button aria-label="Close" class="window-close"
+                data-window="win6"></button>
+            </div>
+          </div>
+          <div class="menu-bar unselectable">
+            <div class="menu-group">
+              <button type="button" class="menu-item"><u>F</u>ile</button>
+              <div class="menu-popup">
+                <button type="button" class="menu-entry" disabled><u>N</u>ew</button>
+                <button type="button" class="menu-entry" disabled><u>O</u>pen...</button>
+                <button type="button" class="menu-entry" disabled><u>S</u>ave</button>
+                <button type="button" class="menu-entry" disabled>Save <u>A</u>s...</button>
+                <div class="menu-sep"></div>
+                <button type="button" class="menu-entry" data-action="close"><u>E</u>xit</button>
+              </div>
+            </div>
+            <div class="menu-group">
+              <button type="button" class="menu-item"><u>E</u>dit</button>
+              <div class="menu-popup">
+                <button type="button" class="menu-entry" disabled><u>U</u>ndo</button>
+                <div class="menu-sep"></div>
+                <button type="button" class="menu-entry" disabled><u>C</u>ut</button>
+                <button type="button" class="menu-entry" disabled><u>C</u>opy</button>
+                <button type="button" class="menu-entry" disabled><u>P</u>aste</button>
+                <button type="button" class="menu-entry" disabled><u>D</u>elete</button>
+                <div class="menu-sep"></div>
+                <button type="button" class="menu-entry" disabled>Select <u>A</u>ll</button>
+              </div>
+            </div>
+            <div class="menu-group">
+              <button type="button" class="menu-item"><u>S</u>earch</button>
+              <div class="menu-popup">
+                <button type="button" class="menu-entry" disabled><u>F</u>ind...</button>
+                <button type="button" class="menu-entry" disabled>Find <u>N</u>ext</button>
+              </div>
+            </div>
+            <div class="menu-group">
+              <button type="button" class="menu-item"><u>H</u>elp</button>
+              <div class="menu-popup">
+                <button type="button" class="menu-entry" data-action="about"><u>A</u>bout Portfolio...</button>
+              </div>
+            </div>
+          </div>
+          <div class="window-body">
+            <textarea class="notepad-text" readonly spellcheck="false"
+              cols="60" rows="18">
+WORK EXPERIENCES
+================
+
+PROFESSIONAL
+------------
+
+Web Developer - Auditoría General de la Provincia de Salta (2022 - current)
+* Developed an internal managing system for the organization, which is used to submit and store municipal financial data for the current and previous years, and is used by the organization to generate statistics for the province; as well as a whole module for performing audits, managing work programs and emitting final reports.
+* Developed a web application destined for communicating with the public, which allows users to view the data stored in the system in an easily digestible way.
+* Developed a web application that allows the organization to communicate with the municipalities, deprecating their physical communication and allowing them to send their data digitally, which is then stored in the system with national file signature validation to ensure maximum security.
+* Built with: Javascript and React, Spring-Boot, Tailwind, MySQL, AWS.
+
+
+FREELANCE
+---------
+
+[Lavandería del 13 / Sistema del 13] - ([2025 - 2026])
+* Developed a web application for a local laundry business, which allows them to manage and notify their clients, orders and payments in a digital way, as well as display statistics and reports for the business owner.
+* Built with: React and TypeScript, Laravel, Tailwind, MySQL, Netlify.
+
+[Punto Mobile / Sistema de Gestión] - ([2026])
+* Developed a web application for a local mobile phone business, which allows them to manage their stock/inventory, sales, repairs, payments and providers, as well as display statistics, emails sent and received reports for the business owner.
+* Built with: React and TypeScript, Spring-Boot, Tailwind, MySQL, DigitalOcean, Mailgun.
+          </textarea>
+          </div>
+        </div>
+        <div class="window dos-window" id="win7">
+          <div class="title-bar">
+            <div class="title-bar-text unselectable flex">
+              <img src="img/ms_dos-1.png" alt class="window-icon">MS-DOS Prompt
+            </div>
+            <div class="title-bar-controls">
+              <button aria-label="Minimize" class="window-minimize"
+                data-window="win7"></button>
+              <button aria-label="Close" class="window-close"
+                data-window="win7"></button>
+            </div>
+          </div>
+          <div class="menu-bar unselectable">
+            <div class="menu-group">
+              <button type="button" class="menu-item"><u>F</u>ile</button>
+              <div class="menu-popup">
+                <button type="button" class="menu-entry" data-action="close"><u>C</u>lose</button>
+                <button type="button" class="menu-entry" disabled><u>P</u>roperties</button>
+              </div>
+            </div>
+            <div class="menu-group">
+              <button type="button" class="menu-item"><u>E</u>dit</button>
+              <div class="menu-popup">
+                <button type="button" class="menu-entry" disabled><u>M</u>ark</button>
+                <div class="menu-sep"></div>
+                <button type="button" class="menu-entry" disabled><u>C</u>opy</button>
+                <button type="button" class="menu-entry" disabled><u>P</u>aste</button>
+              </div>
+            </div>
+            <div class="menu-group">
+              <button type="button" class="menu-item"><u>H</u>elp</button>
+              <div class="menu-popup">
+                <button type="button" class="menu-entry" data-action="about"><u>A</u>bout Portfolio...</button>
+              </div>
+            </div>
+          </div>
+          <div class="window-body">
+            <div class="dos-output" id="dos-output">
+              <div>Nacho(R) Windows 98</div>
+              <div>(C)Copyright Nacho Corp 1981-1998.</div>
+              <div>Type HELP and press Enter. Try DIR, COLOR, CLS, TREE, PING... some commands do things, others do too.</div>
+            </div>
+            <div class="dos-line">
+              <span class="dos-prompt">C:\&gt;</span>
+              <input class="dos-input !bg-black !shadow-none" id="dos-input" type="text"
+                autocomplete="off" autocapitalize="off" spellcheck="false"
+                aria-label="MS-DOS command">
+            </div>
+          </div>
+        </div>
         <div>
           <div class="portfolio-window">
             <div class="window" id="win3">
@@ -489,7 +628,7 @@
                       target="_blank">devinacho</a> <br>
                     *Twitter: <a href="https://twitter.com/devinachoes"
                       target="_blank">@devinachoes</a> <br>
-                    *... Or double click that handy Contact Me icon!
+                    *... Or double click that handy Contact Me icon! (ps. you can resize windows and drag them around)
                   </p>
                 </div>
               </div>

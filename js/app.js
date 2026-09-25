@@ -27,8 +27,18 @@ $(document).ready(function(){
     var cascade = {
         win1: { top: 0, left: 0 },
         win2: { top: 56, left: 56 },
-        win5: { top: 112, left: 112 }
+        win5: { top: 112, left: 112 },
+        win6: { top: 168, left: 168 },
+        win7: { top: 224, left: 224 }
     };
+
+    // Windows that keep a fit-content width: the listings are as wide as
+    // their content and never run out of room. The rest get a calc() width,
+    // because fit-content is a shrink-to-fit and also depends on how much
+    // room is left to the right of the window, which made them visibly
+    // grow and shrink while being dragged. A percentage in calc() resolves
+    // against .centered, which does not move, so those stay consistent.
+    var fitContentWindows = { win1: true, win2: true };
 
     function mountFolder(winId, winEl){
         var pos = cascade[winId];
@@ -39,8 +49,8 @@ $(document).ready(function(){
             position: 'absolute',
             top: pos.top,
             left: pos.left,
-            // width: 'calc(100% - ' + pos.left + 'px)',
-            width: 'fit-content'
+            width: fitContentWindows[winId] ? 'fit-content' :
+                'calc(100% - ' + pos.left + 'px)'
         });
     }
 
@@ -126,7 +136,9 @@ $(document).ready(function(){
         win2: { label: 'Multimedia', icon: 'img/directory_closed-4.png' },
         win3: { label: 'My Info', icon: 'img/help_book_cool-4.png' },
         win4: { label: 'Contact Me', icon: 'img/envelope_closed-0.png' },
-        win5: { label: 'Imaging', icon: 'img/images/image_old_jpeg-0.png' }
+        win5: { label: 'Imaging', icon: 'img/images/image_old_jpeg-0.png' },
+        win6: { label: 'experiences.txt', icon: 'img/notepad_file-2.png' },
+        win7: { label: 'MS-DOS Prompt', icon: 'img/ms_dos-1.png' }
     };
 
     function ensureTask(winId){
@@ -166,7 +178,7 @@ $(document).ready(function(){
     var loadTimers = {}; // pending paints per window, so an interrupted
                          // run can be cancelled cleanly
 
-    function simulateFirstLoad(winId, winEl){
+    function simulateFirstLoad(winId, winEl, wipe){
         if (firstOpened[winId]) return;
         firstOpened[winId] = true;
 
@@ -200,6 +212,75 @@ $(document).ready(function(){
             for (i = 0; i < parts.length; i++) {
                 delays.push(100 + i * 110);
             }
+        } else if (winId === 'win6') {
+            // Notepad: the file paints in a couple of lines at a time,
+            // like a slow disk, and ends up exactly as it was
+            var ta = winEl.find('.notepad-text');
+            if (!ta.length) return;
+            if (ta.data('fullText') === undefined) {
+                ta.data('fullText', ta.val());
+            }
+            var rows = String(ta.data('fullText')).split('\n');
+            var chunk = 2;
+            ta.val('');
+            for (i = 0; i * chunk < rows.length; i++) {
+                (function(step){
+                    loadTimers[winId].push(setTimeout(function(){
+                        ta.val(rows.slice(0, Math.min(rows.length,
+                            (step + 1) * chunk)).join('\n'));
+                        ta[0].scrollTop = 0;
+                    }, 150 + step * 45));
+                })(i);
+            }
+            return;
+        } else if (winId === 'win7') {
+            // MS-DOS Prompt: the console types out its boot and greeting,
+            // then the prompt itself wakes up. Reopening an already used
+            // console keeps the scrollback; a Refresh (wipe) reboots it.
+            var out = winEl.find('#dos-output');
+            var line = winEl.find('.dos-line');
+            if (!out.length) return;
+            if (out.data('greeting') === undefined) {
+                out.data('greeting', out.children().map(function(){
+                    return $(this).text();
+                }).get());
+            }
+            line.css('visibility', 'hidden');
+            if (wipe) {
+                out.empty().removeData('booted');
+            }
+            if (out.data('booted')) {
+                loadTimers[winId].push(setTimeout(function(){
+                    line.css('visibility', '');
+                }, 120));
+                return;
+            }
+            out.empty();
+            var stream = [
+                '',
+                'Starting MS-DOS...',
+                '',
+                'HIMEM is testing extended memory...done.',
+                ''
+            ].concat(out.data('greeting')).join('\n');
+            var bootEl = $('<div>').appendTo(out);
+            var chars = Math.max(1, Math.round(stream.length / 60));
+            for (i = 0; i * chars < stream.length; i++) {
+                (function(step){
+                    loadTimers[winId].push(setTimeout(function(){
+                        bootEl.text(stream.slice(0, (step + 1) * chars));
+                        out.scrollTop(out[0].scrollHeight);
+                    }, 200 + step * 24));
+                })(i);
+            }
+            loadTimers[winId].push(setTimeout(function(){
+                out.data('booted', true);
+                line.css('visibility', '');
+                if (out.closest('.window').is(':visible')) {
+                    $('#dos-input').focus();
+                }
+            }, 200 + Math.ceil(stream.length / chars) * 24 + 80));
+            return;
         } else {
             return;
         }
@@ -290,6 +371,13 @@ $(document).ready(function(){
         syncWindowState(currWin);
         // Closing arms the first-load animation again; minimizing doesn't
         delete firstOpened[currWin];
+        // Closing the MS-DOS Prompt also wipes the console (output and the
+        // half-typed command), so the next open boots from scratch.
+        // Minimizing leaves everything on screen.
+        if (currWin === 'win7') {
+            $('#dos-output').empty().removeData('booted');
+            $('#dos-input').val('');
+        }
         // Clear the highlight of the icon that opened the closed window
         clickableSpots.filter(function(){
             return $(this).data('window') == currWin;
@@ -344,7 +432,7 @@ $(document).ready(function(){
             // Replays the window's first-load animation
             var winId = winEl.attr('id');
             delete firstOpened[winId];
-            simulateFirstLoad(winId, winEl);
+            simulateFirstLoad(winId, winEl, true);
         } else if (action === 'send') {
             var sendBtn = document.getElementById('button');
             if (sendBtn) sendBtn.click();
@@ -356,6 +444,376 @@ $(document).ready(function(){
     $(document).on('click', function(e){
         if (!$(e.target).closest('.menu-bar').length) {
             closeMenus();
+        }
+    });
+
+    // MS-DOS Prompt: a fake console with commands, easter eggs and
+    // command history on the arrow keys (type HELP to get started)
+    var dosHistory = [];
+    var dosHistIdx = 0;
+
+    function dosPrint(lines){
+        var out = $('#dos-output');
+        $.each(lines, function(i, line){
+            $('<div>').text(line === '' ? '\u00a0' : line).appendTo(out);
+        });
+        out.scrollTop(out[0].scrollHeight);
+    }
+
+    // Prints rows as a div with two fixed columns: [0] is the command/name
+    // in the left column, [1] the description on the right. The left column
+    // is sized to the longest entry so every row starts at the same place.
+    function dosPrintCols(rows){
+        var out = $('#dos-output');
+        var w = 1;
+        $.each(rows, function(i, row){
+            w = Math.max(w, (row[0] || '').length);
+        });
+        w += 2;
+        $.each(rows, function(i, row){
+            $('<div class="dos-row">')
+                .append($('<span class="dos-col-a">').text(row[0] || '')
+                    .css('width', w + 'ch'))
+                .append($('<span class="dos-col-b">').text(row[1] || ''))
+                .appendTo(out);
+        });
+        out.scrollTop(out[0].scrollHeight);
+    }
+
+    // Prints rows with one fixed column per cell: every column is as wide
+    // as its longest entry (+2ch), the last one takes what is left. Used
+    // by DIR, whose listing has name / size / date / time / long name.
+    function dosPrintTable(rows){
+        var out = $('#dos-output');
+        var cols = 0;
+        $.each(rows, function(i, row){
+            cols = Math.max(cols, row.length);
+        });
+        var widths = [];
+        for (var c = 0; c < cols; c++){
+            var w = 1;
+            $.each(rows, function(i, row){
+                w = Math.max(w, (row[c] || '').length);
+            });
+            widths.push(w + 2);
+        }
+        $.each(rows, function(i, row){
+            var line = $('<div class="dos-row">');
+            for (var c = 0; c < cols; c++){
+                var cell = $('<span class="dos-col-a">').text(row[c] || '');
+                if (c < cols - 1){
+                    cell.css('width', widths[c] + 'ch');
+                }
+                line.append(cell);
+            }
+            line.appendTo(out);
+        });
+        out.scrollTop(out[0].scrollHeight);
+    }
+
+    // The NACHO easter egg: ASCII art printed verbatim as one block
+    var dosArt = `===
+               *+=++++=
+                ---===++*+===++++++++*************++
+                 --=====*+***++++++++******###+-==++*++
+                 =---=*==##*++++++++++++*****====+++**+++
+                  ::--+*+++++++++++++++**#%*#===+++++***+++
+                  -:++*+++++++++++++++++*+*##+===+*+==#*+++=
+                  ==+++*++++++++**+++++++++++===-=*+==***+++++
+                  ++++**+==+++***++++++++++===+++=*+==+#*+++++++
+                 +=+***+=====+*++++++++++++++=++===+==***++++++++
+                ++++*+++=====+*+++++==+++++++++++*+++****++++++++++
+               *++++*+++==-===++=========++++++++*++*++*++++++++++++
+               ++++==+%%%%===+===--===---==+++++==+++=+++++++++++++++
+               *===-:+=%@#==++==---+=%*%%++++++++==+++++++++++++++++++
+               +==-::=++*+++++==+*%%%%#=:::--======++==++++==+++++++++++
+               ++==--=++*********+-----::...:-=====++===++===++++++++++++
+              *++=====+*******+++=-::::.....::--==============++++++====+=
+            +++++++==+******+++==-:..........::--=============++++++=====++
+           +++++++++#******+==----:...........::--============++++=========+
+         *++++++++++%%%%%%*+-----:.............::-=========++++++++======+===
+        +====+++***#%%%#%%%#-:-:-:::::.......::::--======+++++++++=======++==+
+       +=====++***#+@%%%%**=--::::++-:.......:::---======++++++++========*#==+
+       =---==++**##*++##**+=----=*=-:.......:::----====++++++++++=======+#**==
+      =----==++**####+=*#**+====::::.......:::----===+++++++++=========++*-++*
+     =----===+**####**+------::::.........:::---===+++++++++++=========++++=+=
+   +=-----==++*####****+--::::::::.....:::::--==++++++++++==================++
+ =-::::-===+*#%###****+++=--::::::::..::::-=+++++++++++=====---=-====+======+*
+=------+#***********+==++===--:::::::::-===++++++++====----------===+=======+*+
+======**++++*******+=--===---:--::::::::--=======---------------=+*=+=======++.
++=====%**#++**#*++*+=---===-:::::::::::::--==-----:::---------+*##*++*========
++====+=*####**#*+++++=----==--:::::::::::-------::::----==+***##+=-=*+=======+
+==+==++*#%%#*##*++===+=--::-++---:::::::::---::::::--+********=============++
+     =+#%%###%%*+++++===--:-%%%#+-:::::::::::::::==+***++**-----==========+
+               *++++++++==+#%%%%-==+=-::::::-=++******=----:::---========
+               **+++++++===+%@*---:------------:::------:::::::---======+
+                ***+++======%@#-:::::::---:::::::::::::::::..::---=====++
+                  **+===========-:::::::::::::::::::.::::::::::--=======
+                   #+++======--+---:::::::::::::::::::::::::-==+========
+                     **++++====+#+=-:::::-----==========--:--===========
+                                           ++++++++++++++++=============
+                                              +++++===++++++==========
+                                            +==++======++++========++
+                                           =-===+=====++++==+==+*+
+                                        ==----===-===+**
+                                       ===+-==-----=*
+                                      ==+==--==---=
+                                     %#*##==+%+--
+                                       %####+**`;
+
+
+    var dosFiles = {
+        'readme.txt': [
+            'Thanks for reading me.',
+        ],
+        'autoexec.bat': [
+            '@ECHO OFF',
+            'PROMPT $P$G',
+            'PATH=C:\\DOS;C:\\WINDOWS',
+            'TEMP=C:\\TEMP',
+            'SET PORTFOLIO=DEVINAXO',
+            ''
+        ]
+    };
+    var notepadText = $('#win6 .notepad-text').val() || '';
+    dosFiles['experiences.txt'] = notepadText.split(/\r?\n/);
+    dosFiles['experience.txt'] = dosFiles['experiences.txt'];
+
+    function dosRun(raw){
+        var out = $('#dos-output');
+        var echoEl = $('<div>').text('C:\\>' + raw).appendTo(out);
+        var scrollEl = null;
+
+        var cmd = raw.trim();
+        if (cmd) {
+            dosHistory.push(cmd);
+        }
+        dosHistIdx = dosHistory.length;
+
+        var parts = cmd.toLowerCase().split(/\s+/);
+        var head = parts[0];
+
+        switch (head) {
+        case '':
+            // Empty line
+            break;
+        case 'help':
+            dosPrint([
+                'For more information on a specific command, type HELP command-name'
+            ]);
+            dosPrintCols([
+                ['CLS', 'Clears the screen.'],
+                ['COLOR', 'Changes the text color (try COLOR 0A).'],
+                ['DATE', 'Displays the current date.'],
+                ['DIR', 'Lists the contents of this portfolio.'],
+                ['ECHO', 'Prints text back at you.'],
+                ['EXIT', 'Quits the MS-DOS Prompt.'],
+                ['LINKEDIN', 'Opens LinkedIn in a new tab.'],
+                ['MORE', 'Prints a file (try MORE readme.txt).'],
+                ['PING', 'Pings a host.'],
+                ['TIME', 'Displays the current time.'],
+                ['TREE', 'Displays the directory tree.'],
+                ['TWITTER', 'Opens Twitter in a new tab.'],
+                ['VER', 'Displays the Windows version.'],
+                ['WHOAMI', 'Tells you who you are.']
+            ]);
+            dosPrint([
+                '',
+                'Type EXIT to quit the MS-DOS Prompt. Find the cool ones first though.'
+            ]);
+            break;
+        case 'cls':
+            out.empty();
+            break;
+        case 'ver':
+            dosPrint([
+                '',
+                'Nacho(R) Windows 98',
+                '   [Version 4.10.1998]',
+                ''
+            ]);
+            break;
+        case 'dir':
+            dosPrint([
+                '',
+                ' Volume in drive C has no label',
+                ' Volume Serial Number is 1981-1998',
+                '',
+                ' Directory of C:\\',
+                ''
+            ]);
+            dosPrintTable([
+                ['.', '<DIR>', '09-25-26', '12:00a', '.'],
+                ['..', '<DIR>', '09-25-26', '12:00a', '..'],
+                ['GATODEX', '<DIR>', '09-25-26', '12:00a', 'GATODEX'],
+                ['REVISOR', '<DIR>', '09-25-26', '12:00a', 'REVISOR-ORTOGRAFICO'],
+                ['FARMRPG', '<DIR>', '09-25-26', '12:00a', 'FARM-RPG-AUTOMATION'],
+                ['APRETALO', '<DIR>', '09-25-26', '12:00a', 'APRETALO-MATI'],
+                ['METODOS', '<DIR>', '09-25-26', '12:00a', 'NUMERICAL-METHODS'],
+                ['EXPERIENC TXT', '1,337', '09-25-26', '12:00a', 'EXPERIENCES.TXT'],
+                ['README TXT', '640', '09-25-26', '12:00a', 'README.TXT'],
+                ['AUTOEXEC BAT', '37', '09-25-26', '12:00a', 'AUTOEXEC.BAT'],
+                ['COMMAND COM', '93,890', '09-25-26', '12:00a', 'COMMAND.COM']
+            ]);
+            dosPrint([
+                '        8 file(s)        96,211 bytes',
+                '        5 dir(s)  69,606,604 bytes free',
+                ''
+            ]);
+            break;
+        case 'date':
+            dosPrint(['Current date is ' + new Date().toDateString(), '']);
+            break;
+        case 'time':
+            var now = new Date();
+            dosPrint([
+                'Current time is ' + now.toTimeString().slice(0, 8) +
+                    '.' + ('0' + now.getMilliseconds()).slice(-2),
+                ''
+            ]);
+            break;
+        case 'echo':
+            dosPrint([raw.trim().replace(/^echo\s*/i, ''), '']);
+            break;
+        case 'whoami':
+            dosPrint(['Lila', '']);
+            break;
+        case 'whoislila':
+        case 'whoslila':
+            dosPrint(['Lila... Please. I beg you, let me back in...', '']);
+            break;
+        case 'tree':
+            dosPrint([
+                'C:.\\',
+                '+-- GATODEX',
+                '+-- REVISOR',
+                '+-- FARM-RPG-AUTOMATION',
+                '+-- APRETALO-MATI',
+                '+-- NUMERICAL-METHODS',
+                '+-- EXPERIENCES.TXT',
+                '+-- README.TXT',
+                ''
+            ]);
+            break;
+        case 'color':
+            var dosColors = {
+                '3': '#00aaaa', '6': '#aa5500', '7': '#aaaaaa',
+                '8': '#555555', '9': '#5555ff', 'a': '#55ff55',
+                'b': '#55ffff', 'c': '#ff5555', 'd': '#ff55ff',
+                'e': '#ffff55', 'f': '#ffffff'
+            };
+            var code = (parts[1] || '').slice(-1);
+            if (dosColors[code]) {
+                $('#win7 .window-body').css('color', dosColors[code]);
+            } else {
+                dosPrint(['Invalid parameter. Try COLOR 0A, COLOR 0E or COLOR 07.', '']);
+            }
+            break;
+        case 'ping':
+            var host = parts[1] || 'localhost';
+            dosPrint([
+                '',
+                'Pinging ' + host + ' [127.0.0.1] with 32 bytes of data:',
+                '',
+                'Reply from 127.0.0.1: bytes=32 time<10ms TTL=128',
+                'Reply from 127.0.0.1: bytes=32 time<10ms TTL=128',
+                'Reply from 127.0.0.1: bytes=32 time<10ms TTL=128',
+                'Reply from 127.0.0.1: bytes=32 time<10ms TTL=128',
+                '',
+                'Ping statistics for 127.0.0.1:',
+                '    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss)',
+                ''
+            ]);
+            break;
+        case 'win':
+            dosPrint(['Okay, you have won!', '']);
+            break;
+        case 'sudo':
+            dosPrint(['Wrong, you dummy.', '']);
+            break;
+        case 'format':
+            dosPrint([
+                '',
+                'Yeah you wish',
+                ''
+            ]);
+            break;
+        case 'linkedin':
+            dosPrint(['Opening LinkedIn...', '']);
+            window.open('https://www.linkedin.com/in/devinacho/', '_blank');
+            break;
+        case 'twitter':
+        case 'x':
+            dosPrint(['Opening Twitter...', '']);
+            window.open('https://twitter.com/devinachoes', '_blank');
+            break;
+        case 'devinaxo':
+        case 'devinacho':
+        case 'nacho':
+            $('<pre class="dos-art">').text(dosArt.replace(/\r/g, '')).appendTo(out);
+            scrollEl = echoEl;
+            break;
+        case 'about':
+            dosPrint(['you like it?', '']);
+            break;
+        case 'more':
+            var fileArg = parts.slice(1).join(' ');
+            if (!fileArg) {
+                dosPrint([
+                    'Usage: MORE filename',
+                    'Available files: README.TXT, EXPERIENCES.TXT, AUTOEXEC.BAT',
+                    ''
+                ]);
+            } else if (dosFiles[fileArg]) {
+                dosPrint(dosFiles[fileArg]);
+            } else {
+                dosPrint([fileArg.toUpperCase() + ' File not found', '']);
+            }
+            break;
+        case 'cd':
+            dosPrint(['Maybe later.', '']);
+            break;
+        case 'exit':
+            $('#win7 .window-close').trigger('click');
+            break;
+        default:
+            dosPrint(['Bad command or file name.', '']);
+        }
+
+        if (scrollEl) {
+            out[0].scrollTop += scrollEl[0].getBoundingClientRect().top -
+                out[0].getBoundingClientRect().top;
+        } else {
+            out.scrollTop(out[0].scrollHeight);
+        }
+    }
+
+    $('#dos-input').on('keydown', function(e){
+        if (e.key === 'Enter') {
+            var raw = this.value;
+            this.value = '';
+            dosRun(raw);
+        } else if (e.key === 'ArrowUp') {
+            if (dosHistIdx > 0) {
+                dosHistIdx -= 1;
+                this.value = dosHistory[dosHistIdx];
+                e.preventDefault();
+            }
+        } else if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (dosHistIdx < dosHistory.length - 1) {
+                dosHistIdx += 1;
+                this.value = dosHistory[dosHistIdx];
+            } else {
+                dosHistIdx = dosHistory.length;
+                this.value = '';
+            }
+        }
+    });
+
+    $('#win7 .window-body').on('click', function(e){
+        if (!mqTouch.matches && !$(e.target).is('input')) {
+            $('#dos-input').focus();
         }
     });
 

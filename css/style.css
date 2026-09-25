@@ -1,12 +1,46 @@
+@font-face {
+    font-family: "MS W98 UI";
+    font-style: normal;
+    font-weight: 400;
+    src: url("ms-w98-ui/Web-TT/MSW98UI-Regular.woff2") format("woff2"),
+        url("ms-w98-ui/Web-TT/MSW98UI-Regular.woff") format("woff");
+}
+
+@font-face {
+    font-family: "MS W98 UI";
+    font-style: normal;
+    font-weight: 700;
+    src: url("ms-w98-ui/Web-TT/MSW98UI-Bold.woff2") format("woff2"),
+        url("ms-w98-ui/Web-TT/MSW98UI-Bold.woff") format("woff");
+}
+
 * {
-    font-family: 'W95FA', sans-serif;
+    font-family: "MS W98 UI", sans-serif;
 }
 
 input,
 textarea,
 button,
 label {
-    font-family: 'W95FA', sans-serif;
+    font-family: "MS W98 UI", sans-serif;
+}
+
+/* 98.css asks for "Pixelated MS Sans Serif", whose woff files are not in the
+   project, so windows/buttons/title bars fell back to Arial. Point that same
+   element list at the local MS W98 UI files (style.css loads after 98.css,
+   same specificity, so this wins). */
+.title-bar,
+.window,
+button,
+input,
+label,
+option,
+select,
+table,
+textarea,
+ul.tree-view {
+    font-family: "MS W98 UI", sans-serif;
+    font-size: 14px;
 }
 
 body {
@@ -88,7 +122,7 @@ p {
 }
 
 .icon-title {
-    font-size: 14px;
+    font-size: 12px;
     text-align: center;
     border: solid 1px #fff0;
     margin: 0;
@@ -181,7 +215,9 @@ p {
 
 #win1,
 #win2,
-#win5 {
+#win5,
+#win6,
+#win7 {
     display: none;
     z-index: 1;
 }
@@ -213,8 +249,8 @@ footer {
 /* Taskbar buttons, styled like the rest of the 98.css buttons */
 #start-button,
 .task-btn {
-    padding: 0 8px;
-    font-size: 15px;
+    padding: 4px;
+    font-size: 14px;
     color: transparent;
     background-color: silver;
     text-shadow: 0 0 #222;
@@ -253,6 +289,7 @@ footer {
     min-width: 0;
     overflow: hidden;
     white-space: nowrap;
+    font-weight: bold;
 }
 
 /* A task stays pressed (98.css's :active look) while its window is open,
@@ -278,7 +315,7 @@ footer {
 /* Windows 95 adjustments */
 .title-bar-text {
     font-size: 14px;
-    font-weight: normal;
+    font-weight: bold;
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -434,6 +471,108 @@ footer {
     }
 }
 
+/* Notepad window (experiences.txt): the edit control fills the client */
+.notepad-window .window-body {
+    margin: 3px;
+    padding: 0;
+    overflow: hidden;
+    flex-flow: column nowrap;
+}
+
+.notepad-text {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    resize: none;
+    font: 13px/1.4 "Lucida Console", "Courier New", monospace;
+    color: #000;
+    background: #fff;
+    border: 1px solid;
+    border-color: #808080 #fff #fff #808080;
+    padding: 2px 4px;
+    outline: none;
+}
+
+/* MS-DOS Prompt window: black console, light grey monospace text */
+.dos-window .window-body {
+    margin: 0;
+    padding: 3px 4px;
+    /* Fixed console height: the window never grows with the output, the
+       output area scrolls instead. Resizing the window still rescales it. */
+    height: 300px;
+    overflow: hidden;
+    flex-flow: column nowrap;
+    background: #000;
+    color: #c0c0c0;
+    font: 15px/1.35 "Lucida Console", "Courier New", monospace;
+    cursor: text;
+}
+
+.dos-output {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    /* Console-grey scrollbar instead of the default white one */
+    scrollbar-color: #c0c0c0 #000;
+    scrollbar-width: thin;
+}
+
+.dos-line {
+    display: flex;
+    flex: 0 0 auto;
+}
+
+.dos-prompt {
+    white-space: pre;
+    margin-top: auto;
+}
+
+.dos-input {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    background-color: #000;
+    color: inherit;
+    font: inherit;
+    appearance: none;
+    -webkit-appearance: none;
+    caret-color: #c0c0c0;
+}
+
+.dos-art {
+    margin: 0;
+    white-space: pre;
+    overflow-x: auto;
+    background-color: #000;
+    box-shadow: none;
+    font-size: 12px;
+    line-height: 12px;
+    font-family: monospace;
+    letter-spacing: unset;
+    transform: unset;
+}
+
+/* Two fixed columns: command/name left, description right */
+.dos-row {
+    display: flex;
+}
+
+.dos-col-a {
+    flex: 0 0 auto;
+    white-space: pre;
+}
+
+.dos-col-b {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
 /* modal */
 .modal {
     display: none;
@@ -556,6 +695,19 @@ footer {
     }
 }
 
+/* Not enough height for one column of icons (and the taskbar on top of it):
+   Win98 reflows them into a new column to the right instead of letting the
+   page scroll. Icons keep their order, four per column, so 7 become 4 + 3. */
+@media (min-width: 821px) and (max-height: 815px) {
+    .icons {
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-rows: repeat(4, auto);
+        justify-items: center;
+        column-gap: 10px;
+    }
+}
+
 /* Phones and tablets: everything stacks, windows flow with the page */
 @media (max-width: 820px) {
     .desktop {
@@ -609,12 +761,18 @@ footer {
     }
 
     .title-bar-text {
-        font-size: 14px;
+        font-size: 12px;
         margin-right: 6px;
     }
 
     .address-txtarea {
         height: 8rem;
+    }
+
+    /* 16px stops iOS from zooming the whole viewport when the DOS
+       command line is focused */
+    .dos-input {
+        font-size: 16px;
     }
 
     /* Comfortable touch targets */
@@ -629,7 +787,7 @@ footer {
        them look tiny. The touch target is enlarged invisibly below. */
     .title-bar-controls button {
         min-width: 16px;
-        min-height: 14px;
+        min-height: 12px;
         position: relative;
     }
 
@@ -676,6 +834,11 @@ footer {
     }
 }
 
+/* A little air between the column header and the first row of the listing */
+table.interactive thead th {
+    border-bottom: 3px solid #fff;
+}
+
 table.interactive td:first-child a,
 table.interactive td:first-child p {
     display: block;
@@ -712,23 +875,4 @@ table.interactive tbody tr:active {
 table.interactive tbody tr:active td {
     color: white !important;
     background-color: #000080 !important;
-}
-
-table.interactive tbody tr:has(p):hover {
-    background-color: transparent !important;
-    cursor: default !important;
-}
-
-table.interactive tbody tr:has(p):hover td {
-    color: black !important;
-    background-color: transparent !important;
-}
-
-table.interactive tbody tr:has(p):active {
-    background-color: transparent !important;
-}
-
-table.interactive tbody tr:has(p):active td {
-    color: black !important;
-    background-color: transparent !important;
 }
