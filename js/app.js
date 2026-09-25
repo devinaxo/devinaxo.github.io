@@ -39,7 +39,8 @@ $(document).ready(function(){
             position: 'absolute',
             top: pos.top,
             left: pos.left,
-            width: 'calc(100% - ' + pos.left + 'px)'
+            // width: 'calc(100% - ' + pos.left + 'px)',
+            width: 'fit-content'
         });
     }
 
@@ -158,6 +159,63 @@ $(document).ready(function(){
         });
     }
 
+    // Win98-style first open: the window frame appears at once, then its
+    // contents paint in piece by piece. Closing the window (as opposed to
+    // minimizing it) arms the animation again for the next open.
+    var firstOpened = {};
+    var loadTimers = {}; // pending paints per window, so an interrupted
+                         // run can be cancelled cleanly
+
+    function simulateFirstLoad(winId, winEl){
+        if (firstOpened[winId]) return;
+        firstOpened[winId] = true;
+
+        // Cancel still-pending paints from an interrupted earlier run
+        $.each(loadTimers[winId] || [], function(index, id){
+            clearTimeout(id);
+        });
+        loadTimers[winId] = [];
+
+        var parts = [];
+        var delays = [];
+        var i;
+        if (winId === 'win1' || winId === 'win2') {
+            // Empty list panel first, then the header row, then the rows
+            // painting in one by one like a listview filling up
+            parts = winEl.find('.sunken-panel, thead tr').get()
+                .concat(winEl.find('tbody tr').get());
+            delays = [150, 280];
+            for (i = 2; i < parts.length; i++) {
+                delays.push(320 + (i - 2) * 30);
+            }
+        } else if (winId === 'win4') {
+            // Form fields appear one after another, in random order
+            parts = winEl.find('.address-form > *').get();
+            for (i = parts.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var swap = parts[i];
+                parts[i] = parts[j];
+                parts[j] = swap;
+            }
+            for (i = 0; i < parts.length; i++) {
+                delays.push(100 + i * 110);
+            }
+        } else {
+            return;
+        }
+
+        if (!parts.length) return;
+        // visibility (not display): the layout stays exactly in place, so
+        // the window paints into its final geometry with no jumping
+        $(parts).css('visibility', 'hidden');
+        $.each(parts, function(index){
+            var el = this;
+            loadTimers[winId].push(setTimeout(function(){
+                el.style.visibility = '';
+            }, delays[index]));
+        });
+    }
+
     function showWindow(winId){
         var winEl = $('#' + winId);
         winEl.show();
@@ -168,6 +226,7 @@ $(document).ready(function(){
         syncWindowState(winId);
         mountFolder(winId, winEl);
         raiseWindow(winEl);
+        simulateFirstLoad(winId, winEl);
         // In the stacked layout the window opens below the icons, so bring it into view
         if (mqStacked.matches && winEl.length && winEl[0].scrollIntoView) {
             winEl[0].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -229,6 +288,8 @@ $(document).ready(function(){
         // Closing removes the window's task; minimizing keeps it
         removeTask(currWin);
         syncWindowState(currWin);
+        // Closing arms the first-load animation again; minimizing doesn't
+        delete firstOpened[currWin];
         // Clear the highlight of the icon that opened the closed window
         clickableSpots.filter(function(){
             return $(this).data('window') == currWin;
