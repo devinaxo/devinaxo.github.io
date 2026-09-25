@@ -57,10 +57,15 @@ $(document).ready(function(){
     function syncDraggable(){
         if (mqStacked.matches) {
             $('.window').draggable('disable').css({
-                top: '', left: '', right: '', width: '', position: ''
+                top: '', left: '', right: '', width: '', height: '',
+                position: ''
             });
+            $('.centered > .window').resizable('disable');
+            $('.centered > .window .ui-resizable-handle').hide();
         } else {
             $('.window').draggable('enable');
+            $('.centered > .window').resizable('enable');
+            $('.centered > .window .ui-resizable-handle').show();
             // Back from the stacked layout: float the open folders again
             $.each(cascade, function(winId){
                 var winEl = $('#' + winId);
@@ -72,6 +77,13 @@ $(document).ready(function(){
     }
 
     $( ".window" ).draggable({ handle: ".title-bar" });
+
+    $('.centered > .window').resizable({
+        handles: 'e, s, se',
+        minWidth: 320,
+        minHeight: 150
+    });
+
     syncDraggable();
     if (typeof mqStacked.addEventListener === 'function') {
         mqStacked.addEventListener('change', syncDraggable);
@@ -149,6 +161,9 @@ $(document).ready(function(){
     function showWindow(winId){
         var winEl = $('#' + winId);
         winEl.show();
+        if (winEl.hasClass('window')) {
+            winEl.css('display', 'flex');
+        }
         ensureTask(winId);
         syncWindowState(winId);
         mountFolder(winId, winEl);
