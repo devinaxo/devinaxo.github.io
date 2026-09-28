@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Nothing here is private, but there is no value in crawling the
+# Google Search Console verification stub or the source assets.
+Disallow: /google1a6a3a4197c8f179.html
+
+Sitemap: https://devinaxo.github.io/sitemap.xml

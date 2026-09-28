@@ -25,6 +25,30 @@ label {
     font-family: "MS W98 UI", sans-serif;
 }
 
+/* Semantic wrappers / headings for crawlers.
+   The whole page is a Windows 98 desktop, so there is no visible place to put
+   an <h1> or a <main>. `.layout-contents` uses `display: contents` so the
+   wrapper generates no box and the flex layout of `.desktop` is unchanged,
+   while `.sr-only` gives search engines a real document outline without
+   changing a single pixel on screen. */
+
+.layout-contents {
+    display: contents;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
 /* 98.css asks for "Pixelated MS Sans Serif", whose woff files are not in the
    project, so windows/buttons/title bars fell back to Arial. Point that same
    element list at the local MS W98 UI files (style.css loads after 98.css,
