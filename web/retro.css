@@ -400,6 +400,37 @@
     background: #d4d0c8;
 }
 
+/* A row of buttons, spaced the way a toolbar of them would be */
+.btn-row {
+    margin: 0 0 8px;
+}
+
+.btn-row .btn98 {
+    margin: 0 6px 6px 0;
+}
+
+/* The download buttons carry a tiny file glyph, so it reads as "this gives you
+   a file" rather than "this goes somewhere else" */
+.btn98-file::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 10px;
+    margin-right: 5px;
+    vertical-align: -1px;
+    /* A sheet of paper with the corner turned down */
+    background:
+        linear-gradient(135deg, transparent 0 3px, #808080 3px 4px, transparent 4px) top right / 4px 4px no-repeat,
+        #fff;
+    border: 1px solid #000;
+}
+
+/* A short rule between groups of buttons */
+.rule {
+    height: 2px;
+    margin: 12px 0;
+}
+
 .btn98:hover {
     background: #d4d0c8;
 }
@@ -511,7 +542,8 @@
 }
 
 .job-body h3,
-.job-body h4 {
+.job-body h4,
+.degree-body h4 {
     margin: 12px 0 4px;
     color: #00ffff;
     font-size: 12px;
@@ -520,10 +552,104 @@
 }
 
 .job-body h3:first-child,
-.job-body h4:first-child {
+.job-body h4:first-child,
+.degree-body h4:first-child {
     margin-top: 0;
 }
 
+/* A subsection inside a job entry: the same as an h4 but quieter, so the
+   entry does not read as a flat list of equal headings */
+.job-body h5 {
+    margin: 14px 0 2px;
+    color: #ffff00;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.job-body h5::before {
+    content: "> ";
+    color: #808080;
+}
+
+/* The one-line framing under a subsection heading */
+.job-body .sub,
+.degree-body .sub {
+    margin: 0 0 6px;
+    color: #808080;
+    font-size: 11px;
+    font-style: italic;
+}
+
+/* Education entry: the same card as a job, in gold rather than blue, so the two
+   kinds of entry look like a set without pretending to be the same thing */
+.degree {
+    margin: 0 0 16px;
+    background: #000;
+    border: 2px solid #c0c0c0;
+    box-shadow: inset 0 0 0 1px #404040;
+}
+
+.degree-head {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    gap: 4px 10px;
+    padding: 5px 8px;
+    background: #c0c0c0;
+    color: #000;
+    border-bottom: 1px solid #000;
+}
+
+.degree-title {
+    margin: 0;
+    min-width: 0;
+    font-size: 15px;
+    color: #804000;
+}
+
+.degree-dates {
+    margin: 0 0 0 auto;
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.degree-org {
+    margin: 0;
+    padding: 5px 8px;
+    background: #3b2f00;
+    color: #ffe680;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.degree-body {
+    padding: 10px;
+}
+
+/* The final grade, as a bar, because this page has a bar for everything */
+.degree-average {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 10px;
+    font-size: 12px;
+}
+
+.degree-average-label {
+    color: #c0c0c0;
+}
+
+.degree-average .meter {
+    display: block;
+    width: 140px;
+}
+
+.degree-average .meter-fill {
+    display: block;
+}
 .job-body ul {
     /* Square bullets: nobody had round ones until they did */
     list-style-type: square;
@@ -595,6 +721,11 @@
 
 .meter-fill.meter-fill-alt {
     background: repeating-linear-gradient(90deg, #804000 0 6px, #c06000 6px 8px);
+}
+
+/* The final grade, next to the degree it belongs to */
+.meter-fill-gold {
+    background: repeating-linear-gradient(90deg, #7a5c00 0 6px, #e0b000 6px 8px);
 }
 
 .meter-note {

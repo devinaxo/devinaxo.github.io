@@ -38,7 +38,8 @@
 
       <nav class="navbar" aria-label="Site sections">
         <a href="index.html" aria-current="page">Home</a>
-        <a href="#jobs">Work Experience</a>
+        <a href="index.html#jobs">Work Experience</a>
+        <a href="index.html#education">Education</a>
         <a href="projects.html">Projects</a>
         <a href="guestbook.html">Guestbook</a>
         <a href="colophon.html">Colophon</a>
@@ -58,7 +59,7 @@
           <div class="panel">
             <p>Three jobs so far: one in the public sector, two freelance for local
               businesses. Every one of them was the same problem wearing different
-              clothes &mdash; people were doing real work on paper, in notebooks, or in
+              clothes: people were doing real work on paper, in notebooks, or in
               WhatsApp groups, and my job was to turn it into a system that does not
               lose anything.</p>
             <p class="meter-note">Times below are approximate; the exact months are in the
@@ -69,17 +70,34 @@
           <article class="job" id="job-auditoria">
             <div class="job-head">
               <h3 class="job-title">Web Developer</h3>
-              <p class="job-dates">2022 &ndash; present</p>
+              <p class="job-dates">2022 - present</p>
             </div>
-            <p class="job-org">Auditoría General de la Provincia de Salta &mdash; professional,
+            <p class="job-org">Auditoría General de la Provincia de Salta - professional,
               full&nbsp;time</p>
             <div class="job-body">
               <h4>What they do</h4>
               <p>The provincial audit office receives the annual financial accounts of
                 every municipality in Salta, stores them, checks them, and turns them into
                 the statistics the province publishes. My work is the software half of
-                that: collecting the data, storing it, auditing it and showing it to the
+                that: collecting the data, storing it, providing auditors a comprehensive UI to audit it and showing it in an easily digestible way to the
                 public.</p>
+
+              <h4>The system, module by module</h4>
+              <p>One application carries the whole life of a municipal account, which
+                is the clearest way I have found to show how much is really in
+                there:</p>
+              <ul>
+                <li>Institutional accounts, and the documents filed against them.</li>
+                <li>Expedientes: the process itself and everything attached to it.</li>
+                <li>Audits: running them, and the trail of everything that happened
+                  along the way.</li>
+                <li>Work programs: planning who audits what, and when.</li>
+                <li>Documents and files, handled with the care an official record
+                  deserves.</li>
+                <li>Jurisdictions: what each office is allowed to see and to do.</li>
+                <li>Legal notifications by e-mail, plus a live channel for the ones
+                  that should not wait.</li>
+              </ul>
 
               <h4>What I built</h4>
               <ul>
@@ -99,10 +117,62 @@
                   auditors from filing tickets.</li>
               </ul>
 
+              <h4>The parts that were not simple</h4>
+
+              <h5>Files big enough to hurt</h5>
+              <p class="sub">A client side view of a mostly backend problem.</p>
+              <p>A municipal account and the system's notifications arrive with PDF files the size of a small hard
+                drive, and every one of them has to be checked before it counts for
+                anything. The application server cannot be the thing that carries
+                them, so the browser sends the file straight to storage using an
+                address the backend signs, and the backend only ever deals with
+                metadata. There are two flows, and the interface had to cover
+                both:</p>
+              <ul>
+                <li>For files that can be checked in the background: upload,
+                  confirm, then watch it move through <span class="mono">pending
+                    &rarr; validating &rarr; valid/invalid &rarr; done</span>. The
+                  screen follows that state instead of guessing at it, and says
+                  something useful when a file comes back rejected.</li>
+                <li>For files a form needs before it can be saved: the upload
+                  happens first, the form then refers back to it by its id, and
+                  the server only moves the file into its permanent home once
+                  every check passes. When something fails, the form stays
+                  filled in and the upload can be retried instead of retyped.</li>
+                <li>Temporary uploads expire on their own, so an abandoned file
+                  does not sit in storage forever.</li>
+              </ul>
+
+              <h5>Screens that stopped feeling fast</h5>
+              <p class="sub">The backend had the queries; this is what the interface did
+                about it.</p>
+              <p>Office staff live in the listing screens, so those are the ones
+                that quietly stop feeling fast once there are thousands of
+                accounts behind them. The fixes were shared with the backend,
+                which took the queries and the shape of the answers; my half
+                was:</p>
+              <ul>
+                <li>Keeping the reference data that does not change between visits
+                  out of the way, so opening an account does not re-fetch the
+                  list of jurisdictions, document types and audit states every
+                  single time.</li>
+                <li>Knowing the difference between a list and a detail request,
+                  and asking for only the fields the screen is actually going to
+                  show.</li>
+                <li>Letting the browser reuse what it already has, so a screen
+                  that has not changed answers with &ldquo;nothing new&rdquo;
+                  instead of the whole body all over again.</li>
+                <li>Keeping the big tables usable while they load, instead of a
+                  spinner in front of an empty page.</li>
+              </ul>
+
               <h4>My role</h4>
               <ul>
                 <li>Frontend-heavy full stack: React and Tailwind on top of a Spring Boot
                   API and a MySQL database I also designed.</li>
+                <li>The whole visible surface of the product: the screens the office
+                  works in every day, the forms the municipalities file, and the
+                  public site that publishes the result.</li>
                 <li>Translator between the auditors and the code. Most of my best
                   requirements arrived as paperwork, and my job was to work out what the
                   screen should be.</li>
@@ -121,15 +191,15 @@
                 <li class="chip-alt">Tailwind CSS</li>
                 <li class="chip-alt">MySQL</li>
                 <li class="chip-alt">AWS</li>
+                <li class="chip-alt">Docker</li>
                 <li>REST</li>
+                <li>Presigned uploads</li>
+                <li>Realtime</li>
               </ul>
 
-              <!-- TODO: team size, exact start month, an internal link that is safe to
-                   publish, and a screenshot of a report nobody has seen before. -->
               <h4>Links</h4>
               <ul>
-                <li>The system is internal, so I cannot link to it &mdash; ask me for a
-                  walkthrough instead.</li>
+                <li>The system is internal, so I cannot link to it. I'd be glad to walk you through it if you asked!</li>
               </ul>
             </div>
           </article>
@@ -138,14 +208,14 @@
           <article class="job" id="job-lavanderia">
             <div class="job-head">
               <h3 class="job-title">Freelance Web Developer</h3>
-              <p class="job-dates">2025 &ndash; 2026</p>
+              <p class="job-dates">2025 - 2026</p>
             </div>
-            <p class="job-org">Lavandería del 13 &mdash; Sistema del 13 &mdash; freelance</p>
+            <p class="job-org">Lavandería del 13 - Sistema del 13 - freelance</p>
             <div class="job-body">
               <h4>What they do</h4>
               <p>A laundry two blocks from my house. Orders on paper, payments in a
                 notebook, and no way for a customer to find out whether their clothes were
-                ready without walking over and asking.</p>
+                ready without walking over and asking or messaging the owner.</p>
 
               <h4>What I built</h4>
               <ul>
@@ -176,8 +246,6 @@
                 <li class="chip-alt">Netlify</li>
               </ul>
 
-              <!-- TODO: add the public URL once the client is happy for it to be linked,
-                   plus a "what the numbers went from / to" line if the owner allows it. -->
               <h4>Links</h4>
               <ul>
                 <li><a href="https://devinaxo.github.io/pagina-cac-2024" target="_blank"
@@ -193,12 +261,12 @@
               <h3 class="job-title">Freelance Web Developer</h3>
               <p class="job-dates">2026</p>
             </div>
-            <p class="job-org">Punto Mobile &mdash; Sistema de Gestión &mdash; freelance</p>
+            <p class="job-org">Punto Mobile - Sistema de Gestión - freelance</p>
             <div class="job-body">
               <h4>What they do</h4>
               <p>A mobile phone shop: stock coming in from providers, phones going out,
                 half the stock sitting in repair trays, and a lot of money changing hands
-                without anything written down.</p>
+                without anything concretely written down.</p>
 
               <h4>What I built</h4>
               <ul>
@@ -235,7 +303,6 @@
                 <li class="chip-alt">Mailgun</li>
               </ul>
 
-              <!-- TODO: demo link + screenshots once the client signs off on them. -->
               <h4>Links</h4>
               <ul>
                 <li>Internal system, no public URL yet.</li>
@@ -253,22 +320,21 @@
                 <li><span class="timeline-when">~2013</span> Started taking things apart.
                   Game modding in C and C++, and a lot of things that did not compile.
                 </li>
-                <li><span class="timeline-when">~2016</span> First real programs: Java
+                <li><span class="timeline-when">~first half 2023</span> First real programs: Java
                   applets, then Java games with Swing. Still the best way I know to learn
                   to structure a program.
                 </li>
-                <li><span class="timeline-when">~2017</span> First Android app, and the
+                <li><span class="timeline-when">~second half 2023</span> First Android app, and the
                   first time a stranger installed something I wrote.
                 </li>
-                <li><span class="timeline-when">~2018</span> Went from Java to the web:
+                <li><span class="timeline-when">~first half 2024</span> Went from Java to the web:
                   HTML, CSS, JavaScript, and this whole "frontend" thing.
-                </li>
-                <li><span class="timeline-when">2020</span> Java/Kotlin Android and
-                  Flutter/Dart, plus Python for automating the boring parts of gaming.
-                </li>
-                <li><span class="timeline-when">2022</span> Started at the Auditoría
+                  Started at the Auditoría
                   General de la Provincia de Salta. First job where the software is used
                   by an entire province.
+                </li>
+                <li><span class="timeline-when">~second half 2024</span> Java/Kotlin Android and
+                  Flutter/Dart, plus Python for automating the boring parts of gaming.
                 </li>
                 <li><span class="timeline-when">2025</span> First freelance client: a
                   laundry.
@@ -286,8 +352,6 @@
           <section id="skills" class="anchor-target">
             <h2 class="section-bar">Tools &amp; Skills</h2>
             <div class="panel">
-              <!-- TODO: these levels are a guess. Change them to something you would
-                   defend in an interview, or drop the numbers and keep the list. -->
               <table class="meters">
                 <caption class="sr-only">Self-assessed skill levels</caption>
                 <tbody>
@@ -389,31 +453,7 @@
                   </tr>
                 </tbody>
               </table>
-              <p class="meter-note">Blue is what I use at work, orange is what I learned the
-                long way around.</p>
-            </div>
-          </section>
-
-          <hr>
-
-          <!-- ---------- how I work ---------- -->
-          <section id="how-i-work" class="anchor-target">
-            <h2 class="section-bar">How I Work</h2>
-            <div class="panel">
-              <!-- TODO: rewrite this part in your own words, it reads like a template. -->
-              <ul>
-                <li>I start from the process as it exists today, on paper if necessary.
-                  The software that matches the paperwork gets adopted; the software that
-                  replaces it gets argued about.</li>
-                <li>Small pieces, in production, early. A working screen beats a perfect
-                  branch.</li>
-                <li>I own the whole path, database included, because the bugs that hurt
-                  live exactly at the seams between the parts.</li>
-                <li>I care about the boring stuff: validation, audit trails, backups, and
-                  what the screen does when the request is slow.</li>
-                <li>I write things down. If it only exists in my head, it does not
-                  exist.</li>
-              </ul>
+              <p class="meter-note">Blue is what I use at work, orange is what I learned on my own.</p>
             </div>
           </section>
 
@@ -423,14 +463,71 @@
           <section id="downloads" class="anchor-target">
             <h2 class="section-bar">Downloads</h2>
             <div class="panel">
-              <ul>
-                <li><a class="btn98" href="../index.html" data-desktop="win3">Open my Windows 98
-                    desktop</a></li>
-                <li><a class="btn98" href="projects.html">Browse my projects</a></li>
-              </ul>
-              <p class="meter-note">TODO: put a real PDF résumé here, and a .zip of
-                something worth unzipping, because every 90s site had a downloads
-                section.</p>
+              <p>Two buttons, the way every serious 90s site had two buttons: get the
+                CV in the language you are going to read it in.</p>
+              <p class="btn-row">
+                <a class="btn98 btn98-file" href="public/CV_Ignacio_Garcia-en.pdf"
+                  download>Download CV (English)</a>
+                <a class="btn98 btn98-file" href="public/CV_Ignacio_Garcia-es.pdf"
+                  download>Descargar CV (Espa&ntilde;ol)</a>
+              </p>
+              <p class="meter-note">PDF, and the same two files are in
+                <span class="mono">/web/public/</span> if you would rather grab them
+                straight.</p>
+
+              <hr class="rule">
+
+              <p class="btn-row">
+                <a class="btn98" href="../index.html" data-desktop="win3">Open my
+                  Windows 98 desktop</a>
+                <a class="btn98" href="projects.html">Browse my projects</a>
+              </p>
+
+            </div>
+          </section>
+
+          <!-- ---------- education ---------- -->
+          <section id="education" class="anchor-target">
+            <h2 class="section-bar">Education</h2>
+
+            <div class="degree">
+              <div class="degree-head">
+                <h3 class="degree-title">Tecnicatura Universitaria en
+                  Programaci&oacute;n</h3>
+                <p class="degree-dates">2022 &ndash; 2026</p>
+              </div>
+              <p class="degree-org">Universidad Nacional de Salta &mdash; Salta,
+                Argentina</p>
+              <div class="degree-body">
+                <h4>What it is</h4>
+                <p>A three year university degree in programming, which in Argentina is
+                  a <em>tecnicatura</em>. Places me slightly lower in the programming ladder over here but hopefully still just as hireable.</p>
+                <p class="degree-average">
+                  <span class="degree-average-label">Academic average</span>
+                  <span class="meter">
+                    <span class="meter-fill meter-fill-gold" style="width: 74.7%"></span>
+                  </span>
+                  <span class="mono">7,47 / 10</span>
+                </p>
+
+                <h4>Coursework</h4>
+                <ul>
+                  <li>Low level programming in assembler and C.</li>
+                  <li>High level programming in Java and Python.</li>
+                  <li>Applied mathematics: floating point arithmetic, mathematical
+                    and algebraic analysis, and the rest of the arithmetic a
+                    programmer is not really allowed to skip.</li>
+                </ul>
+
+                <h4>Final project</h4>
+                <p>The Municipal General Accounts Submission System, built with React
+                  and Spring Boot. Which is the system described at the top of this
+                  page: the job became the degree project. Two birds with one stone, eh?</p>
+
+                <h4>Result</h4>
+                <p>Graduated in April 2026 as a University Technician in Programming
+                  (<em>T&eacute;cnico Universitario en Programaci&oacute;n</em>).</p>
+              </div>
             </div>
           </section>
 
@@ -447,8 +544,8 @@
         <div class="card">
           <h2>About Me</h2>
           <img class="mug" src="../img/mugshot.jpg" width="84" height="84"
-            alt="A Shiba Inu on a CRT monitor, which is my spirit animal">
-          <p>Hi, I'm Nacho. I have been programming officially for at least six years and
+            alt="Me">
+          <p>Hi, I'm Nacho. UNSa graduate with a technical diploma, I have been programming officially for at least six years and
             taking things apart for about twelve, starting with game modding in C and
             C++.</p>
           <p>Since then: Java games, Android apps, Flutter, Python that plays games for me
@@ -465,7 +562,7 @@
           <ul class="side-list">
             <li>Working at the Auditoría General de la Provincia de Salta.</li>
             <li>Building systems that replace paperwork with the province.</li>
-            <li>Grinding Monster Hunter Frontier between commits.</li>
+            <li>Playing lots of <a href="https://backloggd.com/u/devinacho/" target="_blank">vidya</a>.</li>
             <li>Available for freelance work.</li>
           </ul>
         </div>
@@ -534,8 +631,7 @@
       <p>
         <a class="email-link" href="mailto:gar.la.ignacio@gmail.com">gar.la.ignacio@gmail.com</a>
       </p>
-      <p>Hand-written HTML. No tables were harmed, although a few were nested too deeply
-        on purpose.</p>
+      <p>Mostly hand-written HTML. Don't like it? I really do :(.</p>
       <p>Best viewed in Netscape Navigator 4.0 &middot; 800x600 &middot; 256 colours
         &middot; &copy; 1997-2026 Ignacio Garcia</p>
       <p>Visitors: <span data-counter-text>13,371,337</span> &middot;
