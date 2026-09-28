@@ -1,0 +1,820 @@
+/* Shared skin for the retro web page that lives inside the Netscape
+   Navigator window (win8 in ../index.html). The look is deliberately
+   mid-to-late 90s: a tiled starfield, silver text, cyan and magenta links,
+   beveled boxes, table-ish panels, a scrolling marquee and a hit counter.
+   Underneath the skin it is a normal, responsive document, because the page
+   is also reachable on its own at /web/.
+
+   Everything here is scoped to .retro-page so it can never leak into (or be
+   inherited by) the Windows 98 desktop that embeds it. */
+
+/* ---------- page shell ---------- */
+
+.retro-page {
+    margin: 0;
+    padding: 0 0 40px;
+    background: #000 url("img/star-tile.png") repeat;
+    background-attachment: fixed;
+    color: #c0c0c0;
+    font-family: Verdana, "MS Sans Serif", Geneva, sans-serif;
+    font-size: 13px;
+    line-height: 1.45;
+    /* 90s pages were 800x600 and never reflowed; this one has to fit inside a
+       resizable Win98 window too, so the retro feel comes from the chrome
+       around the text rather than from fixed pixel widths. */
+    min-height: 100vh;
+}
+
+.retro-page * {
+    font-family: inherit;
+}
+
+.retro-page a {
+    color: #00ffff;
+    text-decoration: underline;
+}
+
+.retro-page a:visited {
+    color: #ff00ff;
+}
+
+.retro-page a:hover {
+    color: #ffff00;
+    background: #000080;
+}
+
+.retro-page a:focus-visible {
+    outline: 1px dotted #ffff00;
+    outline-offset: 2px;
+}
+
+.retro-page h1,
+.retro-page h2,
+.retro-page h3,
+.retro-page h4 {
+    margin: 0 0 6px;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.retro-page p {
+    margin: 0 0 10px;
+}
+
+.retro-page ul {
+    margin: 0 0 10px;
+    padding-left: 22px;
+}
+
+.retro-page li {
+    margin-bottom: 5px;
+}
+
+.retro-page ul ul {
+    margin: 5px 0 0;
+}
+
+.retro-page code,
+.retro-page pre,
+.retro-page .mono {
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+.retro-page pre {
+    margin: 0 0 10px;
+    padding: 8px;
+    overflow-x: auto;
+    background: #000;
+    color: #00ff00;
+    border: 1px solid;
+    border-color: #404040 #dfdfdf #dfdfdf #404040;
+    font-size: 12px;
+    line-height: 1.3;
+    white-space: pre;
+}
+
+.retro-page hr {
+    height: 2px;
+    margin: 22px 0;
+    border: 0;
+    /* The classic double rule with a dotted seam between the two lines */
+    border-top: 1px solid #dfdfdf;
+    border-bottom: 1px solid #000;
+}
+
+/* ---------- centered 720px column ---------- */
+
+.retro-wrap {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+.retro-wrap-narrow {
+    max-width: 560px;
+}
+
+/* ---------- beveled boxes ---------- */
+
+/* The two workhorse frames: outset silver for anything you can click or
+   read as chrome, inset dark for anything that holds content. */
+.bevel-out {
+    border: 1px solid;
+    border-color: #dfdfdf #000 #000 #dfdfdf;
+    background: #c0c0c0;
+    color: #000;
+}
+
+.bevel-in {
+    border: 1px solid;
+    border-color: #404040 #dfdfdf #dfdfdf #404040;
+    background: #000;
+    color: #c0c0c0;
+}
+
+.retro-page .bevel-out,
+.retro-page .bevel-in {
+    padding: 8px;
+}
+
+/* Dark panel with a cyan double border, the 1997 way of saying "content" */
+.panel {
+    margin: 0 0 14px;
+    padding: 10px;
+    background: #000;
+    border: 2px solid #00ffff;
+    box-shadow: inset 0 0 0 1px #000, 0 0 0 1px #000080;
+}
+
+.panel > :last-child {
+    margin-bottom: 0;
+}
+
+/* Navy section bar: silver text on dark blue, like every table header of the
+   era. Rendered as a heading so the page still has a real outline. */
+.section-bar {
+    margin: 0 0 10px;
+    padding: 4px 8px;
+    background: #000080;
+    border-top: 1px solid #c0c0c0;
+    border-bottom: 1px solid #000;
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.section-bar a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.section-bar a:hover {
+    color: #ffff00;
+    background: #000080;
+    text-decoration: underline;
+}
+
+/* ---------- banner ---------- */
+
+.banner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #000;
+    border: 2px solid #00ffff;
+    box-shadow: inset 0 0 0 1px #000080;
+}
+
+.banner-logo {
+    width: 96px;
+    height: 96px;
+    flex: 0 0 auto;
+    image-rendering: pixelated;
+    border: 1px solid #404040;
+}
+
+.banner-text {
+    flex: 1 1 260px;
+    min-width: 0;
+}
+
+.banner-title {
+    margin: 0;
+    font-family: "Comic Sans MS", "Chalkboard SE", cursive;
+    font-size: 30px;
+    color: #00ffff;
+    text-shadow: 2px 2px 0 #000080, 4px 4px 0 #400080;
+    letter-spacing: 1px;
+}
+
+.banner-tagline {
+    margin: 4px 0 6px;
+    color: #ffff00;
+    font-size: 12px;
+    font-style: italic;
+}
+
+/* "Best viewed in..." badge: a tiny pull-quote in a beveled box */
+.viewer-badge {
+    display: inline-block;
+    padding: 3px 6px;
+    background: #c0c0c0;
+    border: 1px solid;
+    border-color: #dfdfdf #000 #000 #dfdfdf;
+    color: #000080;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.viewer-badge img {
+    width: 16px;
+    height: 16px;
+    vertical-align: -3px;
+    margin-right: 3px;
+    image-rendering: pixelated;
+}
+
+/* ---------- navigation strip ---------- */
+
+.navbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    padding: 4px;
+    margin-bottom: 12px;
+    background: #c0c0c0;
+    border: 1px solid;
+    border-color: #dfdfdf #000 #000 #dfdfdf;
+    font-size: 12px;
+}
+
+.navbar a,
+.navbar span.nav-item {
+    display: inline-block;
+    padding: 3px 7px;
+    color: #000080;
+    font-weight: bold;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.navbar a:visited {
+    color: #800080;
+}
+
+.navbar a:hover {
+    background: #000080;
+    color: #fff;
+    text-decoration: underline;
+}
+
+.navbar a[aria-current="page"] {
+    background: #000080;
+    color: #ffff00;
+}
+
+.nav-spacer {
+    flex: 1 1 auto;
+}
+
+/* ---------- retro widgets ---------- */
+
+/* Scrolling ticker. A real <marquee> is long gone from most browsers, so the
+   effect is a CSS translation instead, switched off for reduced motion. */
+.marquee {
+    margin-bottom: 10px;
+    padding: 3px 0;
+    overflow: hidden;
+    background: #000;
+    border: 1px solid #00ffff;
+    color: #00ff00;
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.marquee-track {
+    display: inline-block;
+    padding-left: 100%;
+    white-space: nowrap;
+}
+
+/* Blinking text, the period's most overused element */
+.blink {
+    color: #ffff00;
+    font-weight: bold;
+}
+
+.tag-new {
+    display: inline-block;
+    padding: 0 4px;
+    background: #ff0000;
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
+    vertical-align: 2px;
+    animation: tag-pulse 1.1s steps(1, end) infinite;
+}
+
+@keyframes tag-pulse {
+    50% {
+        background: #ff0000;
+        color: #000;
+    }
+}
+
+/* Six-digit odometer counter, hand-built out of a well and cyan digits */
+.counter {
+    display: inline-flex;
+    gap: 2px;
+    padding: 3px;
+    background: #000;
+    border: 1px solid;
+    border-color: #404040 #dfdfdf #dfdfdf #404040;
+}
+
+.counter-digit {
+    width: 12px;
+    padding: 1px 0;
+    background: #000;
+    color: #00ff00;
+    border: 1px solid #202020;
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.1;
+    text-align: center;
+    text-shadow: 0 0 4px #00ff00;
+}
+
+/* Under construction barrier tape */
+.construction {
+    padding: 6px 10px;
+    margin-bottom: 14px;
+    background: repeating-linear-gradient(45deg, #ff8000 0 12px, #000 12px 24px);
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 1px 1px 0 #000, -1px -1px 0 #000;
+}
+
+.construction span {
+    display: inline-block;
+    padding: 2px 8px;
+    background: #000;
+    text-shadow: none;
+}
+
+/* Windows 98 push buttons */
+.btn98 {
+    display: inline-block;
+    padding: 3px 12px;
+    background: #c0c0c0;
+    border: 1px solid;
+    border-color: #dfdfdf #000 #000 #dfdfdf;
+    color: #000;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* The link colours in the page skin are for links on black, so a button has
+   to win them back */
+.retro-page a.btn98,
+.retro-page a.btn98:visited {
+    color: #000;
+    text-decoration: none;
+}
+
+.retro-page a.btn98:hover {
+    color: #000;
+    background: #d4d0c8;
+}
+
+.btn98:hover {
+    background: #d4d0c8;
+}
+
+.btn98:active {
+    border-color: #000 #dfdfdf #dfdfdf #000;
+    padding: 4px 11px 2px 13px;
+}
+
+.btn98[disabled] {
+    color: #808080;
+    text-shadow: 1px 1px 0 #fff;
+    cursor: default;
+}
+
+/* Small tech "buttons" that sit inline like the badges old résumés used */
+.chips {
+    margin: 0 0 10px;
+    padding: 0;
+    list-style: none;
+}
+
+.chips li {
+    display: inline-block;
+    margin: 0 4px 4px 0;
+    padding: 1px 6px;
+    background: #c0c0c0;
+    border: 1px solid;
+    border-color: #dfdfdf #000 #000 #dfdfdf;
+    color: #000;
+    font-size: 11px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.chips li.chip-alt {
+    background: #000080;
+    border-color: #4040c0 #000 #000 #4040c0;
+    color: #fff;
+}
+
+/* ---------- page layout ---------- */
+
+.columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.col-main {
+    flex: 1 1 420px;
+    min-width: 0;
+}
+
+.col-side {
+    flex: 0 1 240px;
+    min-width: 200px;
+}
+
+/* ---------- résumé entries ---------- */
+
+.job {
+    margin: 0 0 16px;
+    padding: 0;
+    background: #000;
+    border: 2px solid #c0c0c0;
+    box-shadow: inset 0 0 0 1px #404040;
+}
+
+.job-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 10px;
+    padding: 5px 8px;
+    background: #c0c0c0;
+    color: #000;
+    border-bottom: 1px solid #000;
+}
+
+.job-title {
+    margin: 0;
+    font-size: 15px;
+    color: #000080;
+    text-transform: none;
+}
+
+.job-dates {
+    margin: 0;
+    margin-left: auto;
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.job-org {
+    margin: 0;
+    padding: 5px 8px;
+    background: #000080;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.job-body {
+    padding: 10px;
+}
+
+.job-body h3,
+.job-body h4 {
+    margin: 12px 0 4px;
+    color: #00ffff;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.job-body h3:first-child,
+.job-body h4:first-child {
+    margin-top: 0;
+}
+
+.job-body ul {
+    /* Square bullets: nobody had round ones until they did */
+    list-style-type: square;
+}
+
+/* Timeline of roles, retro bullet-and-line style */
+.timeline {
+    margin: 0;
+    padding: 0 0 0 16px;
+    list-style: none;
+    border-left: 1px solid #404040;
+}
+
+.timeline li {
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.timeline li::before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: -21px;
+    width: 9px;
+    height: 9px;
+    background: #00ffff;
+    border: 1px solid #000;
+}
+
+.timeline-when {
+    display: block;
+    color: #ffff00;
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 12px;
+}
+
+/* Skill meters: sunken wells with a filled bar, like a 98.css progress bar */
+.meters {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.meters th,
+.meters td {
+    padding: 3px 4px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.meters th {
+    width: 40%;
+    color: #c0c0c0;
+    font-weight: normal;
+}
+
+.meter {
+    height: 14px;
+    padding: 1px;
+    background: #000;
+    border: 1px solid;
+    border-color: #404040 #dfdfdf #dfdfdf #404040;
+}
+
+.meter-fill {
+    height: 100%;
+    background: repeating-linear-gradient(90deg, #000080 0 6px, #4040c0 6px 8px);
+}
+
+.meter-fill.meter-fill-alt {
+    background: repeating-linear-gradient(90deg, #804000 0 6px, #c06000 6px 8px);
+}
+
+.meter-note {
+    color: #808080;
+    font-size: 11px;
+}
+
+/* Sidebar cards */
+.card {
+    margin: 0 0 12px;
+    padding: 8px;
+    background: #000;
+    border: 2px solid #c0c0c0;
+    box-shadow: inset 0 0 0 1px #404040;
+}
+
+.card > h2 {
+    margin: -8px -8px 8px;
+    padding: 4px 8px;
+    background: #c0c0c0;
+    color: #000080;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.card p:last-child,
+.card ul:last-child {
+    margin-bottom: 0;
+}
+
+.card .mug {
+    width: 84px;
+    height: 84px;
+    float: left;
+    margin: 0 10px 6px 0;
+    border: 1px solid #404040;
+    image-rendering: pixelated;
+}
+
+.card ul {
+    padding-left: 18px;
+    list-style-type: square;
+}
+
+.card .clear {
+    clear: both;
+}
+
+.side-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 12px;
+}
+
+.side-list li {
+    padding: 2px 0;
+    border-bottom: 1px dotted #303030;
+}
+
+.side-list li:last-child {
+    border-bottom: 0;
+}
+
+.spin-globe {
+    display: block;
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 6px;
+}
+
+/* Guestbook entries and form bits */
+.entry {
+    margin-bottom: 12px;
+    padding: 8px;
+    background: #000;
+    border: 1px solid;
+    border-color: #404040 #dfdfdf #dfdfdf #404040;
+}
+
+.entry-head {
+    margin-bottom: 4px;
+    color: #ffff00;
+    font-size: 12px;
+}
+
+.entry-head .entry-where {
+    color: #808080;
+}
+
+.retro-page fieldset {
+    margin: 0 0 12px;
+    padding: 10px;
+    border: 1px solid #808080;
+}
+
+.retro-page legend {
+    padding: 0 4px;
+    color: #00ffff;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.retro-page label {
+    display: block;
+    margin-bottom: 2px;
+    color: #c0c0c0;
+    font-size: 12px;
+}
+
+.retro-page input[type="text"],
+.retro-page input[type="email"],
+.retro-page textarea {
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 2px 3px;
+    background: #fff;
+    color: #000;
+    border: 1px solid;
+    border-color: #404040 #dfdfdf #dfdfdf #404040;
+    font-family: inherit;
+    font-size: 12px;
+}
+
+.retro-page textarea {
+    min-height: 70px;
+    resize: vertical;
+}
+
+/* Footer */
+.retro-footer {
+    margin-top: 20px;
+    padding: 10px;
+    background: #000;
+    border-top: 2px solid #00ffff;
+    color: #808080;
+    font-size: 11px;
+    text-align: center;
+}
+
+.retro-footer p {
+    margin: 0 0 5px;
+}
+
+.retro-footer .email-link {
+    color: #ffff00;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+/* Screen-reader-only text: captions, headings and anything else that is
+   useful to read but would be a design crime on a 90s page. */
+.retro-page .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Screen-reader-only heading anchors, so every section can be linked to */
+.anchor-target {
+    scroll-margin-top: 10px;
+}
+
+/* ---------- motion ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+    .marquee-track {
+        /* The negative delay starts the ticker already crossing the screen,
+           so the strip is never sitting there empty on the first paint */
+        animation: marquee-scroll 22s linear -6s infinite;
+    }
+
+    .tag-new {
+        animation: tag-pulse 1.1s steps(1, end) infinite;
+    }
+
+    .blink {
+        animation: retro-blink 1.2s steps(1, end) infinite;
+    }
+}
+
+@keyframes marquee-scroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes retro-blink {
+    50% {
+        visibility: hidden;
+    }
+}
+
+/* ---------- narrow screens ---------- */
+
+@media (max-width: 520px) {
+    .banner-title {
+        font-size: 24px;
+    }
+
+    .col-side {
+        flex: 1 1 100%;
+    }
+
+    .job-dates {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .meters th {
+        width: 45%;
+    }
+}

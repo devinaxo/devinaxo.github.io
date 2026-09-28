@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nacho's Home Page - Guestbook</title>
+  <meta name="description" content="The guestbook of Nacho's Home Page.">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://devinaxo.github.io/web/guestbook.html">
+  <link rel="icon" href="../img/ico.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="retro.css">
+  <script src="retro.js"></script>
+</head>
+
+<body class="retro-page">
+
+  <div class="retro-wrap retro-wrap-narrow">
+
+    <header>
+      <div class="banner">
+        <img class="banner-logo" src="../img/netscape.png" width="96" height="96"
+          alt="The Netscape Navigator starfield logo">
+        <div class="banner-text">
+          <h1 class="banner-title">Guestbook</h1>
+          <p class="banner-tagline">Tell me what you think. I read all of them, which is
+            a lie, but it is a kind one.</p>
+        </div>
+      </div>
+
+      <nav class="navbar" aria-label="Site sections">
+        <a href="index.html">Home</a>
+        <a href="index.html#jobs">Work Experience</a>
+        <a href="projects.html">Projects</a>
+        <a href="guestbook.html" aria-current="page">Guestbook</a>
+        <a href="colophon.html">Colophon</a>
+        <span class="nav-spacer"></span>
+        <span class="nav-item">You are visitor <span data-counter-text>13,371,337</span></span>
+      </nav>
+    </header>
+
+    <h2 class="section-bar">Sign the guestbook</h2>
+
+    <div class="panel">
+      <!-- TODO: this form has no backend yet. Either point it at a real service
+           (Formspree, Netlify Forms, an emailjs endpoint like the one in the
+           Windows 98 contact window) or leave it as a beautiful dead end. -->
+      <form action="#" method="post">
+        <fieldset>
+          <legend>Your message</legend>
+          <label for="gb-name">Name</label>
+          <input type="text" id="gb-name" name="name" autocomplete="name" required>
+          <label for="gb-email">E-mail <span class="meter-note">(optional, not
+            published)</span></label>
+          <input type="email" id="gb-email" name="email" autocomplete="email">
+          <label for="gb-homepage">Homepage <span class="meter-note">(optional)</span></label>
+          <input type="text" id="gb-homepage" name="homepage" autocomplete="url">
+          <label for="gb-message">Message</label>
+          <textarea id="gb-message" name="message" required></textarea>
+          <button class="btn98" type="submit">Post it</button>
+        </fieldset>
+      </form>
+      <p class="meter-note">No cookies, no tracking, no third party. Just a form that
+        currently goes nowhere.</p>
+    </div>
+
+    <h2 class="section-bar">Previous visitors</h2>
+
+    <div class="panel">
+      <div class="entry">
+        <p class="entry-head">The Last Webmaster &mdash; <span class="entry-where">Salta,
+            Argentina &middot; 2026</span></p>
+        <p>Built the whole thing by hand. If a window does not open, double click it
+          twice. It is 1998 in here on purpose.</p>
+      </div>
+
+      <div class="entry">
+        <p class="entry-head">Lila &mdash; <span class="entry-where">unknown &middot;
+            1998</span></p>
+        <p>Please. I beg you, let me back in.</p>
+      </div>
+
+      <div class="entry">
+        <p class="entry-head">A Passerby &mdash; <span class="entry-where">the internet
+            &middot; today</span></p>
+        <p>Came for the résumé, stayed for the counter. Nice counter.</p>
+      </div>
+
+      <p class="meter-note">42 entries. The other 39 are spam from 2003, which I am
+        keeping for nostalgia.</p>
+    </div>
+
+    <div class="construction">
+      <span>MORE ENTRIES PENDING &mdash; the backend is on the way</span>
+    </div>
+
+    <footer class="retro-footer">
+      <p>
+        <a class="email-link" href="mailto:gar.la.ignacio@gmail.com">gar.la.ignacio@gmail.com</a>
+      </p>
+      <p>Best viewed in Netscape Navigator 4.0 &middot; &copy; 1997-2026 Ignacio
+        Garcia</p>
+      <p>Visitors: <span data-counter-text>13,371,337</span> &middot;
+        <a href="index.html">back home</a></p>
+    </footer>
+
+  </div>
+</body>
+
+</html>

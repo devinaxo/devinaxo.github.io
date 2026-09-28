@@ -21,14 +21,17 @@ $(document).ready(function(){
     var mqStacked = window.matchMedia('(max-width: 820px)');
     var mqTouch = window.matchMedia('(hover: none)');
 
-    // On pointer-sized screens the folder windows float free of the page
-    // flow, each with its own spot, so opening one never pushes another
-    // around. The stacked layout keeps them in flow instead.
+    // On pointer-sized screens the floating windows (the two folders, the
+    // viewer, the browser and the console) sit free of the page flow, each
+    // with its own spot, so opening one never pushes another around. The
+    // stacked layout keeps them in flow instead.
     var cascade = {
         win1: { top: 0, left: 0 },
         win2: { top: 56, left: 56 },
         win5: { top: 112, left: 112 },
-        win6: { top: 168, left: 168 },
+        // The browser window gets a wide spot of its own: a web page in a
+        // window this narrow is not worth opening
+        win8: { top: 96, left: 48 },
         win7: { top: 224, left: 224 }
     };
 
@@ -40,7 +43,8 @@ $(document).ready(function(){
     // against .centered, which does not move, so those stay consistent.
     var fitContentWindows = { win1: true, win2: true };
 
-    function mountFolder(winId, winEl){
+    // Gives a window its own spot on the floating desktop (see cascade)
+    function mountFloating(winId, winEl){
         var pos = cascade[winId];
         if (!pos || mqStacked.matches) return;
         // Already floating (and possibly dragged somewhere): leave it alone
@@ -77,11 +81,11 @@ $(document).ready(function(){
             $('.window').draggable('enable');
             $('.centered > .window').resizable('enable');
             $('.centered > .window .ui-resizable-handle').show();
-            // Back from the stacked layout: float the open folders again
+            // Back from the stacked layout: float the open windows again
             $.each(cascade, function(winId){
                 var winEl = $('#' + winId);
                 if (winEl.is(':visible')) {
-                    mountFolder(winId, winEl);
+                    mountFloating(winId, winEl);
                 }
             });
         }
@@ -137,7 +141,7 @@ $(document).ready(function(){
         win3: { label: 'My Info', icon: 'img/help_book_cool-4.png' },
         win4: { label: 'Contact Me', icon: 'img/envelope_closed-0.png' },
         win5: { label: 'Imaging', icon: 'img/images/image_old_jpeg-0.png' },
-        win6: { label: 'experiences.txt', icon: 'img/notepad_file-2.png' },
+        win8: { label: 'Résumé', icon: 'img/netscape-icon-16.png' },
         win7: { label: 'MS-DOS Prompt', icon: 'img/ms_dos-1.png' }
     };
 
@@ -212,24 +216,36 @@ $(document).ready(function(){
             for (i = 0; i < parts.length; i++) {
                 delays.push(100 + i * 110);
             }
-        } else if (winId === 'win6') {
-            // Notepad: the file paints in a couple of lines at a time,
-            // like a slow disk, and ends up exactly as it was
-            var ta = winEl.find('.notepad-text');
-            if (!ta.length) return;
-            if (ta.data('fullText') === undefined) {
-                ta.data('fullText', ta.val());
+        } else if (winId === 'win8') {
+            // Netscape: the browser's own bits paint in one piece at a
+            // time while the status bar talks its way through a load
+            parts = winEl.find('.browser-tool, .browser-location, .browser-frame,' +
+                ' .browser-status').get();
+            // Toolbar buttons one by one, then the location bar, then the
+            // page itself, then the status bar
+            for (i = 0; i < parts.length; i++) {
+                delays.push(80 + i * 90);
             }
-            var rows = String(ta.data('fullText')).split('\n');
-            var chunk = 2;
-            ta.val('');
-            for (i = 0; i * chunk < rows.length; i++) {
+            $(parts).css('visibility', 'hidden');
+            $.each(parts, function(index){
+                var el = this;
+                loadTimers[winId].push(setTimeout(function(){
+                    el.style.visibility = '';
+                }, delays[index]));
+            });
+            // The load conversation, spelled out the way Navigator 4 spelled
+            // it out, one line at a time
+            var chatter = [
+                'Connecting to www.devinaxo.com...',
+                'Host contacted. Waiting for reply...',
+                'Read 14.2K of 14.2K',
+                'Document: Done'
+            ];
+            for (i = 0; i < chatter.length; i++) {
                 (function(step){
                     loadTimers[winId].push(setTimeout(function(){
-                        ta.val(rows.slice(0, Math.min(rows.length,
-                            (step + 1) * chunk)).join('\n'));
-                        ta[0].scrollTop = 0;
-                    }, 150 + step * 45));
+                        browserStatus(chatter[step]);
+                    }, 500 + step * 260));
                 })(i);
             }
             return;
@@ -305,7 +321,7 @@ $(document).ready(function(){
         }
         ensureTask(winId);
         syncWindowState(winId);
-        mountFolder(winId, winEl);
+        mountFloating(winId, winEl);
         raiseWindow(winEl);
         simulateFirstLoad(winId, winEl);
         // In the stacked layout the window opens below the icons, so bring it into view
@@ -436,6 +452,12 @@ $(document).ready(function(){
         } else if (action === 'send') {
             var sendBtn = document.getElementById('button');
             if (sendBtn) sendBtn.click();
+        } else if (action === 'location') {
+            var field = document.getElementById('browser-url');
+            if (field) {
+                field.focus();
+                field.select();
+            }
         } else if (action === 'about') {
             showWindow('win3');
         }
@@ -446,6 +468,231 @@ $(document).ready(function(){
             closeMenus();
         }
     });
+
+    // Netscape window (win8): a simulated Navigator 4 driving the little
+    // retro site in web/. The four pages below are the only ones it knows;
+    // anything else typed into the location bar gets the period-correct
+    // "could not open the location" error instead of a real navigation.
+    var BROWSER_HOST = 'http://www.devinaxo.com';
+    var browserPages = {
+        'http://www.devinaxo.com/web/': {
+            src: 'web/index.html', title: "Nacho's Home Page"
+        },
+        'http://www.devinaxo.com/web/index.html': {
+            src: 'web/index.html', title: "Nacho's Home Page"
+        },
+        'http://www.devinaxo.com/web/projects.html': {
+            src: 'web/projects.html', title: "Projects - Nacho's Home Page"
+        },
+        'http://www.devinaxo.com/web/guestbook.html': {
+            src: 'web/guestbook.html', title: "Guestbook - Nacho's Home Page"
+        },
+        'http://www.devinaxo.com/web/colophon.html': {
+            src: 'web/colophon.html', title: "Colophon - Nacho's Home Page"
+        }
+    };
+    var browserHome = 'http://www.devinaxo.com/web/';
+    var browserHistory = [browserHome];
+    var browserHistIdx = 0;
+    var browserPending = null;
+    var browserWatchdog = null;
+    var browserThrobbers = $('.browser-throbber, .browser-tool-throb');
+
+    function browserStatus(text){
+        $('#browser-status').text(text);
+    }
+
+    function browserLoading(on){
+        browserThrobbers.toggleClass('paused', !on);
+    }
+
+    // The location bar, the title and the Back/Forward states all follow the
+    // current entry of the history
+    function browserSync(){
+        var url = browserHistory[browserHistIdx];
+        var page = browserPages[url];
+        $('#browser-url').val(url);
+        $('#browser-title').text((page ? page.title : 'Unknown location') +
+            ' - Netscape');
+        $('[data-nav="back"]').prop('disabled', browserHistIdx <= 0)
+            .attr('aria-disabled', browserHistIdx <= 0 ? 'true' : 'false');
+        $('[data-nav="forward"]')
+            .prop('disabled', browserHistIdx >= browserHistory.length - 1)
+            .attr('aria-disabled',
+                browserHistIdx >= browserHistory.length - 1 ? 'true' : 'false');
+    }
+
+    function browserGo(url, addToHistory){
+        var page = browserPages[url];
+        if (!page){
+            // Navigator 4's actual complaint, typos and all. The current page
+            // stays put: a failed location leaves what you were reading alone.
+            browserStatus('Netscape could not open the location: ' + url);
+            return;
+        }
+        if (addToHistory){
+            // Anything ahead of the current entry is dropped, like a real one
+            browserHistory = browserHistory.slice(0, browserHistIdx + 1);
+            browserHistory.push(url);
+            browserHistIdx = browserHistory.length - 1;
+        }
+        browserPending = url;
+        browserSync();
+        browserLoading(true);
+        browserStatus('Connecting to www.devinaxo.com...');
+        $('#browser-frame').attr('src', page.src);
+        // Safety net: the load event settles it, but a frame that never fires
+        // it should not leave the status bar stuck on "Connecting..."
+        if (browserWatchdog) clearTimeout(browserWatchdog);
+        browserWatchdog = setTimeout(function(){
+            if (browserPending === url){
+                browserPending = null;
+                browserLoading(false);
+                browserStatus('Document: Done');
+            }
+        }, 4000);
+    }
+
+    function browserCommand(name){
+        switch (name) {
+        case 'back':
+            if (browserHistIdx > 0){
+                browserHistIdx -= 1;
+                browserGo(browserHistory[browserHistIdx], false);
+            }
+            break;
+        case 'forward':
+            if (browserHistIdx < browserHistory.length - 1){
+                browserHistIdx += 1;
+                browserGo(browserHistory[browserHistIdx], false);
+            }
+            break;
+        case 'reload':
+            browserGo(browserHistory[browserHistIdx], false);
+            break;
+        case 'home':
+            browserGo(browserHome, true);
+            break;
+        }
+    }
+
+    // The page frame is only ever allowed to show the four pages of the
+    // retro site. A link inside it that points back at the desktop would put
+    // a desktop inside a desktop inside a desktop, so that is refused here,
+    // the same way a bad address in the location bar is. (The links in web/
+    // are meant to ask instead of navigating, see the hello below.)
+    function browserFramePath(){
+        try {
+            return $('#browser-frame')[0].contentWindow.location.pathname;
+        } catch (err) {
+            return '';
+        }
+    }
+
+    function browserFrameIsRetroSite(){
+        return /\/web\/(?:index|projects|guestbook|colophon)\.html$|\/web\/$/
+            .test(browserFramePath());
+    }
+
+    // Tells the page in the frame that it is being shown by the desktop, which
+    // is what unlocks its "open this on the desktop" links. The page asks for
+    // this too, because either of the two can finish loading first.
+    function browserGreetFrame(){
+        var frame = $('#browser-frame')[0];
+        if (!frame || !frame.contentWindow) return;
+        try {
+            frame.contentWindow.postMessage({
+                type: 'devinaxo:desktop-hello'
+            }, '*');
+        } catch (err) {
+            // A cross-origin frame, nothing to say to it
+        }
+    }
+
+    $('#browser-frame').on('load', function(){
+        if (!browserFrameIsRetroSite()){
+            browserStatus('Netscape could not open the location: ' +
+                browserFramePath());
+            $('#browser-frame').attr('src',
+                browserPages[browserHistory[browserHistIdx]].src);
+            return;
+        }
+        browserGreetFrame();
+        if (browserPending === null) return;
+        browserPending = null;
+        browserLoading(false);
+        browserStatus('Document: Done');
+    });
+
+    // Messages from the page in the frame. It either asked to be introduced
+    // (and gets the greeting in return), or it asked for a window on the
+    // desktop, which is answered by closing the browser and opening what it
+    // wanted, so the desktop never ends up nested inside its own page frame.
+    $(window).on('message', function(e){
+        // jQuery's event wrapper does not proxy the properties of a message
+        // event (data, source, origin), so the native one is the one to read
+        var msg = e.originalEvent || e;
+        if (!msg.data) return;
+        // Only ever answer our own frame, and only from our own origin
+        if (msg.source !== $('#browser-frame')[0].contentWindow) return;
+        if (msg.origin && window.location.origin &&
+            msg.origin !== window.location.origin) return;
+        if (msg.data.type === 'devinaxo:desktop-hello') {
+            browserGreetFrame();
+        } else if (msg.data.type === 'devinaxo:desktop') {
+            var target = msg.data.open === 'win4' ? 'win4' : 'win3';
+            $('#win8 .window-close').trigger('click');
+            showWindow(target);
+        }
+    });
+
+    $('#win8').on('click', '[data-nav]', function(){
+        browserCommand($(this).data('nav'));
+    });
+
+    // Turns whatever was typed in the location bar into one of the four known
+    // URLs. People type "projects.html", "/web/projects.html" and the full
+    // "http://www.devinaxo.com/web/projects.html" and they all mean the same
+    // thing, so all three work. Anything else returns null.
+    function browserResolve(typed){
+        var value = $.trim(typed)
+            .replace(/^[a-z][a-z0-9+.-]*:\/\//i, '')
+            .replace(/^www\.devinaxo\.com\/?/i, '')
+            .replace(/^\/+/, '')
+            .toLowerCase();
+        switch (value) {
+        case '':
+        case 'web':
+        case 'web/':
+        case 'index.html':
+        case 'web/index.html':
+            return browserHome;
+        case 'projects.html':
+        case 'web/projects.html':
+            return BROWSER_HOST + '/web/projects.html';
+        case 'guestbook.html':
+        case 'web/guestbook.html':
+            return BROWSER_HOST + '/web/guestbook.html';
+        case 'colophon.html':
+        case 'web/colophon.html':
+            return BROWSER_HOST + '/web/colophon.html';
+        default:
+            return null;
+        }
+    }
+
+    $('#browser-url').on('keydown', function(e){
+        if (e.key !== 'Enter') return;
+        e.preventDefault();
+        var url = browserResolve(this.value);
+        if (url){
+            browserGo(url, true);
+        } else {
+            browserGo($.trim(this.value), true);
+        }
+    });
+
+    browserSync();
 
     // MS-DOS Prompt: a fake console with commands, easter eggs and
     // command history on the arrow keys (type HELP to get started)
@@ -573,10 +820,42 @@ $(document).ready(function(){
             'TEMP=C:\\TEMP',
             'SET PORTFOLIO=DEVINAXO',
             ''
+        ],
+        // This is the short version. The desktop opens the long one in a web
+        // browser now, so this file just points at it and keeps the summary.
+        'experiences.txt': [
+            'WORK EXPERIENCES',
+            '================',
+            '',
+            'The long version of this file is a web page:',
+            'http://www.devinaxo.com/web/',
+            '',
+            'PROFESSIONAL',
+            '------------',
+            '',
+            'Web Developer - Auditoría General de la Provincia de Salta (2022 - current)',
+            '* Internal system to submit, store and audit municipal financial data,',
+            '  plus the province-wide statistics generated from it.',
+            '* Public web application to publish that data in a readable way.',
+            '* Digital submission from the municipalities, replacing paper, with',
+            '  national file signature validation.',
+            '* Built with: Javascript and React, Spring-Boot, Tailwind, MySQL, AWS.',
+            '',
+            'FREELANCE',
+            '---------',
+            '',
+            'Lavandería del 13 / Sistema del 13 (2025 - 2026)',
+            '* Orders, payments and client notifications for a local laundry,',
+            '  with statistics and reports for the owner.',
+            '* Built with: React and TypeScript, Laravel, Tailwind, MySQL, Netlify.',
+            '',
+            'Punto Mobile / Sistema de Gestión (2026)',
+            '* Stock, sales, repairs, payments and providers for a local phone',
+            '  shop, with statistics and email reports for the owner.',
+            '* Built with: React and TypeScript, Spring-Boot, Tailwind, MySQL,',
+            '  DigitalOcean, Mailgun.'
         ]
     };
-    var notepadText = $('#win6 .notepad-text').val() || '';
-    dosFiles['experiences.txt'] = notepadText.split(/\r?\n/);
     dosFiles['experience.txt'] = dosFiles['experiences.txt'];
 
     function dosRun(raw){

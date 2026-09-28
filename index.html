@@ -110,11 +110,11 @@
             alt="Mail icon" id="icon5">
           <p class="icon-title white unselectable">Contact Me</p>
         </div>
-        <div class="icon-spot clickable-window" data-window="win6"
+        <div class="icon-spot clickable-window" data-window="win8"
           data-icon="icon6">
-          <img class="unselectable" src="img/notepad_file-2.png"
-            alt="Notepad icon" id="icon6">
-          <p class="icon-title white unselectable">experiences.txt</p>
+          <img class="unselectable" src="img/netscape-icon-32.png"
+            alt="Netscape Navigator icon" id="icon6">
+          <p class="icon-title white unselectable">Résumé</p>
         </div>
         <div class="icon-spot clickable-window" data-window="win7"
           data-icon="icon7">
@@ -522,49 +522,86 @@
           </div>
           <div class="window-body" id="viewer-body"></div>
         </div>
-        <div class="window notepad-window" id="win6">
-          <h2 class="sr-only">Work Experience</h2>
+        <div class="window browser-window" id="win8">
+          <h2 class="sr-only">Work experience</h2>
           <div class="title-bar">
             <div class="title-bar-text unselectable flex">
-              <img src="img/notepad_file-2.png" alt class="window-icon">experiences.txt - Notepad
+              <img src="img/netscape-icon-16.png" alt class="window-icon"><span
+                id="browser-title">Nacho's Home Page - Netscape</span>
             </div>
             <div class="title-bar-controls">
               <button aria-label="Minimize" class="window-minimize"
-                data-window="win6"></button>
+                data-window="win8"></button>
               <button aria-label="Close" class="window-close"
-                data-window="win6"></button>
+                data-window="win8"></button>
             </div>
           </div>
           <div class="menu-bar unselectable">
             <div class="menu-group">
               <button type="button" class="menu-item"><u>F</u>ile</button>
               <div class="menu-popup">
-                <button type="button" class="menu-entry" disabled><u>N</u>ew</button>
+                <button type="button" class="menu-entry" disabled><u>N</u>ew Web Browser</button>
                 <button type="button" class="menu-entry" disabled><u>O</u>pen...</button>
-                <button type="button" class="menu-entry" disabled><u>S</u>ave</button>
-                <button type="button" class="menu-entry" disabled>Save <u>A</u>s...</button>
+                <button type="button" class="menu-entry" data-action="location"><u>O</u>pen Location</button>
                 <div class="menu-sep"></div>
-                <button type="button" class="menu-entry" data-action="close"><u>E</u>xit</button>
+                <button type="button" class="menu-entry" disabled>Save <u>A</u>s...</button>
+                <button type="button" class="menu-entry" disabled><u>P</u>rint Preview</button>
+                <div class="menu-sep"></div>
+                <button type="button" class="menu-entry" data-action="close"><u>C</u>lose</button>
               </div>
             </div>
             <div class="menu-group">
               <button type="button" class="menu-item"><u>E</u>dit</button>
               <div class="menu-popup">
-                <button type="button" class="menu-entry" disabled><u>U</u>ndo</button>
-                <div class="menu-sep"></div>
-                <button type="button" class="menu-entry" disabled><u>C</u>ut</button>
-                <button type="button" class="menu-entry" disabled><u>C</u>opy</button>
-                <button type="button" class="menu-entry" disabled><u>P</u>aste</button>
-                <button type="button" class="menu-entry" disabled><u>D</u>elete</button>
+                <button type="button" class="menu-entry" disabled><u>F</u>ind...</button>
+                <button type="button" class="menu-entry" disabled>Find <u>A</u>gain</button>
                 <div class="menu-sep"></div>
                 <button type="button" class="menu-entry" disabled>Select <u>A</u>ll</button>
               </div>
             </div>
             <div class="menu-group">
-              <button type="button" class="menu-item"><u>S</u>earch</button>
+              <button type="button" class="menu-item"><u>G</u>o</button>
               <div class="menu-popup">
-                <button type="button" class="menu-entry" disabled><u>F</u>ind...</button>
-                <button type="button" class="menu-entry" disabled>Find <u>N</u>ext</button>
+                <button type="button" class="menu-entry" data-nav="back"><u>B</u>ack</button>
+                <button type="button" class="menu-entry" data-nav="forward"><u>F</u>orward</button>
+                <button type="button" class="menu-entry" data-nav="reload"><u>R</u>eload</button>
+                <div class="menu-sep"></div>
+                <button type="button" class="menu-entry" data-nav="home"><u>H</u>ome</button>
+                <button type="button" class="menu-entry" disabled>Open <u>P</u>age</button>
+              </div>
+            </div>
+            <div class="menu-group">
+              <button type="button" class="menu-item"><u>B</u>ookmarks</button>
+              <div class="menu-popup">
+                <button type="button" class="menu-entry" disabled><u>A</u>dd Bookmark</button>
+                <div class="menu-sep"></div>
+                <button type="button" class="menu-entry" disabled>Personal Bookshelf</button>
+                <button type="button" class="menu-entry" disabled>Files</button>
+              </div>
+            </div>
+            <div class="menu-group">
+              <button type="button" class="menu-item"><u>O</u>ptions</button>
+              <div class="menu-popup">
+                <button type="button" class="menu-entry" disabled>Show <u>T</u>oolbar</button>
+                <button type="button" class="menu-entry" disabled>Document Encoding</button>
+                <div class="menu-sep"></div>
+                <button type="button" class="menu-entry" disabled>Auto Load Images</button>
+              </div>
+            </div>
+            <div class="menu-group">
+              <button type="button" class="menu-item"><u>D</u>irectory</button>
+              <div class="menu-popup">
+                <button type="button" class="menu-entry" disabled><u>W</u>hat's New?</button>
+                <button type="button" class="menu-entry" disabled>What's <u>C</u>ool?</button>
+              </div>
+            </div>
+            <div class="menu-group">
+              <button type="button" class="menu-item"><u>W</u>indow</button>
+              <div class="menu-popup">
+                <button type="button" class="menu-entry" disabled><u>N</u>ew</button>
+                <button type="button" class="menu-entry" disabled><u>H</u>istory</button>
+                <div class="menu-sep"></div>
+                <button type="button" class="menu-entry" data-action="close">Close</button>
               </div>
             </div>
             <div class="menu-group">
@@ -574,33 +611,38 @@
               </div>
             </div>
           </div>
-          <div class="window-body">
-            <textarea class="notepad-text" readonly spellcheck="false"
-              cols="60" rows="18">
-WORK EXPERIENCES
-================
-
-PROFESSIONAL
-------------
-
-Web Developer - Auditoría General de la Provincia de Salta (2022 - current)
-* Developed an internal managing system for the organization, which is used to submit and store municipal financial data for the current and previous years, and is used by the organization to generate statistics for the province; as well as a whole module for performing audits, managing work programs and emitting final reports.
-* Developed a web application destined for communicating with the public, which allows users to view the data stored in the system in an easily digestible way.
-* Developed a web application that allows the organization to communicate with the municipalities, deprecating their physical communication and allowing them to send their data digitally, which is then stored in the system with national file signature validation to ensure maximum security.
-* Built with: Javascript and React, Spring-Boot, Tailwind, MySQL, AWS.
-
-
-FREELANCE
----------
-
-[Lavandería del 13 / Sistema del 13] - ([2025 - 2026])
-* Developed a web application for a local laundry business, which allows them to manage and notify their clients, orders and payments in a digital way, as well as display statistics and reports for the business owner.
-* Built with: React and TypeScript, Laravel, Tailwind, MySQL, Netlify.
-
-[Punto Mobile / Sistema de Gestión] - ([2026])
-* Developed a web application for a local mobile phone business, which allows them to manage their stock/inventory, sales, repairs, payments and providers, as well as display statistics, emails sent and received reports for the business owner.
-* Built with: React and TypeScript, Spring-Boot, Tailwind, MySQL, DigitalOcean, Mailgun.
-          </textarea>
+          <div class="browser-chrome">
+            <div class="browser-toolbar unselectable">
+              <button type="button" class="browser-tool" data-nav="back"><img
+                  src="web/img/nav-back.png" alt="">Back</button>
+              <button type="button" class="browser-tool" data-nav="forward"><img
+                  src="web/img/nav-forward.png" alt="">Forward</button>
+              <button type="button" class="browser-tool" data-nav="reload"><img
+                  src="web/img/nav-reload.png" alt="">Reload</button>
+              <button type="button" class="browser-tool" data-nav="home"><img
+                  src="web/img/nav-home.png" alt="">Home</button>
+              <span class="browser-tool browser-tool-static"><img
+                  src="web/img/nav-reload.png" alt="" class="browser-tool-throb">Netscape
+                Navigator&#8482; 4.0</span>
+            </div>
+            <div class="browser-location">
+              <label class="browser-location-label" for="browser-url">Location:</label>
+              <input class="browser-url" id="browser-url" type="text"
+                value="http://www.devinaxo.com/web/" spellcheck="false"
+                autocomplete="off" autocapitalize="off"
+                aria-label="Location">
+            </div>
+          </div>
+          <div class="window-body browser-body">
+            <iframe class="browser-frame" id="browser-frame" src="web/index.html"
+              title="Nacho's retro home page" loading="eager"></iframe>
+          </div>
+          <div class="browser-status unselectable">
+            <span class="browser-status-doc" id="browser-status">Document: Done</span>
+            <span class="browser-status-right">
+              <span class="browser-status-lock" aria-hidden="true"></span>
+              <span class="browser-throbber" id="browser-throbber" aria-hidden="true"></span>
+            </span>
           </div>
         </div>
         <div class="window dos-window" id="win7">

@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nacho's Home Page - Work Experience</title>
+  <meta name="description"
+    content="Ignacio Garcia's work experience in detail: professional and freelance web developer roles, the systems built at the Auditoria General de la Provincia de Salta, and the tools behind them.">
+  <link rel="canonical" href="https://devinaxo.github.io/web/">
+  <link rel="icon" href="../img/ico.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="retro.css">
+  <script src="retro.js"></script>
+</head>
+
+<body class="retro-page">
+
+  <div class="retro-wrap">
+
+    <!-- ================= banner ================= -->
+    <header>
+      <div class="banner">
+        <img class="banner-logo" src="../img/netscape.png" width="96" height="96"
+          alt="The Netscape Navigator starfield logo">
+        <div class="banner-text">
+          <h1 class="banner-title">Nacho's Home Page</h1>
+          <p class="banner-tagline">Frontend developer, Windows 98 enthusiast, dog person.</p>
+          <span class="viewer-badge"><img src="../img/netscape-icon-16.png" alt="">
+            Best viewed in Netscape Navigator 4.0 at 800x600</span>
+        </div>
+      </div>
+
+      <div class="marquee" role="marquee" aria-label="News ticker">
+        <span class="marquee-track">*** WELCOME TO MY HOME PAGE *** now with 40% more experience per
+          kilobyte *** this site is best viewed in Netscape Navigator 4.0 or Internet Explorer 4.0
+          *** sign my guestbook *** tell your friends *** tell your friends' friends *** could you tell I like hypnospace outlaw ***</span>
+      </div>
+
+      <nav class="navbar" aria-label="Site sections">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="#jobs">Work Experience</a>
+        <a href="projects.html">Projects</a>
+        <a href="guestbook.html">Guestbook</a>
+        <a href="colophon.html">Colophon</a>
+        <span class="nav-spacer"></span>
+        <span class="nav-item">You are visitor <span data-counter-text>13,371,337</span></span>
+      </nav>
+    </header>
+
+    <div class="columns">
+
+      <!-- ================= main column ================= -->
+      <main class="col-main">
+
+        <section id="jobs" class="anchor-target">
+          <h2 class="section-bar">Work Experience</h2>
+
+          <div class="panel">
+            <p>Three jobs so far: one in the public sector, two freelance for local
+              businesses. Every one of them was the same problem wearing different
+              clothes &mdash; people were doing real work on paper, in notebooks, or in
+              WhatsApp groups, and my job was to turn it into a system that does not
+              lose anything.</p>
+            <p class="meter-note">Times below are approximate; the exact months are in the
+              <a href="../index.html" data-desktop="win3">résumé on my desktop</a>.</p>
+          </div>
+
+          <!-- ---------- job 1 ---------- -->
+          <article class="job" id="job-auditoria">
+            <div class="job-head">
+              <h3 class="job-title">Web Developer</h3>
+              <p class="job-dates">2022 &ndash; present</p>
+            </div>
+            <p class="job-org">Auditoría General de la Provincia de Salta &mdash; professional,
+              full&nbsp;time</p>
+            <div class="job-body">
+              <h4>What they do</h4>
+              <p>The provincial audit office receives the annual financial accounts of
+                every municipality in Salta, stores them, checks them, and turns them into
+                the statistics the province publishes. My work is the software half of
+                that: collecting the data, storing it, auditing it and showing it to the
+                public.</p>
+
+              <h4>What I built</h4>
+              <ul>
+                <li>An internal system to submit, store and search municipal financial
+                  data for the current and previous years, and to generate the
+                  province-wide statistics that come out of it.</li>
+                <li>A full audits module: work programs, the audits themselves, and
+                  generating the final reports the office signs off on.</li>
+                <li>A public-facing web application so anyone can look at the collected
+                  data in a form that is actually readable, instead of asking the office
+                  for a copy of a PDF.</li>
+                <li>A municipal communication application that replaced physical
+                  (paper/mail) submissions with digital ones, with national file
+                  signature validation so a submission can be traced and trusted.</li>
+                <li>The plumbing in between: the MySQL schema, the Spring Boot API, the
+                  deployment on AWS, and the boring parts of the app that keep the
+                  auditors from filing tickets.</li>
+              </ul>
+
+              <h4>My role</h4>
+              <ul>
+                <li>Frontend-heavy full stack: React and Tailwind on top of a Spring Boot
+                  API and a MySQL database I also designed.</li>
+                <li>Translator between the auditors and the code. Most of my best
+                  requirements arrived as paperwork, and my job was to work out what the
+                  screen should be.</li>
+                <li>Shipped in small pieces, in production, for real users, while the old
+                  process kept running alongside.</li>
+                <li>Handled the parts nobody asks for: input validation, audit trails,
+                  permissions, and not losing anybody's data.</li>
+              </ul>
+
+              <h4>Stack</h4>
+              <ul class="chips">
+                <li>React</li>
+                <li>JavaScript</li>
+                <li>TypeScript</li>
+                <li class="chip-alt">Spring Boot</li>
+                <li class="chip-alt">Tailwind CSS</li>
+                <li class="chip-alt">MySQL</li>
+                <li class="chip-alt">AWS</li>
+                <li>REST</li>
+              </ul>
+
+              <!-- TODO: team size, exact start month, an internal link that is safe to
+                   publish, and a screenshot of a report nobody has seen before. -->
+              <h4>Links</h4>
+              <ul>
+                <li>The system is internal, so I cannot link to it &mdash; ask me for a
+                  walkthrough instead.</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- ---------- job 2 ---------- -->
+          <article class="job" id="job-lavanderia">
+            <div class="job-head">
+              <h3 class="job-title">Freelance Web Developer</h3>
+              <p class="job-dates">2025 &ndash; 2026</p>
+            </div>
+            <p class="job-org">Lavandería del 13 &mdash; Sistema del 13 &mdash; freelance</p>
+            <div class="job-body">
+              <h4>What they do</h4>
+              <p>A laundry two blocks from my house. Orders on paper, payments in a
+                notebook, and no way for a customer to find out whether their clothes were
+                ready without walking over and asking.</p>
+
+              <h4>What I built</h4>
+              <ul>
+                <li>Client, order and payment management, so the shop stopped keeping its
+                  whole business in a notebook.</li>
+                <li>Automatic notifications to clients when an order is ready, which is
+                  the single feature the owner mentions first.</li>
+                <li>A dashboard for the owner with statistics and reports: volume per day
+                  and week, revenue, and which services actually get used.</li>
+                <li>Historical lookups, because "did we already wash that?" was a
+                  daily question.</li>
+              </ul>
+
+              <h4>My role</h4>
+              <ul>
+                <li>Everything, end to end: database, API, interface, deployment.</li>
+                <li>Talked to the owner in person, in the shop, and then iterated on the
+                  real screens rather than the ones in my head.</li>
+              </ul>
+
+              <h4>Stack</h4>
+              <ul class="chips">
+                <li>React</li>
+                <li>TypeScript</li>
+                <li class="chip-alt">Laravel</li>
+                <li class="chip-alt">Tailwind CSS</li>
+                <li class="chip-alt">MySQL</li>
+                <li class="chip-alt">Netlify</li>
+              </ul>
+
+              <!-- TODO: add the public URL once the client is happy for it to be linked,
+                   plus a "what the numbers went from / to" line if the owner allows it. -->
+              <h4>Links</h4>
+              <ul>
+                <li><a href="https://devinaxo.github.io/pagina-cac-2024" target="_blank"
+                    rel="noopener noreferrer">An earlier site I made for a
+                    client-adjacent project</a></li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- ---------- job 3 ---------- -->
+          <article class="job" id="job-puntomobile">
+            <div class="job-head">
+              <h3 class="job-title">Freelance Web Developer</h3>
+              <p class="job-dates">2026</p>
+            </div>
+            <p class="job-org">Punto Mobile &mdash; Sistema de Gestión &mdash; freelance</p>
+            <div class="job-body">
+              <h4>What they do</h4>
+              <p>A mobile phone shop: stock coming in from providers, phones going out,
+                half the stock sitting in repair trays, and a lot of money changing hands
+                without anything written down.</p>
+
+              <h4>What I built</h4>
+              <ul>
+                <li>Stock and inventory management, including what came from which
+                  provider.</li>
+                <li>Sales and payments: what was sold, how it was paid for, and who still
+                  owes what.</li>
+                <li>Repairs as a real workflow: intake, diagnosis, parts, state of the
+                  device, and the promise date promised to the customer.</li>
+                <li>Providers: a ledger of what the shop owes each one, which was the
+                  thing that made the difference for them.</li>
+                <li>An owner dashboard with statistics, plus reports of the emails sent
+                  and received, delivered through Mailgun.</li>
+                <li>Self-hosted on a small DigitalOcean box, because a single shop does
+                  not need a bigger bill.</li>
+              </ul>
+
+              <h4>My role</h4>
+              <ul>
+                <li>Requirements, data model, API, interface, deployment and the support
+                  calls that follow.</li>
+                <li>Kept the data entry fast: most of the interface exists so the person
+                  at the counter can type once and move on.</li>
+              </ul>
+
+              <h4>Stack</h4>
+              <ul class="chips">
+                <li>React</li>
+                <li>TypeScript</li>
+                <li class="chip-alt">Spring Boot</li>
+                <li class="chip-alt">Tailwind CSS</li>
+                <li class="chip-alt">MySQL</li>
+                <li class="chip-alt">DigitalOcean</li>
+                <li class="chip-alt">Mailgun</li>
+              </ul>
+
+              <!-- TODO: demo link + screenshots once the client signs off on them. -->
+              <h4>Links</h4>
+              <ul>
+                <li>Internal system, no public URL yet.</li>
+              </ul>
+            </div>
+          </article>
+
+          <hr>
+
+          <!-- ---------- timeline ---------- -->
+          <section id="timeline" class="anchor-target">
+            <h2 class="section-bar">The Timeline</h2>
+            <div class="panel">
+              <ul class="timeline">
+                <li><span class="timeline-when">~2013</span> Started taking things apart.
+                  Game modding in C and C++, and a lot of things that did not compile.
+                </li>
+                <li><span class="timeline-when">~2016</span> First real programs: Java
+                  applets, then Java games with Swing. Still the best way I know to learn
+                  to structure a program.
+                </li>
+                <li><span class="timeline-when">~2017</span> First Android app, and the
+                  first time a stranger installed something I wrote.
+                </li>
+                <li><span class="timeline-when">~2018</span> Went from Java to the web:
+                  HTML, CSS, JavaScript, and this whole "frontend" thing.
+                </li>
+                <li><span class="timeline-when">2020</span> Java/Kotlin Android and
+                  Flutter/Dart, plus Python for automating the boring parts of gaming.
+                </li>
+                <li><span class="timeline-when">2022</span> Started at the Auditoría
+                  General de la Provincia de Salta. First job where the software is used
+                  by an entire province.
+                </li>
+                <li><span class="timeline-when">2025</span> First freelance client: a
+                  laundry.
+                </li>
+                <li><span class="timeline-when">2026</span> Second freelance client: a
+                  phone shop. And a resume that fits in a text file... sort of.
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <hr>
+
+          <!-- ---------- skills ---------- -->
+          <section id="skills" class="anchor-target">
+            <h2 class="section-bar">Tools &amp; Skills</h2>
+            <div class="panel">
+              <!-- TODO: these levels are a guess. Change them to something you would
+                   defend in an interview, or drop the numbers and keep the list. -->
+              <table class="meters">
+                <caption class="sr-only">Self-assessed skill levels</caption>
+                <tbody>
+                  <tr>
+                    <th scope="row">HTML &amp; CSS</th>
+                    <td>
+                      <div class="meter">
+                        <div class="meter-fill" style="width: 95%"></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">JavaScript</th>
+                    <td>
+                      <div class="meter">
+                        <div class="meter-fill" style="width: 90%"></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">React</th>
+                    <td>
+                      <div class="meter">
+                        <div class="meter-fill" style="width: 88%"></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">TypeScript</th>
+                    <td>
+                      <div class="meter">
+                        <div class="meter-fill" style="width: 82%"></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Tailwind CSS</th>
+                    <td>
+                      <div class="meter">
+                        <div class="meter-fill" style="width: 85%"></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">MySQL</th>
+                    <td>
+                      <div class="meter">
+                        <div class="meter-fill" style="width: 78%"></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Spring Boot</th>
+                    <td>
+                      <div class="meter">
+                        <div class="meter-fill" style="width: 74%"></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Laravel / PHP</th>
+                    <td>
+                      <div class="meter">
+                        <div class="meter-fill" style="width: 70%"></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Java</th>
+                    <td>
+                      <div class="meter">
+                        <div class="meter-fill meter-fill-alt" style="width: 72%"></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Python</th>
+                    <td>
+                      <div class="meter">
+                        <div class="meter-fill meter-fill-alt" style="width: 65%"></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">C / C++</th>
+                    <td>
+                      <div class="meter">
+                        <div class="meter-fill meter-fill-alt" style="width: 55%"></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Dart / Flutter</th>
+                    <td>
+                      <div class="meter">
+                        <div class="meter-fill meter-fill-alt" style="width: 60%"></div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <p class="meter-note">Blue is what I use at work, orange is what I learned the
+                long way around.</p>
+            </div>
+          </section>
+
+          <hr>
+
+          <!-- ---------- how I work ---------- -->
+          <section id="how-i-work" class="anchor-target">
+            <h2 class="section-bar">How I Work</h2>
+            <div class="panel">
+              <!-- TODO: rewrite this part in your own words, it reads like a template. -->
+              <ul>
+                <li>I start from the process as it exists today, on paper if necessary.
+                  The software that matches the paperwork gets adopted; the software that
+                  replaces it gets argued about.</li>
+                <li>Small pieces, in production, early. A working screen beats a perfect
+                  branch.</li>
+                <li>I own the whole path, database included, because the bugs that hurt
+                  live exactly at the seams between the parts.</li>
+                <li>I care about the boring stuff: validation, audit trails, backups, and
+                  what the screen does when the request is slow.</li>
+                <li>I write things down. If it only exists in my head, it does not
+                  exist.</li>
+              </ul>
+            </div>
+          </section>
+
+          <hr>
+
+          <!-- ---------- downloads ---------- -->
+          <section id="downloads" class="anchor-target">
+            <h2 class="section-bar">Downloads</h2>
+            <div class="panel">
+              <ul>
+                <li><a class="btn98" href="../index.html" data-desktop="win3">Open my Windows 98
+                    desktop</a></li>
+                <li><a class="btn98" href="projects.html">Browse my projects</a></li>
+              </ul>
+              <p class="meter-note">TODO: put a real PDF résumé here, and a .zip of
+                something worth unzipping, because every 90s site had a downloads
+                section.</p>
+            </div>
+          </section>
+
+          <div class="construction">
+            <span>THIS PAGE IS ALWAYS UNDER CONSTRUCTION</span>
+          </div>
+
+        </section>
+      </main>
+
+      <!-- ================= sidebar ================= -->
+      <aside class="col-side">
+
+        <div class="card">
+          <h2>About Me</h2>
+          <img class="mug" src="../img/mugshot.jpg" width="84" height="84"
+            alt="A Shiba Inu on a CRT monitor, which is my spirit animal">
+          <p>Hi, I'm Nacho. I have been programming officially for at least six years and
+            taking things apart for about twelve, starting with game modding in C and
+            C++.</p>
+          <p>Since then: Java games, Android apps, Flutter, Python that plays games for me
+            while I sleep, and information systems for people who actually run
+            things.</p>
+          <p class="clear meter-note">More of the story on
+            <a href="../index.html" data-desktop="win3">my desktop</a>.</p>
+        </div>
+
+        <div class="card">
+          <h2>Right Now</h2>
+          <img class="spin-globe" src="img/earth-spin.gif" width="48" height="48"
+            alt="A spinning wireframe globe">
+          <ul class="side-list">
+            <li>Working at the Auditoría General de la Provincia de Salta.</li>
+            <li>Building systems that replace paperwork with the province.</li>
+            <li>Grinding Monster Hunter Frontier between commits.</li>
+            <li>Available for freelance work.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2>Contact</h2>
+          <ul class="side-list">
+            <li>E-mail:
+              <a href="mailto:gar.la.ignacio@gmail.com">gar.la.ignacio@gmail.com</a>
+            </li>
+            <li>LinkedIn: <a href="https://www.linkedin.com/in/devinacho/" target="_blank"
+                rel="noopener noreferrer">devinacho</a></li>
+            <li>Twitter: <a href="https://twitter.com/devinachoes" target="_blank"
+                rel="noopener noreferrer">@devinachoes</a></li>
+            <li>GitHub: <a href="https://github.com/devinaxo" target="_blank"
+                rel="noopener noreferrer">devinaxo</a></li>
+          </ul>
+          <p><a class="btn98" href="../index.html" data-desktop="win4">Send me a
+            message</a></p>
+        </div>
+
+        <div class="card">
+          <h2>Cool Links</h2>
+          <ul class="side-list">
+            <li><a href="https://jdan.github.io/98.css/" target="_blank"
+                rel="noopener noreferrer">98.css</a> &mdash; the reason this desktop
+              looks like 1998</li>
+            <li><a href="https://alexmeub.com/content/windows-98-icons/" target="_blank"
+                rel="noopener noreferrer">Windows 98 Icons</a> &mdash; every icon on
+              this site</li>
+            <li><a href="https://mrredshark77.github.io/" target="_blank"
+                rel="noopener noreferrer">MrRedShark77</a> &mdash; the desktop I copied
+              the idea of</li>
+            <li><a href="https://developer.mozilla.org/" target="_blank"
+                rel="noopener noreferrer">MDN</a> &mdash; where the answers live</li>
+          </ul>
+          <p class="meter-note">This page is a member of the
+            &quot;People With Too Many Side Projects&quot; webring.</p>
+          <p class="meter-note">&laquo; <a href="colophon.html">Prev</a> |
+            <a href="projects.html">Random</a> |
+            <a href="guestbook.html">Next</a> &raquo;</p>
+        </div>
+
+        <div class="card">
+          <h2>Visitors</h2>
+          <p class="counter" data-counter>
+            <span class="counter-digit" data-counter-digit>1</span>
+            <span class="counter-digit" data-counter-digit>3</span>
+            <span class="counter-digit" data-counter-digit>3</span>
+            <span class="counter-digit" data-counter-digit>7</span>
+            <span class="counter-digit" data-counter-digit>1</span>
+            <span class="counter-digit" data-counter-digit>3</span>
+            <span class="counter-digit" data-counter-digit>3</span>
+            <span class="counter-digit" data-counter-digit>7</span>
+          </p>
+          <p class="meter-note">You are visitor number <span data-counter-text>13,371,337</span>.
+            It is counting, honestly.</p>
+          <p class="meter-note">Last updated: September 2026.</p>
+        </div>
+
+      </aside>
+    </div>
+
+    <!-- ================= footer ================= -->
+    <footer class="retro-footer">
+      <p>
+        <a class="email-link" href="mailto:gar.la.ignacio@gmail.com">gar.la.ignacio@gmail.com</a>
+      </p>
+      <p>Hand-written HTML. No tables were harmed, although a few were nested too deeply
+        on purpose.</p>
+      <p>Best viewed in Netscape Navigator 4.0 &middot; 800x600 &middot; 256 colours
+        &middot; &copy; 1997-2026 Ignacio Garcia</p>
+      <p>Visitors: <span data-counter-text>13,371,337</span> &middot;
+        <a href="guestbook.html">sign the guestbook</a></p>
+    </footer>
+
+  </div>
+</body>
+
+</html>

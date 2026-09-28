@@ -240,8 +240,8 @@ p {
 #win1,
 #win2,
 #win5,
-#win6,
-#win7 {
+#win7,
+#win8 {
     display: none;
     z-index: 1;
 }
@@ -495,26 +495,193 @@ footer {
     }
 }
 
-/* Notepad window (experiences.txt): the edit control fills the client */
-.notepad-window .window-body {
-    margin: 3px;
+/* Netscape window (win8): a simulated Navigator 4 wrapped around the retro
+   home page in /web. The 98.css title bar and menu bar do the top of the job,
+   this styles the browser's own toolbar, location bar, viewport and status
+   bar underneath them. */
+.browser-window .menu-bar {
+    /* Eight menus overflow a narrow window, so let them wrap instead of
+       spilling out of the frame */
+    flex-wrap: wrap;
+}
+
+.browser-chrome {
+    flex: 0 0 auto;
+    padding: 2px 3px 3px;
+    background: #c0c0c0;
+    box-shadow: inset 1px 0 #dfdfdf, inset -1px 0 #808080;
+}
+
+.browser-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    margin-bottom: 3px;
+}
+
+/* Flat toolbar buttons, not the raised 98.css button: Navigator 4 drew its
+   navigation bar as a strip of small grey labels with a 3D glyph in them.
+   98.css's button box-shadow/min-width are switched off here so the strip
+   stays compact. */
+.browser-tool {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    min-width: 0;
+    min-height: 0;
+    padding: 2px 6px;
+    background: #c0c0c0;
+    border: 1px solid;
+    border-color: #dfdfdf #808080 #808080 #dfdfdf;
+    border-radius: 0;
+    box-shadow: none;
+    color: #000;
+    font-size: 12px;
+    font-weight: normal;
+    text-align: left;
+    text-shadow: none;
+    white-space: nowrap;
+}
+
+.browser-tool:hover {
+    background: #d4d0c8;
+}
+
+.browser-tool:active {
+    border-color: #808080 #dfdfdf #dfdfdf #808080;
+    padding: 3px 5px 1px 7px;
+}
+
+/* Disabled on the first page of the history, like the real thing */
+.browser-tool[disabled] {
+    color: #808080;
+    text-shadow: 1px 1px 0 #fff;
+    cursor: default;
+}
+
+.browser-tool img {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 auto;
+}
+
+/* The product name at the end of the toolbar, with a throbber that spins
+   while the page loads */
+.browser-tool-static {
+    margin-left: auto;
+    border-color: transparent;
+    font-weight: bold;
+    color: #000080;
+}
+
+.browser-tool-throb {
+    animation: browser-throb 1.2s steps(8, end) infinite;
+}
+
+.browser-tool-throb.paused,
+.browser-throbber.paused {
+    animation-play-state: paused;
+}
+
+@keyframes browser-throb {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.browser-location {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.browser-location-label {
+    flex: 0 0 auto;
+    font-size: 12px;
+    color: #000;
+}
+
+/* The location field is a sunken text box, but without 98.css's own border so
+   it reads as one continuous line, like Navigator 4's combo box */
+.browser-url {
+    flex: 1 1 auto;
+    min-width: 0;
+    box-sizing: border-box;
+    height: 20px;
+    margin: 0;
+    padding: 1px 3px;
+    font-size: 12px;
+    background: #fff;
+    color: #000;
+    border: 1px solid;
+    border-color: #808080 #fff #fff #808080;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.browser-body {
+    margin: 0;
     padding: 0;
     overflow: hidden;
     flex-flow: column nowrap;
+    /* A fixed viewport: the window never grows with the page, the page
+       scrolls inside it. Resizing the window still rescales it. */
+    height: 440px;
+    background: #000;
 }
 
-.notepad-text {
+.browser-frame {
     flex: 1 1 auto;
     min-height: 0;
     width: 100%;
-    resize: none;
-    font: 13px/1.4 "Lucida Console", "Courier New", monospace;
-    color: #000;
-    background: #fff;
+    border: 0;
+    background: #000;
+}
+
+.browser-status {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0 3px 3px;
+    padding: 2px 4px;
+    background: #c0c0c0;
     border: 1px solid;
     border-color: #808080 #fff #fff #808080;
-    padding: 2px 4px;
-    outline: none;
+    font-size: 12px;
+}
+
+.browser-status-doc {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #000;
+}
+
+.browser-status-right {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* A tiny padlock: the site is served over https */
+.browser-status-lock {
+    width: 9px;
+    height: 11px;
+    background: #000;
+    /* The shackle, drawn as an open notch on top of the body */
+    clip-path: polygon(0 40%, 20% 40%, 20% 0, 60% 0, 60% 40%, 80% 40%, 80% 100%, 0 100%);
+}
+
+.browser-throbber {
+    width: 12px;
+    height: 12px;
+    background: #000080;
+    border: 1px solid #000;
+    animation: browser-throb 1.2s steps(8, end) infinite;
 }
 
 /* MS-DOS Prompt window: black console, light grey monospace text */

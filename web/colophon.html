@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nacho's Home Page - Colophon</title>
+  <meta name="description"
+    content="How this page was made: hand-written HTML, a black background, a hit counter and a browser from 1998.">
+  <link rel="canonical" href="https://devinaxo.github.io/web/colophon.html">
+  <link rel="icon" href="../img/ico.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="retro.css">
+  <script src="retro.js"></script>
+</head>
+
+<body class="retro-page">
+
+  <div class="retro-wrap retro-wrap-narrow">
+
+    <header>
+      <div class="banner">
+        <img class="banner-logo" src="../img/netscape.png" width="96" height="96"
+          alt="The Netscape Navigator starfield logo">
+        <div class="banner-text">
+          <h1 class="banner-title">Colophon</h1>
+          <p class="banner-tagline">How this page was made, since somebody always
+            asks.</p>
+        </div>
+      </div>
+
+      <nav class="navbar" aria-label="Site sections">
+        <a href="index.html">Home</a>
+        <a href="index.html#jobs">Work Experience</a>
+        <a href="projects.html">Projects</a>
+        <a href="guestbook.html">Guestbook</a>
+        <a href="colophon.html" aria-current="page">Colophon</a>
+        <span class="nav-spacer"></span>
+        <span class="nav-item">You are visitor <span data-counter-text>13,371,337</span></span>
+      </nav>
+    </header>
+
+    <h2 class="section-bar">The tools</h2>
+    <div class="panel">
+      <ul>
+        <li>Hand-written HTML and CSS. No framework, no build step, nothing to install.
+          If it renders, it is because the browser tried.</li>
+        <li>The black starfield is a 32x32 PNG, tiled. The planet is a 48x48 animated GIF
+          with sixteen frames of wireframe sphere.</li>
+        <li>One small script, and it exists for exactly one reason: the hit counter. It
+          counts in your browser's local storage, because a counter that always shows the
+          same number is just a picture of a counter.</li>
+        <li>The blinking text, the scrolling ticker and the pulsing
+          <span class="tag-new" style="animation: none">NEW</span> badge are CSS
+          animations, and they all stand down if your system asks for less motion.</li>
+        <li>The layout is flexbox under the skin, because I would like the page to be
+          readable in 2026 as well as looking like 1998.</li>
+      </ul>
+    </div>
+
+    <h2 class="section-bar">The window around the page</h2>
+    <div class="panel">
+      <p>You are looking at this page inside a window. That window is a simulated
+        Netscape Navigator 4 sitting on a simulated Windows 98 desktop, which is
+        itself the front page of my site.</p>
+      <p>The desktop, the icons, the taskbar and every window in it are plain HTML and
+        CSS with a small amount of jQuery. The bevels, the title bars and the buttons
+        come from <a href="https://jdan.github.io/98.css/" target="_blank"
+            rel="noopener noreferrer">98.css</a>, the icons are from
+        <a href="https://alexmeub.com/content/windows-98-icons/" target="_blank"
+          rel="noopener noreferrer">Windows 98 Icons</a> by Alex Meub, and the desktop
+        layout itself was inspired by
+        <a href="https://mrredshark77.github.io/" target="_blank"
+          rel="noopener noreferrer">MrRedShark77</a>'s page.</p>
+      <p>You can drag the window, resize it from the bottom-right corner, minimize it to
+        the taskbar, and open the MS-DOS prompt on the desktop. Type
+        <span class="mono">HELP</span> there.</p>
+    </div>
+
+    <h2 class="section-bar">Browser support</h2>
+    <div class="panel">
+      <table class="meters">
+        <tbody>
+          <tr>
+            <th scope="row">Netscape Navigator 4.0</th>
+            <td><span class="blink">the intended experience</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Internet Explorer 5</th>
+            <td>should be fine</td>
+          </tr>
+          <tr>
+            <th scope="row">Anything modern</th>
+            <td>the starfield is not pixelated, that is all</td>
+          </tr>
+          <tr>
+            <th scope="row">Lynx, w3m, screen readers</th>
+            <td>this page is real markup, so it reads fine</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="section-bar">Last updated</h2>
+    <div class="panel">
+      <p>September 2026. The résumé grew, the guestbook lost its backend, and the
+        counter still works.</p>
+      <p><a class="btn98" href="index.html">Read the résumé</a>
+        <a class="btn98" href="../index.html" data-desktop="win3">Go to the
+          desktop</a></p>
+    </div>
+
+    <footer class="retro-footer">
+      <p>
+        <a class="email-link" href="mailto:gar.la.ignacio@gmail.com">gar.la.ignacio@gmail.com</a>
+      </p>
+      <p>Hand-written HTML &middot; &copy; 1997-2026 Ignacio Garcia</p>
+      <p>Visitors: <span data-counter-text>13,371,337</span></p>
+    </footer>
+
+  </div>
+</body>
+
+</html>
