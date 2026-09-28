@@ -625,9 +625,41 @@ footer {
     overflow: hidden;
     flex-flow: column nowrap;
     /* A fixed viewport: the window never grows with the page, the page
-       scrolls inside it. Resizing the window still rescales it. */
-    height: 440px;
+       scrolls inside it. Resizing the window still rescales it. The height
+       per breakpoint lives in the ladder further down. */
+    height: var(--win8-body, 440px);
     background: #000;
+}
+
+@media (min-width: 821px) {
+    #win8 {
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: var(--win8-width);
+        max-height: calc(100vh - 60px);
+        --win8-width: min(1000px, 94vw);
+        --win8-body: 100vh;
+    }
+}
+
+@media (min-width: 1280px) {
+    #win8 {
+        --win8-width: min(1200px, 92vw);
+    }
+}
+
+@media (min-width: 1600px) {
+    #win8 {
+        --win8-width: min(1400px, 88vw);
+    }
+}
+
+@media (min-width: 1900px) {
+    #win8 {
+        --win8-width: min(1700px, 88vw);
+    }
 }
 
 .browser-frame {
@@ -936,6 +968,10 @@ footer {
     .address-window {
         width: 100%;
         margin-bottom: 10px;
+    }
+
+    #win8 {
+        transform: none;
     }
 
     .portfolio-window,

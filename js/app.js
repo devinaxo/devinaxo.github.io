@@ -29,9 +29,9 @@ $(document).ready(function(){
         win1: { top: 0, left: 0 },
         win2: { top: 56, left: 56 },
         win5: { top: 112, left: 112 },
-        // The browser window gets a wide spot of its own: a web page in a
-        // window this narrow is not worth opening
-        win8: { top: 96, left: 48 },
+        // win8 is missing on purpose: the browser window is centred on the
+        // screen and sized per breakpoint by css/style.css, so the stylesheet
+        // owns where it is and this map has nothing to add
         win7: { top: 224, left: 224 }
     };
 
@@ -73,7 +73,7 @@ $(document).ready(function(){
         if (mqStacked.matches) {
             $('.window').draggable('disable').css({
                 top: '', left: '', right: '', width: '', height: '',
-                position: ''
+                position: '', transform: ''
             });
             $('.centered > .window').resizable('disable');
             $('.centered > .window .ui-resizable-handle').hide();
@@ -92,6 +92,20 @@ $(document).ready(function(){
     }
 
     $( ".window" ).draggable({ handle: ".title-bar" });
+
+    // The browser window is centred on the screen with a CSS transform, which
+    // jQuery UI knows nothing about: it only reads and writes left/top in
+    // pixels, so a dragged window would keep the transform's offset as well.
+    // Folding the transform into the left before the drag starts keeps the
+    // window exactly where it was, and doing it on every later drag is
+    // harmless, because it just recomputes the position it already has.
+    $('#win8').draggable('option', 'start', function(){
+        var winEl = $(this);
+        // The window is fixed on a desktop, so its left is simply where it
+        // sits on the screen
+        this.style.left = (winEl.offset().left - window.pageXOffset) + 'px';
+        this.style.transform = 'none';
+    });
 
     $('.centered > .window').resizable({
         handles: 'e, s, se',
@@ -1205,4 +1219,9 @@ $(document).ready(function(){
                 alert(JSON.stringify(err));
         });
     });
+
+    // The browser window opens with the page: it is the resume, and the resume
+    // is the reason most people are here. showWindow() still plays the
+    // first-load paint, so it arrives in piece by piece instead of popping in.
+    showWindow('win8');
 });
