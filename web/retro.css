@@ -855,6 +855,20 @@
     resize: vertical;
 }
 
+/* Where the guestbook form says what happened to your entry. It starts empty
+   and gets its text from guestbook.js, so it is only ever visible once there
+   is something to say. */
+.gb-status {
+    min-height: 1.2em;
+    margin: 8px 0 0;
+    color: #00ff00;
+    font-size: 11px;
+}
+
+.gb-status:empty {
+    display: none;
+}
+
 /* Footer */
 .retro-footer {
     margin-top: 20px;

@@ -10,7 +10,14 @@
   <link rel="canonical" href="https://devinaxo.github.io/web/guestbook.html">
   <link rel="icon" href="../img/ico.jpg" type="image/jpeg">
   <link rel="stylesheet" href="retro.css">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    emailjs.init({
+      publicKey: "KA9ygHqE3XL4BIUP5",
+    });
+  </script>
   <script src="retro.js"></script>
+  <script src="guestbook.js"></script>
 </head>
 
 <body class="retro-page">
@@ -23,8 +30,7 @@
           alt="The Netscape Navigator starfield logo">
         <div class="banner-text">
           <h1 class="banner-title">Guestbook</h1>
-          <p class="banner-tagline">Tell me what you think. I read all of them, which is
-            a lie, but it is a kind one.</p>
+          <p class="banner-tagline">Tell me what you think. I read all of them, I say as if I get a lot.</p>
         </div>
       </div>
 
@@ -43,12 +49,18 @@
     <h2 class="section-bar">Sign the guestbook</h2>
 
     <div class="panel">
-      <!-- TODO: this form has no backend yet. Either point it at a real service
-           (Formspree, Netlify Forms, an emailjs endpoint like the one in the
-           Windows 98 contact window) or leave it as a beautiful dead end. -->
-      <form action="#" method="post">
+      <form id="guestbook-form">
         <fieldset>
           <legend>Your message</legend>
+          <!-- The three hidden fields are the ones the mail template actually
+               reads. guestbook.js fills them in from the visible fields below
+               on submit, the same way the Contact Me window fills in its own
+               To/Cc/Subject lines. The visible message box deliberately has no
+               name: what gets mailed is the packed copy, so a failed attempt
+               leaves the visitor's own words exactly as they typed them. -->
+          <input type="hidden" id="gb-remittent" name="remittent" value="">
+          <input type="hidden" id="gb-subject" name="subject" value="">
+          <input type="hidden" id="gb-body" name="message" value="">
           <label for="gb-name">Name</label>
           <input type="text" id="gb-name" name="name" autocomplete="name" required>
           <label for="gb-email">E-mail <span class="meter-note">(optional, not
@@ -57,12 +69,15 @@
           <label for="gb-homepage">Homepage <span class="meter-note">(optional)</span></label>
           <input type="text" id="gb-homepage" name="homepage" autocomplete="url">
           <label for="gb-message">Message</label>
-          <textarea id="gb-message" name="message" required></textarea>
-          <button class="btn98" type="submit">Post it</button>
+          <textarea id="gb-message" required></textarea>
+          <button class="btn98" id="gb-send" type="submit">Post it</button>
+          <p class="gb-status" id="gb-status" role="status" aria-live="polite"></p>
         </fieldset>
       </form>
-      <p class="meter-note">No cookies, no tracking, no third party. Just a form that
-        currently goes nowhere.</p>
+      <p class="meter-note">It goes to my inbox through EmailJS, the same service the
+        Contact Me window on the desktop uses, and I paste entries in by hand. No
+        cookies, no tracking, no database, so nothing here is stored and your e-mail
+        never leaves that one inbox.</p>
     </div>
 
     <h2 class="section-bar">Previous visitors</h2>
@@ -76,7 +91,7 @@
       </div>
 
       <div class="entry">
-        <p class="entry-head">Lila &mdash; <span class="entry-where">unknown &middot;
+        <p class="entry-head">William &mdash; <span class="entry-where">unknown &middot;
             1998</span></p>
         <p>Please. I beg you, let me back in.</p>
       </div>
@@ -92,7 +107,7 @@
     </div>
 
     <div class="construction">
-      <span>MORE ENTRIES PENDING &mdash; the backend is on the way</span>
+      <span>ENTRIES ARE ADDED BY HAND &mdash; CHECK BACK SOON</span>
     </div>
 
     <footer class="retro-footer">

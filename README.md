@@ -12,8 +12,10 @@ without the desktop, and it is the only part of the project that is real content
 than a joke about Windows 98.
 
 Everything in there is plain HTML and CSS except `web/retro.js`, which exists only to
-keep the counter, and every page doubles as a normal document: the headings, the links
-and the text all work with the desktop turned off.
+keep the counter, and `web/guestbook.js`, which is the guestbook form posting through
+the same EmailJS service as the Contact Me window on the desktop. Every page doubles as
+a normal document: the headings, the links and the text all work with the desktop
+turned off.
 
 ## Thanks and credits to
   * [_MrRedShark77's_](https://mrredshark77.github.io/), for his idea of a webpage.

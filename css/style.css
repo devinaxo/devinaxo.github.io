@@ -175,27 +175,6 @@ p {
     margin-right: 5px;
 }
 
-.circle-mug {
-    width: 100px;
-    height: 100px;
-    margin-right: 10px;
-    float: left;
-}
-
-.portfolio-window {
-    position: fixed;
-    z-index: 0;
-    width: 25%;
-    right: 0;
-    top: 0;
-    padding-top: 4px;
-    padding-right: 4px;
-}
-
-.portfolio-info {
-    margin: 10px;
-}
-
 .address-window {
     width: 27%;
     position: fixed;
@@ -625,8 +604,9 @@ footer {
     overflow: hidden;
     flex-flow: column nowrap;
     /* A fixed viewport: the window never grows with the page, the page
-       scrolls inside it. Resizing the window still rescales it. The height
-       per breakpoint lives in the ladder further down. */
+       scrolls inside it. Resizing the window still rescales it. On a desktop
+       --win8-body asks for a whole screenful and the window's max-height is
+       what actually decides it, so the body simply takes what is left. */
     height: var(--win8-body, 440px);
     background: #000;
 }
@@ -890,10 +870,6 @@ footer {
 }
 
 @media (max-width: 1366px), (max-height: 800px) {
-    .portfolio-window {
-        width: 30%;
-    }
-
     /* Anchor the mail window above the taskbar so it never gets clipped */
     .address-window {
         width: 35%;
@@ -964,7 +940,6 @@ footer {
     }
 
     .centered > .window,
-    .portfolio-window,
     .address-window {
         width: 100%;
         margin-bottom: 10px;
@@ -974,7 +949,6 @@ footer {
         transform: none;
     }
 
-    .portfolio-window,
     .address-window {
         position: static;
         padding: 0;
@@ -1048,14 +1022,8 @@ footer {
     }
 }
 
-/* Narrow phones: let the mugshot sit above the bio text */
+/* Narrow phones */
 @media (max-width: 520px) {
-    .circle-mug {
-        float: none;
-        display: block;
-        margin: 0 auto 10px;
-    }
-
     .modal {
         padding-top: 48px;
     }

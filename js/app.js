@@ -58,13 +58,13 @@ $(document).ready(function(){
         });
     }
 
-    // Clicking (or opening) a window brings it to the front. win3/win4 live
-    // inside fixed wrappers that form their own stacking contexts, so those
-    // wrappers are what get raised.
+    // Clicking (or opening) a window brings it to the front. win4 lives inside
+    // a fixed wrapper that forms its own stacking context, so that wrapper is
+    // what gets raised.
     var zTop = 10;
 
     function raiseWindow(winEl){
-        var frame = winEl.closest('.portfolio-window, .address-window');
+        var frame = winEl.closest('.address-window');
         zTop += 1;
         (frame.length ? frame : winEl).css('z-index', zTop);
     }
@@ -148,11 +148,11 @@ $(document).ready(function(){
         })
     }
 
-    // Taskbar task for each window; My Info's button ships in the HTML
+    // Taskbar task for each window. The taskbar starts empty and fills in as
+    // windows are opened, the browser being the one that opens itself on boot.
     var taskInfo = {
         win1: { label: 'Projects', icon: 'img/directory_closed-4.png' },
         win2: { label: 'Multimedia', icon: 'img/directory_closed-4.png' },
-        win3: { label: 'My Info', icon: 'img/help_book_cool-4.png' },
         win4: { label: 'Contact Me', icon: 'img/envelope_closed-0.png' },
         win5: { label: 'Imaging', icon: 'img/images/image_old_jpeg-0.png' },
         win8: { label: 'Résumé', icon: 'img/netscape-icon-16.png' },
@@ -473,7 +473,9 @@ $(document).ready(function(){
                 field.select();
             }
         } else if (action === 'about') {
-            showWindow('win3');
+            // The about blurb used to be a docked panel of its own; it is the
+            // top of the résumé now, so Help > About opens the browser.
+            showWindow('win8');
         }
     });
 
@@ -505,6 +507,16 @@ $(document).ready(function(){
             src: 'web/colophon.html', title: "Colophon - Nacho's Home Page"
         }
     };
+    // Which desktop windows a page inside the frame is allowed to ask for, by
+    // id. Empty on purpose: see the message handler for why.
+    var desktopOpenable = [];
+
+    // Asking for win8 from inside win8 is the "go to the desktop" links on the
+    // retro site, which are there for visitors who open /web/ on its own. Framed
+    // there is nowhere to go, so the only honest answer is to bring the window
+    // they are already looking at to the front, without reloading the page.
+    var browserSelf = 'win8';
+
     var browserHome = 'http://www.devinaxo.com/web/';
     var browserHistory = [browserHome];
     var browserHistIdx = 0;
@@ -642,6 +654,12 @@ $(document).ready(function(){
     // (and gets the greeting in return), or it asked for a window on the
     // desktop, which is answered by closing the browser and opening what it
     // wanted, so the desktop never ends up nested inside its own page frame.
+    //
+    // Nothing in web/ asks for a separate window any more: the résumé, the
+    // contact links and the guestbook are all the retro site itself now. The
+    // whitelist is still here because it is the thing that decides what a page
+    // is allowed to open, and "nothing yet" should be an empty list rather
+    // than a missing check.
     $(window).on('message', function(e){
         // jQuery's event wrapper does not proxy the properties of a message
         // event (data, source, origin), so the native one is the one to read
@@ -653,10 +671,11 @@ $(document).ready(function(){
             msg.origin !== window.location.origin) return;
         if (msg.data.type === 'devinaxo:desktop-hello') {
             browserGreetFrame();
-        } else if (msg.data.type === 'devinaxo:desktop') {
-            var target = msg.data.open === 'win4' ? 'win4' : 'win3';
+        } else if (msg.data.type === 'devinaxo:desktop' && msg.data.open === browserSelf) {
+            showWindow(browserSelf);
+        } else if (msg.data.type === 'devinaxo:desktop' && desktopOpenable.indexOf(msg.data.open) !== -1) {
             $('#win8 .window-close').trigger('click');
-            showWindow(target);
+            showWindow(msg.data.open);
         }
     });
 
