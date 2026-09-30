@@ -951,7 +951,20 @@
     }
 
     .col-side {
+        /* Unboxed: on phones the sidebar cards become flex items of .columns,
+           so the intro/contact cards can be lifted above the resume while the
+           rest stay below it */
+        display: contents;
+    }
+
+    .col-side > .card {
         flex: 1 1 100%;
+        margin-bottom: 0;
+    }
+
+    .card-about,
+    .card-contact {
+        order: -1;
     }
 
     .job-dates {
