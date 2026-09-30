@@ -611,6 +611,10 @@ footer {
     background: #000;
 }
 
+#win8 {
+        height: 100vh;
+    }
+
 @media (min-width: 821px) {
     #win8 {
         position: fixed;
@@ -620,7 +624,6 @@ footer {
         width: var(--win8-width);
         max-height: calc(100vh - 60px);
         --win8-width: min(1000px, 94vw);
-        --win8-body: 100vh;
     }
 }
 
